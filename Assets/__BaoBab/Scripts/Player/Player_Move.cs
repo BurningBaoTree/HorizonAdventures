@@ -1,13 +1,10 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.U2D.IK;
+using System;
 
-public class Player : MonoBehaviour
+public class Player_Move : MonoBehaviour
 {
-    [Header("스테이터스")]
-    public int hp;
-    public int damage;
-
     [Header("이동 관련")]
     public float MoveSpeed;
     public float JumpPower;
@@ -49,8 +46,6 @@ public class Player : MonoBehaviour
     PlayerInput input;
     Animator animator;
     SpriteRenderer spriteRenderer;
-    CapsuleCollider2D CC2D;
-    CoolTimeSys cooltimer;
 
     /// <summary>
     /// FixedUpdate 델리게이트
@@ -232,8 +227,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        cooltimer = GetComponent<CoolTimeSys>();
-        CC2D = GetComponent<CapsuleCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         input = new PlayerInput();
