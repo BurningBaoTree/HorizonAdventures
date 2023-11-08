@@ -13,11 +13,36 @@ public class Player : MonoBehaviour
     public float JumpPower;
     public float MaxJump;
 
-    bool inRunning = false;
-    bool inJump = false;
-    bool inAir = false;
+    float copySpeed;
+
+    /// <summary>
+    /// 달리기 bool
+    /// </summary>
+    public bool inRunning = false;
+
+    /// <summary>
+    /// 점프 bool 
+    /// </summary>
+    public bool inJump = false;
+
+    /// <summary>
+    /// 공중 체크 bool
+    /// </summary>
+    public bool inAir = false;
+
+    /// <summary>
+    /// 사다리 발견 체크 bool
+    /// </summary>
     public bool inLadder = false;
 
+    /// <summary>
+    /// 사다리 탑슴 bool
+    /// </summary>
+    public bool ladderRide = false;
+
+    /// <summary>
+    /// 이동 방향
+    /// </summary>
     Vector2 dir = Vector2.zero;
 
     Rigidbody2D rb;
@@ -27,10 +52,21 @@ public class Player : MonoBehaviour
     CapsuleCollider2D CC2D;
     CoolTimeSys cooltimer;
 
+    /// <summary>
+    /// FixedUpdate 델리게이트
+    /// </summary>
     Action fixedAction;
+
+    /// <summary>
+    /// Update 델리게이트
+    /// </summary>
     Action action;
 
     #region 프로퍼티
+
+    /// <summary>
+    /// 이동 작업 프로퍼티
+    /// </summary>
     public bool InRunning
     {
         get
@@ -63,6 +99,10 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// 점프 작업 프로퍼티
+    /// </summary>
     public bool InJump
     {
         get
@@ -88,6 +128,10 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// 공중에 떠있을때 프로퍼티
+    /// </summary>
     public bool InAir
     {
         get
@@ -110,6 +154,10 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// 사다리에 접근했을때 프로퍼티
+    /// </summary>
     public bool InLadder
     {
         get
@@ -121,10 +169,61 @@ public class Player : MonoBehaviour
             if (inLadder != value)
             {
                 inLadder = value;
-                if(!inLadder)
+                if (!inLadder)
                 {
-                    CC2D.isTrigger = false;
+                    LadderRideing = false;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 사다리에 타고있을때 프로퍼티
+    /// </summary>
+    public bool LadderRideing
+    {
+        get
+        {
+            return ladderRide;
+        }
+        set
+        {
+            if (ladderRide != value)
+            {
+                ladderRide = value;
+                if (ladderRide)
+                {
+                    //위치 고정
+                    Vector2 startpos = ((Vector2)transform.position) * Vector2.one;
+                    startpos.x = Mathf.Floor(transform.position.x) + 0.5f;
+                    transform.position = startpos;
+
+                    //물리값과 중력값 0
+                    rb.velocity = Vector2.zero;
+                    rb.gravityScale = 0;
+
+                    //애니메이터와 속도, 그리고 사다리 타기 움직임 활성화
+                    animator.SetBool("LadderRide", true);
+                    MoveSpeed = MoveSpeed * 0.5f;
+                    fixedAction += LadderActive;
+                }
+                else
+                {
+                    //움직임 비활성화 애니메이션 초기화
                     fixedAction -= LadderActive;
+                    animator.SetBool("LadderRide", false);
+                    animator.SetFloat("Ladder", 0f);
+
+                    //중력 다시 적용 속도 초기화
+                    rb.gravityScale = 1;
+                    MoveSpeed = copySpeed;
+
+                    //dir이 0이 아니면
+                    if (dir != Vector2.zero)
+                    {
+                        rb.AddForce(dir * 2f, ForceMode2D.Impulse);
+                        InRunning = true;
+                    }
                 }
             }
         }
@@ -139,6 +238,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         input = new PlayerInput();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        copySpeed = MoveSpeed;
         action += () => { };
         fixedAction = () => { };
     }
@@ -171,11 +271,19 @@ public class Player : MonoBehaviour
         {
             InJump = false;
             InAir = false;
+            LadderRideing = false;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            InAir = true;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ladder") && dir.y != 0)
+        if (collision.CompareTag("Ladder"))
         {
             InLadder = true;
         }
@@ -187,50 +295,76 @@ public class Player : MonoBehaviour
             InLadder = false;
         }
     }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            InAir = true;
-        }
-    }
+
+    /// <summary>
+    /// 이동 입력 함수
+    /// </summary>
+    /// <param name="obj"></param>
     private void OnMove(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         dir = obj.ReadValue<Vector2>();
-        if (!InLadder)
+        if (InLadder)
         {
-            InRunning = true;
+            if (dir.y != 0)
+            {
+                InRunning = false;
+                LadderRideing = true;
+                animator.SetFloat("Ladder", dir.y);
+            }
+            else if (!LadderRideing)
+            {
+                InRunning = true;
+            }
+            else
+            {
+                animator.SetFloat("Ladder", dir.y);
+            }
         }
         else
         {
-            InRunning = false;
-            if (dir.y != 0)
-            {
-                CC2D.isTrigger = true;
-                fixedAction += LadderActive;
-            }
+            InRunning = true;
         }
         if (dir.x == 0)
         {
             InRunning = false;
         }
     }
+
+    /// <summary>
+    /// 이동 작업 함수
+    /// </summary>
     void moveActive()
     {
         transform.Translate(MoveSpeed * Time.fixedDeltaTime * dir * Vector2.right);
     }
+
+    /// <summary>
+    /// 사다리 작업 함수
+    /// </summary>
     void LadderActive()
     {
         transform.Translate(MoveSpeed * Time.fixedDeltaTime * dir * Vector2.up);
     }
+
+    /// <summary>
+    /// 점프 입력 합수
+    /// </summary>
+    /// <param name="obj"></param>
     private void OnJump(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         if (!InAir)
         {
             InJump = true;
-            InLadder = false;
+        }
+        if (LadderRideing)
+        {
+            LadderRideing = false;
         }
     }
+
+    /// <summary>
+    /// 점프 도중에 떨어지기 시작한건지 체크
+    /// </summary>
     void JumpActive()
     {
         if (rb.velocity.y < 0.8f)
