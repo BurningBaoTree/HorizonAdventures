@@ -8,7 +8,34 @@ public class Player_Cam : MonoBehaviour
     CinemachineVirtualCamera vcam;
     CinemachineTransposer transposer;
 
+    public bool AimCamMove = false;
+
+
     public Vector3 mousePosition;
+    public Vector3 MousePosition
+    {
+        get
+        {
+            return mousePosition;
+        }
+        set
+        {
+            if(mousePosition != value)
+            {
+                mousePosition = value;
+                mousePosition.z = -2;
+                if (AimCamMove)
+                {
+                    transposer.m_FollowOffset = mousePosition * moveMulty;
+                }
+                else
+                {
+
+                }
+            }
+        }
+    }
+
     public float moveMulty;
     private void Awake()
     {
@@ -17,8 +44,6 @@ public class Player_Cam : MonoBehaviour
     }
     private void Update()
     {
-        mousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-        mousePosition.z = -2;
-        transposer.m_FollowOffset = mousePosition * moveMulty;
+        MousePosition = Camera.main.ScreenToViewportPoint(Input.mousePosition);
     }
 }
