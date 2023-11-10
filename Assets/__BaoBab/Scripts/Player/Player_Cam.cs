@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// 임시 카메라 코드
+/// </summary>
 public class Player_Cam : MonoBehaviour
 {
     CinemachineVirtualCamera vcam;
