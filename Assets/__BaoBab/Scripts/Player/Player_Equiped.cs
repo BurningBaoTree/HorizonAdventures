@@ -14,14 +14,33 @@ public class Player_Equiped : MonoBehaviour
     public List<EquiptBase> Equipments = new List<EquiptBase>(5);
 
     /// <summary>
-    /// 들고있는 장비 index
+    /// 들고있는 장비 index 0번은 맨손
     /// </summary>
     int nowHold = 0;
+    public int NowHold
+    {
+        get
+        {
+            return nowHold;
+        }
+        set
+        {
+            if (nowHold != value)
+            {
+                nowHold = value;
+            }
+        }
+    }
+
 
     /// <summary>
     /// 마우스 십자선 transform
     /// </summary>
     public Transform MouseCross;
+
+
+    public Transform weaponSlot;
+
 
     /// <summary>
     /// 마우스 민감도 조절용 float
@@ -49,10 +68,12 @@ public class Player_Equiped : MonoBehaviour
                 newpos.y = MouseOnScreen(newpos.y, 4.4f);
                 newpos.z = 10f;
                 MouseCross.localPosition = newpos;
+                weaponSlot.localRotation = Quaternion.LookRotation(Vector3.forward, newpos) * Quaternion.Euler(0, 0, 90);
             }
         }
     }
 
+    public bool OnTheRun = true;
 
     Action updater;
     PlayerInput input;
@@ -68,10 +89,22 @@ public class Player_Equiped : MonoBehaviour
         input.Player.MouseMove.performed += MoveingMouse;
         input.Player.MouseAction.performed += UseHold;
         input.Player.MouseAction.canceled += UnUseHold;
+
+        input.Player.GearSellect1.performed += GearSellect1;
+        input.Player.GearSellect2.performed += GearSellect2;
+        input.Player.GearSellect3.performed += GearSellect3;
+        input.Player.GearSellect4.performed += GearSellect4;
     }
+
+
 
     private void OnDisable()
     {
+        input.Player.GearSellect4.performed -= GearSellect4;
+        input.Player.GearSellect3.performed -= GearSellect3;
+        input.Player.GearSellect2.performed -= GearSellect2;
+        input.Player.GearSellect1.performed -= GearSellect1;
+
         input.Player.MouseAction.canceled -= UnUseHold;
         input.Player.MouseAction.performed -= UseHold;
         input.Player.MouseMove.performed -= MoveingMouse;
@@ -79,7 +112,7 @@ public class Player_Equiped : MonoBehaviour
     }
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = OnTheRun ? CursorLockMode.Locked : CursorLockMode.None;
     }
     private void Update()
     {
@@ -112,9 +145,9 @@ public class Player_Equiped : MonoBehaviour
     /// <param name="obj"></param>
     private void UseHold(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if (Equipments[nowHold] != null)
+        if (Equipments[NowHold] != null)
         {
-            Equipments[nowHold].UseAction?.Invoke();
+            Equipments[NowHold].UseAction?.Invoke();
         }
 
     }
@@ -125,9 +158,27 @@ public class Player_Equiped : MonoBehaviour
     /// <param name="obj"></param>
     private void UnUseHold(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if (Equipments[nowHold] != null)
+        if (Equipments[NowHold] != null)
         {
-            Equipments[nowHold].UtillAction?.Invoke();
+            Equipments[NowHold].UtillAction?.Invoke();
         }
+    }
+
+
+    private void GearSellect1(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        NowHold = 1;
+    }
+    private void GearSellect2(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        NowHold = 2;
+    }
+    private void GearSellect3(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        NowHold = 3;
+    }
+    private void GearSellect4(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        NowHold = 4;
     }
 }

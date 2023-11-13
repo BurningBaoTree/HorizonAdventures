@@ -24,9 +24,36 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "GearSellect",
+                    "name": "GearSellect1",
                     "type": "Button",
                     "id": "d4801386-f12d-4827-a014-967341984bdd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GearSellect2",
+                    "type": "Button",
+                    "id": "30804347-f731-4933-b68b-6b5e27d2944a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GearSellect3",
+                    "type": "Button",
+                    "id": "11328d80-3895-4aa5-b49a-8b18407234eb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GearSellect4",
+                    "type": "Button",
+                    "id": "3bf9a0c7-e908-46f6-b8ab-505d8d1ce39c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -156,50 +183,6 @@
                 },
                 {
                     "name": "",
-                    "id": "bea5fb86-3465-4a76-9e93-98942c6ef26f",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse;K&M",
-                    "action": "GearSellect",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d5becc59-9618-4c84-afbd-525d3ac39e4b",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse;K&M",
-                    "action": "GearSellect",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "64b5d53b-202a-4e1e-93fe-f3fca3f35180",
-                    "path": "<Keyboard>/3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse;K&M",
-                    "action": "GearSellect",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9859f87e-f5af-416d-a3b0-b1157cc07026",
-                    "path": "<Keyboard>/4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse;K&M",
-                    "action": "GearSellect",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d6b72f28-eeab-44b2-9ac2-d728dc2feeab",
                     "path": "<Mouse>/delta",
                     "interactions": "",
@@ -261,6 +244,50 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse;K&M",
                     "action": "Use",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3cfde4ed-209e-404b-b77e-b2de76bb8825",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "GearSellect1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "10d3a390-3c1b-440e-b264-130ca9a96eef",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "GearSellect2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "96e3698a-33a9-4c89-9738-79121556cdad",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "GearSellect3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c079a876-dac1-4829-94b8-6654183458be",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "K&M",
+                    "action": "GearSellect4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

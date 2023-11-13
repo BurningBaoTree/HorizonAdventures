@@ -46,9 +46,36 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""GearSellect"",
+                    ""name"": ""GearSellect1"",
                     ""type"": ""Button"",
                     ""id"": ""d4801386-f12d-4827-a014-967341984bdd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GearSellect2"",
+                    ""type"": ""Button"",
+                    ""id"": ""30804347-f731-4933-b68b-6b5e27d2944a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GearSellect3"",
+                    ""type"": ""Button"",
+                    ""id"": ""11328d80-3895-4aa5-b49a-8b18407234eb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GearSellect4"",
+                    ""type"": ""Button"",
+                    ""id"": ""3bf9a0c7-e908-46f6-b8ab-505d8d1ce39c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -178,50 +205,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""bea5fb86-3465-4a76-9e93-98942c6ef26f"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse;K&M"",
-                    ""action"": ""GearSellect"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d5becc59-9618-4c84-afbd-525d3ac39e4b"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse;K&M"",
-                    ""action"": ""GearSellect"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""64b5d53b-202a-4e1e-93fe-f3fca3f35180"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse;K&M"",
-                    ""action"": ""GearSellect"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""9859f87e-f5af-416d-a3b0-b1157cc07026"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse;K&M"",
-                    ""action"": ""GearSellect"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""d6b72f28-eeab-44b2-9ac2-d728dc2feeab"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
@@ -283,6 +266,50 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse;K&M"",
                     ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3cfde4ed-209e-404b-b77e-b2de76bb8825"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""GearSellect1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""10d3a390-3c1b-440e-b264-130ca9a96eef"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""GearSellect2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""96e3698a-33a9-4c89-9738-79121556cdad"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""GearSellect3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c079a876-dac1-4829-94b8-6654183458be"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""K&M"",
+                    ""action"": ""GearSellect4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -360,7 +387,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_GearSellect = m_Player.FindAction("GearSellect", throwIfNotFound: true);
+        m_Player_GearSellect1 = m_Player.FindAction("GearSellect1", throwIfNotFound: true);
+        m_Player_GearSellect2 = m_Player.FindAction("GearSellect2", throwIfNotFound: true);
+        m_Player_GearSellect3 = m_Player.FindAction("GearSellect3", throwIfNotFound: true);
+        m_Player_GearSellect4 = m_Player.FindAction("GearSellect4", throwIfNotFound: true);
         m_Player_MouseMove = m_Player.FindAction("MouseMove", throwIfNotFound: true);
         m_Player_MouseAction = m_Player.FindAction("MouseAction", throwIfNotFound: true);
         m_Player_MouseUtility = m_Player.FindAction("MouseUtility", throwIfNotFound: true);
@@ -434,7 +464,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_GearSellect;
+    private readonly InputAction m_Player_GearSellect1;
+    private readonly InputAction m_Player_GearSellect2;
+    private readonly InputAction m_Player_GearSellect3;
+    private readonly InputAction m_Player_GearSellect4;
     private readonly InputAction m_Player_MouseMove;
     private readonly InputAction m_Player_MouseAction;
     private readonly InputAction m_Player_MouseUtility;
@@ -447,7 +480,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction @GearSellect => m_Wrapper.m_Player_GearSellect;
+        public InputAction @GearSellect1 => m_Wrapper.m_Player_GearSellect1;
+        public InputAction @GearSellect2 => m_Wrapper.m_Player_GearSellect2;
+        public InputAction @GearSellect3 => m_Wrapper.m_Player_GearSellect3;
+        public InputAction @GearSellect4 => m_Wrapper.m_Player_GearSellect4;
         public InputAction @MouseMove => m_Wrapper.m_Player_MouseMove;
         public InputAction @MouseAction => m_Wrapper.m_Player_MouseAction;
         public InputAction @MouseUtility => m_Wrapper.m_Player_MouseUtility;
@@ -469,9 +505,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @GearSellect.started += instance.OnGearSellect;
-            @GearSellect.performed += instance.OnGearSellect;
-            @GearSellect.canceled += instance.OnGearSellect;
+            @GearSellect1.started += instance.OnGearSellect1;
+            @GearSellect1.performed += instance.OnGearSellect1;
+            @GearSellect1.canceled += instance.OnGearSellect1;
+            @GearSellect2.started += instance.OnGearSellect2;
+            @GearSellect2.performed += instance.OnGearSellect2;
+            @GearSellect2.canceled += instance.OnGearSellect2;
+            @GearSellect3.started += instance.OnGearSellect3;
+            @GearSellect3.performed += instance.OnGearSellect3;
+            @GearSellect3.canceled += instance.OnGearSellect3;
+            @GearSellect4.started += instance.OnGearSellect4;
+            @GearSellect4.performed += instance.OnGearSellect4;
+            @GearSellect4.canceled += instance.OnGearSellect4;
             @MouseMove.started += instance.OnMouseMove;
             @MouseMove.performed += instance.OnMouseMove;
             @MouseMove.canceled += instance.OnMouseMove;
@@ -500,9 +545,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @GearSellect.started -= instance.OnGearSellect;
-            @GearSellect.performed -= instance.OnGearSellect;
-            @GearSellect.canceled -= instance.OnGearSellect;
+            @GearSellect1.started -= instance.OnGearSellect1;
+            @GearSellect1.performed -= instance.OnGearSellect1;
+            @GearSellect1.canceled -= instance.OnGearSellect1;
+            @GearSellect2.started -= instance.OnGearSellect2;
+            @GearSellect2.performed -= instance.OnGearSellect2;
+            @GearSellect2.canceled -= instance.OnGearSellect2;
+            @GearSellect3.started -= instance.OnGearSellect3;
+            @GearSellect3.performed -= instance.OnGearSellect3;
+            @GearSellect3.canceled -= instance.OnGearSellect3;
+            @GearSellect4.started -= instance.OnGearSellect4;
+            @GearSellect4.performed -= instance.OnGearSellect4;
+            @GearSellect4.canceled -= instance.OnGearSellect4;
             @MouseMove.started -= instance.OnMouseMove;
             @MouseMove.performed -= instance.OnMouseMove;
             @MouseMove.canceled -= instance.OnMouseMove;
@@ -605,7 +659,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnGearSellect(InputAction.CallbackContext context);
+        void OnGearSellect1(InputAction.CallbackContext context);
+        void OnGearSellect2(InputAction.CallbackContext context);
+        void OnGearSellect3(InputAction.CallbackContext context);
+        void OnGearSellect4(InputAction.CallbackContext context);
         void OnMouseMove(InputAction.CallbackContext context);
         void OnMouseAction(InputAction.CallbackContext context);
         void OnMouseUtility(InputAction.CallbackContext context);
