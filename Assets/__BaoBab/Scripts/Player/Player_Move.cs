@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/// <summary>
+/// 플레이어 이동 코드(이동 속도, 이동 상태와 같은 코드는 이곳에)
+/// </summary>
 public class Player_Move : MonoBehaviour
 {
+    /// <summary>
+    /// 이동 속도 , 점프 파워
+    /// </summary>
     [Header("이동 관련")]
     public float MoveSpeed;
     public float JumpPower;
-    public float MaxJump;
 
+    /// <summary>
+    /// 이동속도 카피 변수
+    /// </summary>
     float copySpeed;
 
     /// <summary>
@@ -72,6 +80,7 @@ public class Player_Move : MonoBehaviour
         {
             if (inRunning != value)
             {
+                ///이동 방향에 따라 스프라이트 뒤집기
                 if (dir.x < 0)
                 {
                     spriteRenderer.flipX = true;
@@ -80,7 +89,10 @@ public class Player_Move : MonoBehaviour
                 {
                     spriteRenderer.flipX = false;
                 }
+
                 inRunning = value;
+
+                ///달리기 애니메이터 실행, 그리고 이동함수 fixedUpdate에 구독
                 if (inRunning)
                 {
                     animator.SetBool("Run", true);
@@ -186,6 +198,7 @@ public class Player_Move : MonoBehaviour
             if (ladderRide != value)
             {
                 ladderRide = value;
+                ///사다리 타기 상태일때
                 if (ladderRide)
                 {
                     //위치 고정
@@ -202,6 +215,7 @@ public class Player_Move : MonoBehaviour
                     MoveSpeed = MoveSpeed * 0.5f;
                     fixedAction += LadderActive;
                 }
+                ///사다리 타기 상태가 아닐때
                 else
                 {
                     //움직임 비활성화 애니메이션 초기화
@@ -213,7 +227,7 @@ public class Player_Move : MonoBehaviour
                     rb.gravityScale = 1;
                     MoveSpeed = copySpeed;
 
-                    //dir이 0이 아니면
+                    //dir이 0이 아니면(달리기를 하려고 하는중)
                     if (dir != Vector2.zero)
                     {
                         rb.AddForce(dir * 2f, ForceMode2D.Impulse);
@@ -232,11 +246,10 @@ public class Player_Move : MonoBehaviour
         input = new PlayerInput();
         spriteRenderer = GetComponent<SpriteRenderer>();
         copySpeed = MoveSpeed;
-        action += () => { };
-        fixedAction = () => { };
     }
     private void OnEnable()
     {
+        playerMoveInitialize();
         input.Enable();
         input.Player.Move.performed += OnMove;
         input.Player.Move.canceled += OnMove;
@@ -287,6 +300,16 @@ public class Player_Move : MonoBehaviour
         {
             InLadder = false;
         }
+    }
+
+    /// <summary>
+    /// 이동 관련 초기화
+    /// </summary>
+    void playerMoveInitialize()
+    {
+        action = () => { };
+        fixedAction = () => { };
+
     }
 
     /// <summary>
@@ -345,10 +368,13 @@ public class Player_Move : MonoBehaviour
     /// <param name="obj"></param>
     private void OnJump(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
+        ///공중에 있을때는 점프 불가
         if (!InAir)
         {
             InJump = true;
         }
+
+        ///사다리를 타고 있을때는 점프는 안하지만 사다리 타기 종료
         if (LadderRideing)
         {
             LadderRideing = false;
