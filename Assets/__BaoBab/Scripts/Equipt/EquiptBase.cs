@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
 public class EquiptBase : MonoBehaviour
@@ -14,6 +13,7 @@ public class EquiptBase : MonoBehaviour
 
     CapsuleCollider2D capsuleCD2D;
     Rigidbody2D rb2D;
+    public SpriteRenderer spRender;
 
     public Vector2 FixedPosition;
 
@@ -32,6 +32,7 @@ public class EquiptBase : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         EquiptThis = EquiptThisGear;
         UNEquiptThis = UNEquiptThisGear;
+        spRender = GetComponent<SpriteRenderer>();
     }
 
     protected virtual void UseActivate()

@@ -11,7 +11,9 @@ public class Player_Equiped : MonoBehaviour
     /// <summary>
     /// 착용중인 장비 리스트
     /// </summary>
-    public List<EquiptBase> Equipments = new List<EquiptBase>(5);
+    public EquiptBase[] Equipments;
+
+    int previousHold = 0;
 
     /// <summary>
     /// 들고있는 장비 index 0번은 맨손
@@ -28,6 +30,8 @@ public class Player_Equiped : MonoBehaviour
             if (nowHold != value)
             {
                 nowHold = value;
+                HoldThisGearToPress(nowHold);
+                previousHold = nowHold;
             }
         }
     }
@@ -68,7 +72,19 @@ public class Player_Equiped : MonoBehaviour
                 newpos.y = MouseOnScreen(newpos.y, 4.4f);
                 newpos.z = 10f;
                 MouseCross.localPosition = newpos;
-                weaponSlot.localRotation = Quaternion.LookRotation(Vector3.forward, newpos) * Quaternion.Euler(0, 0, 90);
+                Vector3 newrot = weaponSlot.localRotation.eulerAngles;
+                if (newrot.z < 90f && newrot.z > -90f)
+                {
+                    weaponSlot.localRotation = Quaternion.LookRotation(Vector3.forward, newpos) * Quaternion.Euler(0, 0, 90);
+                }
+                else
+                {
+                    weaponSlot.localRotation = Quaternion.LookRotation(Vector3.forward, newpos) * Quaternion.Euler(0, 0, 90);
+                    if (Equipments[NowHold] != null)
+                    {
+                        Equipments[NowHold].spRender.flipX = true;
+                    }
+                }
             }
         }
     }
@@ -81,6 +97,7 @@ public class Player_Equiped : MonoBehaviour
     private void Awake()
     {
         input = new PlayerInput();
+        Equipments = new EquiptBase[5];
     }
     private void OnEnable()
     {
@@ -95,9 +112,6 @@ public class Player_Equiped : MonoBehaviour
         input.Player.GearSellect3.performed += GearSellect3;
         input.Player.GearSellect4.performed += GearSellect4;
     }
-
-
-
     private void OnDisable()
     {
         input.Player.GearSellect4.performed -= GearSellect4;
@@ -149,7 +163,6 @@ public class Player_Equiped : MonoBehaviour
         {
             Equipments[NowHold].UseAction?.Invoke();
         }
-
     }
 
     /// <summary>
@@ -164,6 +177,29 @@ public class Player_Equiped : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 장비 선택 함수
+    /// </summary>
+    /// <param name="index">장비 인덱스</param>
+    void HoldThisGearToPress(int index)
+    {
+        //전에 들고있던 장비 숨김
+        Equipments[previousHold].gameObject.SetActive(false);
+        //지금 들 장비를 활성화
+        Equipments[index].gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// 인벤토리에서 순서를 교체하면 실행될 재배열 함수
+    /// </summary>
+    /// <param name="list"></param>
+    void RefreshTheList(List<EquiptBase> list)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            Equipments[i] = list[i];
+        }
+    }
 
     private void GearSellect1(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
