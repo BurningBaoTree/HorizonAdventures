@@ -73,6 +73,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         MouseActive = true;
+        InventoyOpen = !InventoyOpen;
     }
 
     /// <summary>

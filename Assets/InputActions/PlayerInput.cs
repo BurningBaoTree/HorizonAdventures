@@ -73,15 +73,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""GearSellect4"",
-                    ""type"": ""Button"",
-                    ""id"": ""3bf9a0c7-e908-46f6-b8ab-505d8d1ce39c"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""MouseMove"",
                     ""type"": ""Value"",
                     ""id"": ""e35ebd20-8bcb-4cfb-8dec-b995ab971ea5"",
@@ -313,17 +304,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c079a876-dac1-4829-94b8-6654183458be"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""K&M"",
-                    ""action"": ""GearSellect4"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""28d07dd2-7f35-44e0-8307-2bcb9106d5f7"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
@@ -410,7 +390,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_GearSellect1 = m_Player.FindAction("GearSellect1", throwIfNotFound: true);
         m_Player_GearSellect2 = m_Player.FindAction("GearSellect2", throwIfNotFound: true);
         m_Player_GearSellect3 = m_Player.FindAction("GearSellect3", throwIfNotFound: true);
-        m_Player_GearSellect4 = m_Player.FindAction("GearSellect4", throwIfNotFound: true);
         m_Player_MouseMove = m_Player.FindAction("MouseMove", throwIfNotFound: true);
         m_Player_MouseAction = m_Player.FindAction("MouseAction", throwIfNotFound: true);
         m_Player_MouseUtility = m_Player.FindAction("MouseUtility", throwIfNotFound: true);
@@ -488,7 +467,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_GearSellect1;
     private readonly InputAction m_Player_GearSellect2;
     private readonly InputAction m_Player_GearSellect3;
-    private readonly InputAction m_Player_GearSellect4;
     private readonly InputAction m_Player_MouseMove;
     private readonly InputAction m_Player_MouseAction;
     private readonly InputAction m_Player_MouseUtility;
@@ -505,7 +483,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @GearSellect1 => m_Wrapper.m_Player_GearSellect1;
         public InputAction @GearSellect2 => m_Wrapper.m_Player_GearSellect2;
         public InputAction @GearSellect3 => m_Wrapper.m_Player_GearSellect3;
-        public InputAction @GearSellect4 => m_Wrapper.m_Player_GearSellect4;
         public InputAction @MouseMove => m_Wrapper.m_Player_MouseMove;
         public InputAction @MouseAction => m_Wrapper.m_Player_MouseAction;
         public InputAction @MouseUtility => m_Wrapper.m_Player_MouseUtility;
@@ -537,9 +514,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @GearSellect3.started += instance.OnGearSellect3;
             @GearSellect3.performed += instance.OnGearSellect3;
             @GearSellect3.canceled += instance.OnGearSellect3;
-            @GearSellect4.started += instance.OnGearSellect4;
-            @GearSellect4.performed += instance.OnGearSellect4;
-            @GearSellect4.canceled += instance.OnGearSellect4;
             @MouseMove.started += instance.OnMouseMove;
             @MouseMove.performed += instance.OnMouseMove;
             @MouseMove.canceled += instance.OnMouseMove;
@@ -580,9 +554,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @GearSellect3.started -= instance.OnGearSellect3;
             @GearSellect3.performed -= instance.OnGearSellect3;
             @GearSellect3.canceled -= instance.OnGearSellect3;
-            @GearSellect4.started -= instance.OnGearSellect4;
-            @GearSellect4.performed -= instance.OnGearSellect4;
-            @GearSellect4.canceled -= instance.OnGearSellect4;
             @MouseMove.started -= instance.OnMouseMove;
             @MouseMove.performed -= instance.OnMouseMove;
             @MouseMove.canceled -= instance.OnMouseMove;
@@ -691,7 +662,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnGearSellect1(InputAction.CallbackContext context);
         void OnGearSellect2(InputAction.CallbackContext context);
         void OnGearSellect3(InputAction.CallbackContext context);
-        void OnGearSellect4(InputAction.CallbackContext context);
         void OnMouseMove(InputAction.CallbackContext context);
         void OnMouseAction(InputAction.CallbackContext context);
         void OnMouseUtility(InputAction.CallbackContext context);

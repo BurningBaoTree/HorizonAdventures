@@ -51,15 +51,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "GearSellect4",
-                    "type": "Button",
-                    "id": "3bf9a0c7-e908-46f6-b8ab-505d8d1ce39c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "MouseMove",
                     "type": "Value",
                     "id": "e35ebd20-8bcb-4cfb-8dec-b995ab971ea5",
@@ -286,17 +277,6 @@
                     "processors": "",
                     "groups": "K&M",
                     "action": "GearSellect3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c079a876-dac1-4829-94b8-6654183458be",
-                    "path": "<Keyboard>/4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "K&M",
-                    "action": "GearSellect4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

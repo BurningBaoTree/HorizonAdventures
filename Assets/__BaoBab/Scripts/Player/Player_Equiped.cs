@@ -98,13 +98,13 @@ public class Player_Equiped : MonoBehaviour
         {
             if (nowHold != value)
             {
-                if (value > 3)
+                if (value > 2)
                 {
                     value = 0;
                 }
                 else if (value < 0)
                 {
-                    value = 3;
+                    value = 2;
                 }
                 nowHold = value;
                 HoldThisGearToPress(nowHold);
@@ -161,7 +161,7 @@ public class Player_Equiped : MonoBehaviour
     private void Awake()
     {
         input = new PlayerInput();
-        Equipments = new EquiptBase[5];
+        Equipments = new EquiptBase[4];
     }
     private void OnEnable()
     {
@@ -176,7 +176,6 @@ public class Player_Equiped : MonoBehaviour
         input.Player.GearSellect1.performed += GearSellect1;
         input.Player.GearSellect2.performed += GearSellect2;
         input.Player.GearSellect3.performed += GearSellect3;
-        input.Player.GearSellect4.performed += GearSellect4;
 
         input.Player.MouseScroll.performed += MouseScrollToChangeWeapon;
 
@@ -185,7 +184,10 @@ public class Player_Equiped : MonoBehaviour
 
     private void OnDisable()
     {
-        input.Player.GearSellect4.performed -= GearSellect4;
+        input.Player.UseSubWeapon.performed -= UseSubWeaponNow;
+
+        input.Player.MouseScroll.performed -= MouseScrollToChangeWeapon;
+
         input.Player.GearSellect3.performed -= GearSellect3;
         input.Player.GearSellect2.performed -= GearSellect2;
         input.Player.GearSellect1.performed -= GearSellect1;
@@ -232,7 +234,7 @@ public class Player_Equiped : MonoBehaviour
     {
         int holder = 5;
         bool successfulyOnLoad = false;
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 3; i++)
         {
             if (Equipments[i] == null)
             {
@@ -347,9 +349,9 @@ public class Player_Equiped : MonoBehaviour
     /// 인벤토리에서 순서를 교체하면 실행될 재배열 함수
     /// </summary>
     /// <param name="list"></param>
-    void RefreshTheList(List<EquiptBase> list)
+    public void RefreshTheList(List<EquiptBase> list)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 3; i++)
         {
             Equipments[i] = list[i];
         }
@@ -370,10 +372,6 @@ public class Player_Equiped : MonoBehaviour
     private void GearSellect3(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         NowHold = 2;
-    }
-    private void GearSellect4(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-    {
-        NowHold = 3;
     }
 
     /// <summary>
