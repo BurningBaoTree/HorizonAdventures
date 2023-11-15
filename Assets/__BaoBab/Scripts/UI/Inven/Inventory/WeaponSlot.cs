@@ -16,10 +16,45 @@ public class WeaponSlot : MonoBehaviour
         NameText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         LeftBullet = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
     }
-    public void initializeWeaponSlot(Sprite imageWP, string NameWP, int NowState, int MaxState )
+
+    /// <summary>
+    /// 무기 슬롯 동기화
+    /// </summary>
+    /// <param name="imageWP"></param>
+    /// <param name="NameWP"></param>
+    /// <param name="NowState"></param>
+    /// <param name="MaxState"></param>
+    public void initializeWeaponSlot(Sprite imageWP, string NameWP, int NowState, int MaxState)
     {
-        weaponImage.sprite = imageWP;
-        NameText.text = NameWP;
-        LeftBullet.text = $"{NowState: 000} / {MaxState: 000}";
+        if (imageWP == null)
+        {
+            weaponImage.sprite = null;
+            weaponImage.color = Color.clear;
+        }
+        else
+        {
+            weaponImage.sprite = imageWP;
+            weaponImage.color = Color.white;
+        }
+
+        if(NameWP == null)
+        {
+            NameText.color = Color.clear;
+        }
+        else
+        {
+            NameText.color = Color.white;
+        }
+
+        if (MaxState == 0)
+        {
+            LeftBullet.color = Color.clear;
+        }
+        else
+        {
+            LeftBullet.color = Color.white;
+            NameText.text = NameWP;
+            LeftBullet.text = $"{NowState: 000} / {MaxState: 000}";
+        }
     }
 }

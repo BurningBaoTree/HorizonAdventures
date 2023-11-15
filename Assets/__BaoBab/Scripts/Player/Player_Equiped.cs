@@ -44,6 +44,8 @@ public class Player_Equiped : MonoBehaviour
     /// </summary>
     public Vector2 CrossMoveAria;
 
+    public Action EatGear;
+
     PlayerInput input;
 
     #region 프로퍼티

@@ -20,11 +20,13 @@ public class UIManager : MonoBehaviour
     PlayerInput input;
 
 
+    #region 프로퍼티
 
     /// <summary>
     /// 인벤토리 창을 켜주는 bool(프로퍼티 있음)
     /// </summary>
-    bool inventoryOpen = false;
+    bool inventoryOpen = true;
+
     /// <summary>
     /// 인벤토리 창을 켜주는 프로퍼티
     /// </summary>
@@ -43,9 +45,13 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 마우스를 십자로 둘것인지 풀어줄것인지 선택하는 프로퍼티(참일때 잠김)
+    /// 마우스 On Off 용 bool 변수(프로퍼티 있음)
     /// </summary>
     public bool mouseActive = true;
+
+    /// <summary>
+    /// 마우스를 십자로 둘것인지 풀어줄것인지 선택하는 프로퍼티(참일때 잠김)
+    /// </summary>
     public bool MouseActive
     {
         get
@@ -60,6 +66,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    #endregion
     private void Awake()
     {
         InventoryPanel = transform.GetChild(0).gameObject;

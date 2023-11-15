@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spRender: {fileID: 0}
-  weaponName: 
+  weaponName: "\uC544\uC774\uC5B8 \uC18C\uB4DC"
   weaponExplanation: 
   damag: 0
   fireSpeed: 0
@@ -1404,7 +1404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bfff6f2d102664fb6bc18477bb49c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: 
+  weaponName: "\uC0AC\uC2DC\uBBF8"
   weaponExplanation: 
   damag: 0
   timecool: 0
@@ -12044,6 +12044,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3e46c6bb791684ab4dd1e488e92bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponSlotGroup: {fileID: 2024250594}
+  weaponSlots: []
 --- !u!1 &1017166675
 GameObject:
   m_ObjectHideFlags: 0
@@ -12541,8 +12543,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spRender: {fileID: 0}
-  weaponName: 
-  weaponExplanation: 
+  weaponName: "\uC0F7\uAC74"
+  weaponExplanation: "\uC5B4\uB5A4 \uAC00\uC774\uAC00 \uC4F0\uB358 \uC0F7\uAC74..
+    \uAC00\uB054\uC529 \uAC08\uACE0\uB9AC\uAC00 \uB098\uAC04\uB2E4."
   damag: 0
   fireSpeed: 0
   ammoCount: 0
@@ -30021,8 +30024,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spRender: {fileID: 0}
-  weaponName: 
-  weaponExplanation: 
+  weaponName: "\uC5B4\uC370\uD2B8"
+  weaponExplanation: "\uC5F0\uC0AC\uB294 \uCD5C\uACE0\uC57C"
   damag: 0
   fireSpeed: 0
   ammoCount: 0
