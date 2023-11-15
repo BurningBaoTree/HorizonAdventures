@@ -201,6 +201,8 @@ public class Player_Move : MonoBehaviour
                 ///사다리 타기 상태일때
                 if (ladderRide)
                 {
+                    //무기 사용 불가능
+                    GameManager.Inst.PlayerEquiped.CanUseWeapon = false;
                     //위치 고정
                     Vector2 startpos = ((Vector2)transform.position) * Vector2.one;
                     startpos.x = Mathf.Floor(transform.position.x) + 0.5f;
@@ -218,6 +220,8 @@ public class Player_Move : MonoBehaviour
                 ///사다리 타기 상태가 아닐때
                 else
                 {
+                    //무기 사용 가능
+                    GameManager.Inst.PlayerEquiped.CanUseWeapon = true;
                     //움직임 비활성화 애니메이션 초기화
                     fixedAction -= LadderActive;
                     animator.SetBool("LadderRide", false);

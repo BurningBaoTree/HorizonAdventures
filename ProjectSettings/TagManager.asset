@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ladder
   - Ground
+  - Weapon
+  - SubWeapon
   layers:
   - Default
   - TransparentFX

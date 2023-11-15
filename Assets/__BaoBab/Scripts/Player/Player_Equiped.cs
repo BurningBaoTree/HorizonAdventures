@@ -9,16 +9,81 @@ using UnityEngine;
 public class Player_Equiped : MonoBehaviour
 {
     /// <summary>
+    /// 보조무기
+    /// </summary>
+    public SubWeaponBase subweapon;
+
+    /// <summary>
     /// 착용중인 장비 리스트
     /// </summary>
     public EquiptBase[] Equipments;
 
+    /// <summary>
+    /// 이전 장비 인덱스 int
+    /// </summary>
     int previousHold = 0;
+
+    /// <summary>
+    /// 마우스 십자선 transform
+    /// </summary>
+    public Transform MouseCross;
+
+    /// <summary>
+    /// 무기 슬롯
+    /// </summary>
+    public Transform weaponSlot;
+
+
+    /// <summary>
+    /// 마우스 민감도 조절용 float
+    /// </summary>
+    public float mouseSenctive;
+
+    /// <summary>
+    /// 화면 영역지정용 Vector2변수
+    /// </summary>
+    public Vector2 CrossMoveAria;
+
+    /// <summary>
+    /// 게임 플레이 중인지 아닌지 체크(나중에 게임 매니저 아니면 카메라 쪽으로 옮길 예정)
+    /// </summary>
+    public bool OnTheRun = true;
+
+    PlayerInput input;
+
+    #region 프로퍼티
+
+    /// <summary>
+    /// 무기가 사용 가능한 상태인지 체크하는 bool
+    /// </summary>
+    bool canUseWeapon = true;
+    public bool CanUseWeapon
+    {
+        get
+        {
+            return canUseWeapon;
+        }
+        set
+        {
+            if (canUseWeapon != value)
+            {
+                canUseWeapon = value;
+                if(canUseWeapon)
+                {
+                    weaponSlot.gameObject.SetActive(true);
+                }
+                else
+                {
+                    weaponSlot.gameObject.SetActive(false);
+                }
+            }
+        }
+    }
 
     /// <summary>
     /// 들고있는 장비 index 0번은 맨손
     /// </summary>
-    int nowHold = 0;
+    public int nowHold = 0;
     public int NowHold
     {
         get
@@ -29,28 +94,20 @@ public class Player_Equiped : MonoBehaviour
         {
             if (nowHold != value)
             {
+                if (value > 3)
+                {
+                    value = 0;
+                }
+                else if (value < 0)
+                {
+                    value = 3;
+                }
                 nowHold = value;
                 HoldThisGearToPress(nowHold);
                 previousHold = nowHold;
             }
         }
     }
-
-
-    /// <summary>
-    /// 마우스 십자선 transform
-    /// </summary>
-    public Transform MouseCross;
-
-
-    public Transform weaponSlot;
-
-
-    /// <summary>
-    /// 마우스 민감도 조절용 float
-    /// </summary>
-    public float mouseSenctive;
-
 
     /// <summary>
     /// 마우스 delta값에 따라 십자선을 움직이게 하는 프로퍼티
@@ -64,35 +121,34 @@ public class Player_Equiped : MonoBehaviour
         }
         set
         {
-            if (mouseMoving != value)
+            mouseMoving = value;
+            Vector3 newpos = MouseCross.localPosition + (mouseMoving * Time.fixedDeltaTime * mouseSenctive);
+            /// 십자선이 캐릭터의 왼쪽에 있는지 오른쪽에 있는지 비교하기 위한 십자선의 위치를 월드값으로 변환하는 작업(나중에 수정할수도 있음)
+            Vector3 testpos = MouseCross.transform.TransformPoint(MouseCross.localPosition);
+            newpos.x = MouseOnScreen(newpos.x, CrossMoveAria.x);
+            newpos.y = MouseOnScreen(newpos.y, CrossMoveAria.y);
+            newpos.z = 10f;
+            MouseCross.localPosition = newpos;
+            if (testpos.x > this.transform.transform.position.x)
             {
-                mouseMoving = value;
-                Vector3 newpos = MouseCross.localPosition + (mouseMoving * Time.fixedDeltaTime * mouseSenctive);
-                newpos.x = MouseOnScreen(newpos.x, 7.17f);
-                newpos.y = MouseOnScreen(newpos.y, 4.4f);
-                newpos.z = 10f;
-                MouseCross.localPosition = newpos;
-                Vector3 newrot = weaponSlot.localRotation.eulerAngles;
-                if (newrot.z < 90f && newrot.z > -90f)
+                weaponSlot.localRotation = Quaternion.LookRotation(Vector3.forward, newpos) * Quaternion.Euler(0, 0, 90);
+                if (Equipments[NowHold] != null)
                 {
-                    weaponSlot.localRotation = Quaternion.LookRotation(Vector3.forward, newpos) * Quaternion.Euler(0, 0, 90);
+                    Equipments[NowHold].spRender.flipX = false;
                 }
-                else
+            }
+            else
+            {
+                weaponSlot.localRotation = Quaternion.LookRotation(Vector3.forward, newpos) * Quaternion.Euler(0, 0, -90);
+                if (Equipments[NowHold] != null)
                 {
-                    weaponSlot.localRotation = Quaternion.LookRotation(Vector3.forward, newpos) * Quaternion.Euler(0, 0, 90);
-                    if (Equipments[NowHold] != null)
-                    {
-                        Equipments[NowHold].spRender.flipX = true;
-                    }
+                    Equipments[NowHold].spRender.flipX = true;
                 }
             }
         }
     }
+    #endregion
 
-    public bool OnTheRun = true;
-
-    Action updater;
-    PlayerInput input;
 
     private void Awake()
     {
@@ -101,23 +157,33 @@ public class Player_Equiped : MonoBehaviour
     }
     private void OnEnable()
     {
-        updater = () => { };
         input.Enable();
         input.Player.MouseMove.performed += MoveingMouse;
         input.Player.MouseAction.performed += UseHold;
         input.Player.MouseAction.canceled += UnUseHold;
 
+        input.Player.MouseUtility.performed += UseUtill;
+        input.Player.MouseUtility.canceled += UnUseUtill;
+
         input.Player.GearSellect1.performed += GearSellect1;
         input.Player.GearSellect2.performed += GearSellect2;
         input.Player.GearSellect3.performed += GearSellect3;
         input.Player.GearSellect4.performed += GearSellect4;
+
+        input.Player.MouseScroll.performed += MouseScrollToChangeWeapon;
+
+        input.Player.UseSubWeapon.performed += UseSubWeaponNow;
     }
+
     private void OnDisable()
     {
         input.Player.GearSellect4.performed -= GearSellect4;
         input.Player.GearSellect3.performed -= GearSellect3;
         input.Player.GearSellect2.performed -= GearSellect2;
         input.Player.GearSellect1.performed -= GearSellect1;
+
+        input.Player.MouseUtility.canceled -= UnUseUtill;
+        input.Player.MouseUtility.performed -= UseUtill;
 
         input.Player.MouseAction.canceled -= UnUseHold;
         input.Player.MouseAction.performed -= UseHold;
@@ -128,9 +194,63 @@ public class Player_Equiped : MonoBehaviour
     {
         Cursor.lockState = OnTheRun ? CursorLockMode.Locked : CursorLockMode.None;
     }
-    private void Update()
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        updater();
+        if (collision.CompareTag("Weapon"))
+        {
+            EquiptBase equipt = collision.gameObject.GetComponent<EquiptBase>();
+            PickUpWeapon(equipt);
+        }
+        if (collision.CompareTag("SubWeapon") && subweapon == null)
+        {
+            SubWeaponBase equiptsub = collision.gameObject.GetComponent<SubWeaponBase>();
+            PickUpSubWeapon(equiptsub);
+        }
+    }
+
+    /// <summary>
+    /// 보조무기 획득 함수
+    /// </summary>
+    void PickUpSubWeapon(SubWeaponBase supb)
+    {
+        supb.gameObject.transform.parent = weaponSlot;
+        subweapon = supb;
+        subweapon.EquiptSub?.Invoke();
+        subweapon.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// 무기를 배열에 추가하는 함수
+    /// </summary>
+    /// <param name="weapon">배열에 추가할 무기 컴포넌트</param>
+    void PickUpWeapon(EquiptBase weapon)
+    {
+        int holder = 5;
+        bool successfulyOnLoad = false;
+        for (int i = 0; i < 4; i++)
+        {
+            if (Equipments[i] == null)
+            {
+                Equipments[i] = weapon;
+                weapon.gameObject.transform.parent = weaponSlot;
+                Equipments[i].EquiptThis?.Invoke();
+                successfulyOnLoad = true;
+                holder = i;
+                break;
+            }
+            else
+            {
+                if (Equipments[i].gameObject == weapon.gameObject)
+                {
+                    break;
+                }
+            }
+        }
+        if (successfulyOnLoad)
+        {
+            NowHold = holder;
+        }
     }
 
     /// <summary>
@@ -159,7 +279,7 @@ public class Player_Equiped : MonoBehaviour
     /// <param name="obj"></param>
     private void UseHold(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if (Equipments[NowHold] != null)
+        if (Equipments[NowHold] != null && CanUseWeapon)
         {
             Equipments[NowHold].UseAction?.Invoke();
         }
@@ -171,9 +291,33 @@ public class Player_Equiped : MonoBehaviour
     /// <param name="obj"></param>
     private void UnUseHold(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if (Equipments[NowHold] != null)
+        if (Equipments[NowHold] != null && CanUseWeapon)
+        {
+            Equipments[NowHold].StopUseAction?.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// 사용 시작 마우스 우클릭 입력
+    /// </summary>
+    /// <param name="obj"></param>
+    private void UseUtill(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        if (Equipments[NowHold] != null && CanUseWeapon)
         {
             Equipments[NowHold].UtillAction?.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// 사용 끝 마우스 우클릭 입력
+    /// </summary>
+    /// <param name="obj"></param>
+    private void UnUseUtill(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        if (Equipments[NowHold] != null && CanUseWeapon)
+        {
+            Equipments[NowHold].StopUtillAction?.Invoke();
         }
     }
 
@@ -184,9 +328,15 @@ public class Player_Equiped : MonoBehaviour
     void HoldThisGearToPress(int index)
     {
         //전에 들고있던 장비 숨김
-        Equipments[previousHold].gameObject.SetActive(false);
+        if (Equipments[previousHold] != null)
+        {
+            Equipments[previousHold].gameObject.SetActive(false);
+        }
         //지금 들 장비를 활성화
-        Equipments[index].gameObject.SetActive(true);
+        if (Equipments[index] != null)
+        {
+            Equipments[index].gameObject.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -195,26 +345,61 @@ public class Player_Equiped : MonoBehaviour
     /// <param name="list"></param>
     void RefreshTheList(List<EquiptBase> list)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 4; i++)
         {
             Equipments[i] = list[i];
         }
     }
 
+    /// <summary>
+    /// 숫자패드 무기 교체
+    /// </summary>
+    /// <param name="obj"></param>
     private void GearSellect1(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        NowHold = 1;
+        NowHold = 0;
     }
     private void GearSellect2(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        NowHold = 2;
+        NowHold = 1;
     }
     private void GearSellect3(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        NowHold = 3;
+        NowHold = 2;
     }
     private void GearSellect4(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        NowHold = 4;
+        NowHold = 3;
+    }
+
+    /// <summary>
+    /// 보조무기 사용
+    /// </summary>
+    /// <param name="obj"></param>
+    private void UseSubWeaponNow(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+/*        if (Equipments[NowHold] != null)
+        {
+            Equipments[NowHold].gameObject.SetActive(false);
+        }*/
+        subweapon.gameObject.SetActive(true);
+        subweapon.UseSubWeapon?.Invoke();
+    }
+
+    /// <summary>
+    /// 마우스 스크롤 무기 교체
+    /// </summary>
+    /// <param name="obj"></param>
+    private void MouseScrollToChangeWeapon(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        Vector2 test = obj.ReadValue<Vector2>();
+        if (test.y > 0)
+        {
+            NowHold++;
+        }
+        else
+        {
+            NowHold--;
+        }
     }
 }

@@ -112,6 +112,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "UseSubWeapon",
+                    "type": "Button",
+                    "id": "ccac7211-454e-4fdc-8da8-1a8bd12932a8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -288,6 +297,17 @@
                     "processors": "",
                     "groups": "K&M",
                     "action": "GearSellect4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "28d07dd2-7f35-44e0-8307-2bcb9106d5f7",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseSubWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

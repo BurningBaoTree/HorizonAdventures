@@ -134,6 +134,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""UseSubWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""ccac7211-454e-4fdc-8da8-1a8bd12932a8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -312,6 +321,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""GearSellect4"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28d07dd2-7f35-44e0-8307-2bcb9106d5f7"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseSubWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -397,6 +417,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Ability = m_Player.FindAction("Ability", throwIfNotFound: true);
         m_Player_Use = m_Player.FindAction("Use", throwIfNotFound: true);
         m_Player_MouseScroll = m_Player.FindAction("MouseScroll", throwIfNotFound: true);
+        m_Player_UseSubWeapon = m_Player.FindAction("UseSubWeapon", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Inventory = m_UI.FindAction("Inventory", throwIfNotFound: true);
@@ -474,6 +495,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Ability;
     private readonly InputAction m_Player_Use;
     private readonly InputAction m_Player_MouseScroll;
+    private readonly InputAction m_Player_UseSubWeapon;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -490,6 +512,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Ability => m_Wrapper.m_Player_Ability;
         public InputAction @Use => m_Wrapper.m_Player_Use;
         public InputAction @MouseScroll => m_Wrapper.m_Player_MouseScroll;
+        public InputAction @UseSubWeapon => m_Wrapper.m_Player_UseSubWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -535,6 +558,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MouseScroll.started += instance.OnMouseScroll;
             @MouseScroll.performed += instance.OnMouseScroll;
             @MouseScroll.canceled += instance.OnMouseScroll;
+            @UseSubWeapon.started += instance.OnUseSubWeapon;
+            @UseSubWeapon.performed += instance.OnUseSubWeapon;
+            @UseSubWeapon.canceled += instance.OnUseSubWeapon;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -575,6 +601,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @MouseScroll.started -= instance.OnMouseScroll;
             @MouseScroll.performed -= instance.OnMouseScroll;
             @MouseScroll.canceled -= instance.OnMouseScroll;
+            @UseSubWeapon.started -= instance.OnUseSubWeapon;
+            @UseSubWeapon.performed -= instance.OnUseSubWeapon;
+            @UseSubWeapon.canceled -= instance.OnUseSubWeapon;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -669,6 +698,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnAbility(InputAction.CallbackContext context);
         void OnUse(InputAction.CallbackContext context);
         void OnMouseScroll(InputAction.CallbackContext context);
+        void OnUseSubWeapon(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
