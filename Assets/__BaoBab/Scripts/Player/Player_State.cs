@@ -11,4 +11,11 @@ public class Player_State : MonoBehaviour
     public int hp;
     public int damage;
 
+
+
+
+
+
+
+
 }

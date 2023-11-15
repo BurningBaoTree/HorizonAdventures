@@ -44,19 +44,18 @@ public class Player_Equiped : MonoBehaviour
     /// </summary>
     public Vector2 CrossMoveAria;
 
-    /// <summary>
-    /// 게임 플레이 중인지 아닌지 체크(나중에 게임 매니저 아니면 카메라 쪽으로 옮길 예정)
-    /// </summary>
-    public bool OnTheRun = true;
-
     PlayerInput input;
 
     #region 프로퍼티
 
     /// <summary>
-    /// 무기가 사용 가능한 상태인지 체크하는 bool
+    /// 무기가 사용 가능한 상태인지 체크하는 bool(프로퍼티 있음)
     /// </summary>
     bool canUseWeapon = true;
+
+    /// <summary>
+    /// 무기가 사용 가능한 상태인지 정하는 프로퍼티
+    /// </summary>
     public bool CanUseWeapon
     {
         get
@@ -80,10 +79,15 @@ public class Player_Equiped : MonoBehaviour
         }
     }
 
+
     /// <summary>
-    /// 들고있는 장비 index 0번은 맨손
+    /// 들고있는 장비 index 0번은 맨손(프로퍼티 있음)
     /// </summary>
     public int nowHold = 0;
+
+    /// <summary>
+    /// 들고있는 장비를 정하는 인덱스 프로퍼티
+    /// </summary>
     public int NowHold
     {
         get
@@ -110,9 +114,13 @@ public class Player_Equiped : MonoBehaviour
     }
 
     /// <summary>
-    /// 마우스 delta값에 따라 십자선을 움직이게 하는 프로퍼티
+    /// 마우스 delta값에 연결된 Vector3 변수(프로퍼티 있음)
     /// </summary>
     Vector3 mouseMoving;
+
+    /// <summary>
+    /// 마우스 delta값에 따라 십자선을 움직이게 하는 프로퍼티
+    /// </summary>
     Vector3 MouseMoving
     {
         get
@@ -189,10 +197,6 @@ public class Player_Equiped : MonoBehaviour
         input.Player.MouseAction.performed -= UseHold;
         input.Player.MouseMove.performed -= MoveingMouse;
         input.Disable();
-    }
-    private void Start()
-    {
-        Cursor.lockState = OnTheRun ? CursorLockMode.Locked : CursorLockMode.None;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
