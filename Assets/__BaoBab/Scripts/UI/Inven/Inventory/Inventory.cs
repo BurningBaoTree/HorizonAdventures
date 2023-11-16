@@ -5,7 +5,7 @@ using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Inventory : MonoBehaviour, IPointerDownHandler, IDragHandler
+public class Inventory : MonoBehaviour, UIInventoryController
 {
     public Transform WeaponSlotGroup;
     public WeaponSlot[] weaponSlots;
