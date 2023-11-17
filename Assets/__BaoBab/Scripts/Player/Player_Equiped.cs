@@ -144,7 +144,9 @@ public class Player_Equiped : MonoBehaviour
                 weaponSlot.localRotation = Quaternion.LookRotation(Vector3.forward, newpos) * Quaternion.Euler(0, 0, 90);
                 if (Equipments[NowHold] != null)
                 {
-                    Equipments[NowHold].spRender.flipX = false;
+                    // Equipments[NowHold].spRender.flipX = false;
+                    // 콜라이더 위치가 sprite가 뒤집어 졌을 때도 같은 위치에 적용 되게 하기 위해 수정했습니다.
+                    Equipments[NowHold].spRender.transform.localScale = new Vector3(1, 1, 1);
                 }
             }
             else
@@ -152,7 +154,9 @@ public class Player_Equiped : MonoBehaviour
                 weaponSlot.localRotation = Quaternion.LookRotation(Vector3.forward, newpos) * Quaternion.Euler(0, 0, -90);
                 if (Equipments[NowHold] != null)
                 {
-                    Equipments[NowHold].spRender.flipX = true;
+                    // Equipments[NowHold].spRender.flipX = true;
+                    Equipments[NowHold].spRender.transform.localScale = new Vector3(-1, 1, 1);
+
                 }
             }
         }

@@ -46,7 +46,7 @@ public class EquiptBase : MonoBehaviour
     /// <summary>
     /// 데미지
     /// </summary>
-    public float damag;
+    public float damage;
 
     /// <summary>
     /// 공격 속도 / 사용 시간

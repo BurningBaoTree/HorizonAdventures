@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8712730402718922951}
   - component: {fileID: 4155534974272472688}
   - component: {fileID: 6310311416315326122}
+  - component: {fileID: 3164058692105809893}
   m_Layer: 0
   m_Name: WoodStick_Test
   m_TagString: Weapon
@@ -28,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134474093499365323}
-  m_LocalRotation: {x: -0, y: -0, z: 0.23743254, w: 0.9714041}
+  m_LocalRotation: {x: 0, y: 0, z: 0.23743162, w: 0.97140425}
   m_LocalPosition: {x: 12.45, y: -3.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -104,7 +105,7 @@ MonoBehaviour:
   weaponName: "\uB098\uBB47\uAC00\uC9C0"
   weaponExplanation: "\uB358\uC804 \uC55E\uC5D0\uC11C \uC90F\uC5C8\uB2E4. \uADF8\uB0E5
     \uD3C9\uBC94\uD558\uACE0 \uBE48\uC57D\uD55C \uB098\uBB47\uAC00\uC9C0\uB2E4."
-  damag: 1
+  damage: 0
   fireSpeed: 1
   ammoCount: -1
   reLoadTime: 3
@@ -155,7 +156,7 @@ Animator:
   m_GameObject: {fileID: 134474093499365323}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: df1ec670f1f65480b95b313f5ce0bc27, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -166,3 +167,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!58 &3164058692105809893
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134474093499365323}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.3
