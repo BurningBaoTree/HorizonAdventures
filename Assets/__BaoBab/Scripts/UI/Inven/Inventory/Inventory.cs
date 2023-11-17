@@ -5,61 +5,25 @@ using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Inventory : MonoBehaviour, UIInventoryController
+public class Inventory : MonoBehaviour
 {
+    /// <summary>
+    /// 무기 슬롯의 부모 개체
+    /// </summary>
     public Transform WeaponSlotGroup;
+
+    /// <summary>
+    /// 무기 슬롯 배열
+    /// </summary>
     public WeaponSlot[] weaponSlots;
 
-    Action updater;
-
+    /// <summary>
+    /// 초기화용 int
+    /// </summary>
     int initialcount;
-
-    /// <summary>
-    /// 무기슬롯임을 확인하는 bool
-    /// </summary>
-    public bool isWeaponSlot = false;
-
-    /// <summary>
-    /// 아이템임을 확인하는 bool
-    /// </summary>
-    public bool isItemSlot = false;
-
-    /// <summary>
-    /// 상태 슬롯임을 확인하는 bool
-    /// </summary>
-    public bool isStatusSlot = false;
-
-
 
     #region 프로퍼티
 
-    /// <summary>
-    /// 마우스 서치모드인지 확인하는 bool (프로퍼티 있음)
-    /// </summary>
-    bool mouseSerchMode = false;
-
-    /// <summary>
-    /// 마우스 서치 프로퍼티
-    /// </summary>
-    bool MouseSerchMode
-    {
-        get
-        {
-            return mouseSerchMode;
-        }
-        set
-        {
-            mouseSerchMode = value;
-            if (mouseSerchMode)
-            {
-                updater += SerchActive;
-            }
-            else
-            {
-                updater -= SerchActive;
-            }
-        }
-    }
     #endregion
 
 
@@ -71,7 +35,6 @@ public class Inventory : MonoBehaviour, UIInventoryController
             weaponSlots[i] = WeaponSlotGroup.GetChild(i).GetComponent<WeaponSlot>();
         }
         initialcount = 0;
-        updater = () => { };
     }
 
     private void OnEnable()
@@ -79,36 +42,12 @@ public class Inventory : MonoBehaviour, UIInventoryController
         if (initialcount > 0)
         {
             ResetTheWeaponSlot();
-            MouseSerchMode = true;
         }
         initialcount++;
     }
     private void OnDisable()
     {
-        MouseSerchMode = false;
-    }
 
-    private void Update()
-    {
-        updater();
-    }
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        /*        originalPanelLocalPosition = panelRectTransform.localPosition;
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(panelRectTransform, eventData.position, eventData.pressEventCamera, out originalLocalPointerPosition);*/
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        /*        if (panelRectTransform != null)
-                {
-                    Vector2 localPointerPosition;
-                    if (RectTransformUtility.ScreenPointToLocalPointInRectangle(panelRectTransform, eventData.position, eventData.pressEventCamera, out localPointerPosition))
-                    {
-                        Vector3 offsetToOriginal = localPointerPosition - originalLocalPointerPosition;
-                        panelRectTransform.localPosition = originalPanelLocalPosition + offsetToOriginal;
-                    }
-                }*/
     }
 
     /// <summary>
@@ -137,39 +76,5 @@ public class Inventory : MonoBehaviour, UIInventoryController
                 weaponSlots[i].initializeWeaponSlot(null, null, 0, 0);
             }
         }
-    }
-
-    /// <summary>
-    /// 마우스가 무슨 활동을 할건지 Ray를 쏘는 함수
-    /// </summary>
-    void SerchActive()
-    {
-        Vector2 ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero,Mathf.Infinity,5);
-        if (hit.collider.gameObject != null)
-        {
-            GameObject hitObject = hit.collider.gameObject;
-            Debug.Log(hitObject);
-            compairTheUI(hitObject);
-        }
-    }
-
-    void compairTheUI(GameObject obj)
-    {
-        if (obj.GetComponent<WeaponSlot>() != null)
-        {
-            isWeaponSlot = true;
-            Debug.Log("무기슬롯임");
-        }
-        if (obj.GetComponent<StatusInfo>() != null)
-        {
-            isStatusSlot = true;
-            Debug.Log("스탯사항입니다.");
-        }
-        /*        if (obj.GetComponent<WeaponSlot>() != null)
-                {
-                    isWeaponSlot = true;
-                    Debug.Log("무기슬롯임");
-                }*/
     }
 }

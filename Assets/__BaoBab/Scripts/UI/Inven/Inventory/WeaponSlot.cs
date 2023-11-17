@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class WeaponSlot : MonoBehaviour
+public class WeaponSlot : MonoBehaviour , UIInventoryController
 {
     public Image weaponImage;
     public TextMeshProUGUI NameText;
@@ -56,5 +57,18 @@ public class WeaponSlot : MonoBehaviour
             NameText.text = NameWP;
             LeftBullet.text = $"{NowState: 000} / {MaxState: 000}";
         }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("클릭");
+    }
+    public void OnDrag(PointerEventData eventData)
+    {
+        Debug.Log("드래그");
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+
     }
 }
