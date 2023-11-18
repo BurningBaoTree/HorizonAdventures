@@ -4,19 +4,38 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+
+
+public enum ItemSize
+{
+    size1x1 = 0,
+    size1x2,
+    size1x3,
+    size2x3,
+    size3x3,
+    size4x2,
+    size4x4,
+    size5x2
+}
 
 /// <summary>
 /// 템프 슬롯 코드
 /// </summary>
 public class TempSlot : InventoryCon
 {
-
     Action updater;
+
+    public Vector2[] CellsizeList;
+    public Vector2[] ImageSizeList;
+
+    RectTransform sprRect;
+    RectTransform cellRect;
 
     /// <summary>
     /// 스프라이트 렌더러 이미지
     /// </summary>
-    SpriteRenderer spr;
+    Image spr;
 
     TextMeshProUGUI textcom;
 
@@ -46,14 +65,18 @@ public class TempSlot : InventoryCon
             }
         }
     }
+
+
     private void Awake()
     {
         updater = () => { };
-        temp = this;
-        spr = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        spr = transform.GetChild(0).GetComponent<Image>();
+        sprRect = spr.GetComponent<RectTransform>();
+        cellRect = transform.GetChild(1).GetComponent<RectTransform>();
         spr.color = Color.clear;
-        textcom = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        textcom = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         textcom.color = Color.clear;
+        this.gameObject.SetActive(false);
     }
     private void OnEnable()
     {
@@ -81,24 +104,54 @@ public class TempSlot : InventoryCon
     /// <summary>
     /// 템프 슬롯에 정보 삽입
     /// </summary>
-    /// <param name="sp">스프라이트</param>
-    /// <param name="textInfo">텍스트 내용</param>
-    protected void LoadInfo(Sprite sp, int max, int valuint)
+    /// <param name="sp">스프라이트 이미지</param>
+    /// <param name="valuint">현재 갯수 정보</param>
+    /// <param name="max">최대 갯수 정보</param>
+    public void LoadInfo(Sprite sp, int valuint, ItemSize size)
     {
-        spr.sprite = sp;
-        spr.color = Color.white;
-        textcom.text = $"{valuint: 00} / {max: 00}";
-        textcom.color = Color.white;
+        if (sp != null)
+        {
+            spr.sprite = sp;
+            spr.color = Color.white;
+            textcom.text = $"{valuint: 00}";
+            textcom.color = Color.white;
+            ReSizing(size);
+        }
+        else
+        {
+            ResteInfo();
+        }
+
+    }
+    public void LoadInfo(Sprite sp, ItemSize size)
+    {
+        if (sp != null)
+        {
+            spr.sprite = sp;
+            spr.color = Color.white;
+            textcom.color = Color.clear;
+            ReSizing(size);
+        }
+        else
+        {
+            ResteInfo();
+        }
     }
 
     /// <summary>
     /// 템프슬롯 초기화
     /// </summary>
-    protected void ResteInfo()
+    public void ResteInfo()
     {
         spr.sprite = null;
         spr.color = Color.clear;
         textcom.text = null;
         textcom.color = Color.clear;
+        spr.gameObject.transform.localScale = Vector3.one;
+    }
+    void ReSizing(ItemSize size)
+    {
+        sprRect.sizeDelta = ImageSizeList[(int)size];
+        cellRect.sizeDelta= CellsizeList[(int)size];
     }
 }

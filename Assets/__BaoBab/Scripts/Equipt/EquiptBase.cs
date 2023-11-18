@@ -43,6 +43,8 @@ public class EquiptBase : MonoBehaviour
     /// </summary>
     public string weaponExplanation;
 
+    public ItemSize itemSize;
+
     /// <summary>
     /// 데미지
     /// </summary>

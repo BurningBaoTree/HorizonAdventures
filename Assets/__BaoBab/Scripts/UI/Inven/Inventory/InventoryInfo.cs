@@ -7,12 +7,13 @@ using UnityEngine;
 /// <summary>
 /// 인벤토리의 정보를 관리하는 코드
 /// </summary>
-public class Inventory : MonoBehaviour
+public class InventoryInfo : MonoBehaviour
 {
 
-    Inventory instance;
-    public Inventory Inst => instance;
+    static InventoryInfo instance;
+    public static InventoryInfo Inst => instance;
 
+    public TempSlot temp;
     /// <summary>
     /// 무기 슬롯의 부모 개체
     /// </summary>
@@ -53,13 +54,19 @@ public class Inventory : MonoBehaviour
     {
         if (initialcount > 0)
         {
-            ResetTheWeaponSlot();
+            InitializeInventory();
         }
         initialcount++;
     }
     private void OnDisable()
     {
 
+    }
+
+    void InitializeInventory()
+    {
+        ResetTheWeaponSlot();
+        DisplayDescription(null, null);
     }
 
     /// <summary>
@@ -70,23 +77,37 @@ public class Inventory : MonoBehaviour
         if (GameManager.Inst.PlayerEquiped.subweapon != null)
         {
             SubWeaponBase sub = GameManager.Inst.PlayerEquiped.subweapon;
-            weaponSlots[0].initializeWeaponSlot(sub.subSpRender.sprite, sub.weaponName, 0, 0);
+            weaponSlots[0].initializeWeaponSlot(sub.subSpRender.sprite, sub.subweaponName, 0, 0, sub.weaponExplanation,sub.itemSize);
         }
         else
         {
-            weaponSlots[0].initializeWeaponSlot(null, null, 0, 0);
+            weaponSlots[0].initializeWeaponSlot(null, null, 0, 0, null,ItemSize.size1x1);
         }
         for (int i = 1; i < WeaponSlotGroup.childCount; i++)
         {
             if (GameManager.Inst.PlayerEquiped.Equipments[i - 1] != null)
             {
                 EquiptBase equipt = GameManager.Inst.PlayerEquiped.Equipments[i - 1];
-                weaponSlots[i].initializeWeaponSlot(equipt.spRender.sprite, equipt.weaponName, equipt.ammoCount, 999);
+                weaponSlots[i].initializeWeaponSlot(equipt.spRender.sprite, equipt.weaponName, equipt.ammoCount, 999, equipt.weaponExplanation, equipt.itemSize);
             }
             else
             {
-                weaponSlots[i].initializeWeaponSlot(null, null, 0, 0);
+                weaponSlots[i].initializeWeaponSlot(null, null, 0, 0, null, ItemSize.size1x1);
             }
+        }
+    }
+
+    public void DisplayDescription(string NameOf, string descript)
+    {
+        if (NameOf != null)
+        {
+            descriptionSlot.color = Color.white;
+            descriptionSlot.text = $"<size=35><b>{NameOf}</b>:</size> <size=30>{descript}</size> ";
+        }
+        else
+        {
+            descriptionSlot.color = Color.clear;
+            descriptionSlot.text = null;
         }
     }
 }
