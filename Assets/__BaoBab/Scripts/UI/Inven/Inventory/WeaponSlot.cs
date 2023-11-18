@@ -5,7 +5,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class WeaponSlot : MonoBehaviour , UIInventoryController
+/// <summary>
+/// 무기슬롯 코드
+/// </summary>
+public class WeaponSlot : InventoryCon
 {
     public Image weaponImage;
     public TextMeshProUGUI NameText;
@@ -58,17 +61,16 @@ public class WeaponSlot : MonoBehaviour , UIInventoryController
             LeftBullet.text = $"{NowState: 000} / {MaxState: 000}";
         }
     }
-
-    public void OnPointerDown(PointerEventData eventData)
+    public override void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("클릭");
+        Debug.Log($"{this.name}에 마우스 올림");
     }
-    public void OnDrag(PointerEventData eventData)
+    public override void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("드래그");
     }
-    public void OnPointerEnter(PointerEventData eventData)
+    public override void OnEndDrag(PointerEventData eventData)
     {
-
+        Debug.Log("드래그 종료");
     }
 }

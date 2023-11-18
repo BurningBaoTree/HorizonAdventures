@@ -13,12 +13,17 @@ public enum Statetus
     Mov
 }
 
+/// <summary>
+/// 스탯 정보 코드
+/// </summary>
 public class StatusInfo : MonoBehaviour
 {
     /// <summary>
     /// 이 항목의 스탯
     /// </summary>
     public Statetus stat;
+
+    public int statetus;
 
     public string stateExplonation;
 
@@ -38,7 +43,8 @@ public class StatusInfo : MonoBehaviour
     {
         if(this.stat == str)
         {
-            stateText.text = $"{str} : {state}";
+            this.statetus = state;
+            stateText.text = $"{str} : {statetus}";
         }
     }
 }

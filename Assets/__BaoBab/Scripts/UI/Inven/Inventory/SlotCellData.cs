@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 슬롯 셀 데이터 정보 코드
+/// </summary>
 public class SlotCellData : MonoBehaviour
 {
     public Color BaseColor;

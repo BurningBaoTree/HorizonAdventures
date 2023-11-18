@@ -1,21 +1,30 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
+using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
+/// <summary>
+/// 인벤토리의 정보를 관리하는 코드
+/// </summary>
 public class Inventory : MonoBehaviour
 {
+
+    Inventory instance;
+    public Inventory Inst => instance;
+
     /// <summary>
     /// 무기 슬롯의 부모 개체
     /// </summary>
-    public Transform WeaponSlotGroup;
+    Transform WeaponSlotGroup;
 
     /// <summary>
     /// 무기 슬롯 배열
     /// </summary>
-    public WeaponSlot[] weaponSlots;
+    WeaponSlot[] weaponSlots;
+
+    TextMeshProUGUI descriptionSlot;
+
 
     /// <summary>
     /// 초기화용 int
@@ -29,6 +38,9 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
+        WeaponSlotGroup = transform.GetChild(0).GetChild(4);
+        descriptionSlot = transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
         weaponSlots = new WeaponSlot[WeaponSlotGroup.childCount];
         for (int i = 0; i < WeaponSlotGroup.childCount; i++)
         {

@@ -14,6 +14,9 @@ public enum ItemCode
     MonsterCore
 }
 
+/// <summary>
+/// 슬롯 셀들을 관리하는 코드
+/// </summary>
 public class SlotCellManager : MonoBehaviour
 {
     GridLayoutGroup GL;
