@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/__Luna/Scenes/Dungeons/Dungeon_D.unity
     guid: 76ce4069703904313a133266d2194677
+  - enabled: 1
+    path: Assets/__Luna/Scenes/Dungeons/Dungeon_E.unity
+    guid: 6fd0cda98e208c741a7d15c767bc9456
+  - enabled: 1
+    path: Assets/__Luna/Scenes/Dungeons/Dungeon_F.unity
+    guid: d589b9d55aae3d14f8f9db16d18ca9fc
+  - enabled: 1
+    path: Assets/__Luna/Scenes/Dungeon_Base.unity
+    guid: c73ee3b4d5732477e90bec3e775625f0
   m_configObjects: {}

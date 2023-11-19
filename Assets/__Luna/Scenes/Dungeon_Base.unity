@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2133165735861810503, guid: 3b7e1e7df21184cc785fd2ac093079db, type: 3}
       propertyPath: dungeonCount
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b7e1e7df21184cc785fd2ac093079db, type: 3}

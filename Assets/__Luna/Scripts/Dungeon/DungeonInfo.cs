@@ -11,8 +11,6 @@ public class DungeonInfo : MonoBehaviour
     private int height;
     public int Height => height;
 
-    Vector2Int origin;
-
     private void Awake()
     {
         Transform tileMap = transform.GetChild(0);
@@ -20,7 +18,5 @@ public class DungeonInfo : MonoBehaviour
 
         width = background.size.x;
         height = background.size.y;
-
-        origin = (Vector2Int)background.origin;
     }
 }

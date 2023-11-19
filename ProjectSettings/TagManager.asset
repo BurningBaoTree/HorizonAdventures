@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ceiling
+  - Ground
+  - Ladder
+  - Wall
   layers:
   - Default
   - TransparentFX
