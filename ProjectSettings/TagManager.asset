@@ -4,10 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ladder
+  - Ceiling
   - Ground
-  - Weapon
-  - SubWeapon
+  - Ladder
+  - Wall
   - Enemy
   layers:
   - Default
@@ -17,7 +17,7 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Enemy
   - 
   - 
   - 

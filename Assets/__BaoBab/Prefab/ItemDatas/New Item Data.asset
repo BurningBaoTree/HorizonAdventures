@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01ace559e4c912644aa00b376fd8c933, type: 3}
-  m_Name: 00_GoldCoin
+  m_Name: New Item Data
   m_EditorClassIdentifier: 
-  code: 0
-  itemName: "\uD14C\uC2A4\uD2B8 \uAE08\uD654"
+  code: 6
+  type: 0
+  itemName: "\uC5B4\uC370\uD2B8"
   modelPrefab: {fileID: 0}
   itemIcon: {fileID: 0}
-  price: 100
-  maxStackCount: 10
+  price: 0
+  maxStackCount: 1
   itemDescription: "\uC124\uBA85"
+  slotSize: 0

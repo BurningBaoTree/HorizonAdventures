@@ -6,6 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TestScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/__Luna/Scenes/Dungeons/Dungeon_A.unity
+    guid: ae8e29c34814e40ddb067bdd1996f2c9
+  - enabled: 1
+    path: Assets/__Luna/Scenes/Dungeons/Dungeon_B.unity
+    guid: 000523b5bf480429db032e569607296b
+  - enabled: 1
+    path: Assets/__Luna/Scenes/Dungeons/Dungeon_C.unity
+    guid: 152c2113291274b5fbaa61c8558f111f
+  - enabled: 1
+    path: Assets/__Luna/Scenes/Dungeons/Dungeon_D.unity
+    guid: 76ce4069703904313a133266d2194677
+  - enabled: 1
+    path: Assets/__Luna/Scenes/Dungeons/Dungeon_E.unity
+    guid: 6fd0cda98e208c741a7d15c767bc9456
+  - enabled: 1
+    path: Assets/__Luna/Scenes/Dungeons/Dungeon_F.unity
+    guid: d589b9d55aae3d14f8f9db16d18ca9fc
+  - enabled: 1
+    path: Assets/__Luna/Scenes/Dungeon_Base.unity
+    guid: c73ee3b4d5732477e90bec3e775625f0
   m_configObjects: {}

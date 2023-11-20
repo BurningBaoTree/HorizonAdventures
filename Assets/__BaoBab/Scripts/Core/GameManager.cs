@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : SingleTone<GameManager>
+public class GameManager : Singleton<GameManager>
 {
     Player_Move playerMove;
     public Player_Move PlayerMove => playerMove;
@@ -13,10 +13,10 @@ public class GameManager : SingleTone<GameManager>
     Player_State playerState;
     public Player_State PlayerState => playerState;
 
-    private void Awake()
+    protected override void OnInitialize()
     {
-        playerMove = FindObjectOfType<Player_Move>();   
-        playerEquipted = FindObjectOfType<Player_Equiped>();
-        playerState = FindObjectOfType<Player_State>();
+        playerMove = FindObjectOfType<Player_Move>();
+        playerEquipted = playerMove.GetComponent<Player_Equiped>();
+        playerState = playerMove.GetComponent<Player_State>();
     }
 }
