@@ -70,34 +70,43 @@ public class EnemyBase : MonoBehaviour
     {
         set
         {
-            if (state != value)
+            state = value;
+            switch (state)
             {
-                state = value;
-                switch (state)
-                {
-                    case EnemyState.Wait:
-                        ChangeWait();
-                        onStateUpdate = Wait;
-                        break;
-                    case EnemyState.Move:
-                        ChangeMove();
-                        onStateUpdate = Move;
-                        break;
-                    case EnemyState.Attack:
-                        ChangeAttack();
-                        onStateUpdate = Attack;
-                        break;
-                    default:
-                        break;
-                }
+                case EnemyState.Wait:
+                    WaitInit();
+                    onStateUpdate = Wait;
+                    break;
+                case EnemyState.Move:
+                    MoveInit();
+                    onStateUpdate = Move;
+                    break;
+                case EnemyState.Attack:
+                    AttackInit();
+                    onStateUpdate = Attack;
+                    break;
+                default:
+                    break;
             }
         }
     }
 
     /// <summary>
-    /// 이동 상태일때 움직일 방향
+    /// 이동 상태일때 움직일 방향 (-1이면 왼쪽으로 이동)
     /// </summary>
-    protected Vector3 moveDir = Vector3.left;
+    private int moveDir = -1;
+    protected int MoveDir
+    {
+        get => moveDir;
+        set
+        {
+            if(moveDir != value)
+            {
+                moveDir = value;
+                spriteRenderer.flipX = moveDir > 0;
+            }
+        }
+    }
 
     /// <summary>
     /// 상태 별 변화용 업데이트 델리게이트
@@ -165,7 +174,8 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void OnHit()
     {
-
+        anim.ResetTrigger("OnHit");
+        anim.SetTrigger("OnHit");
     }
 
     /// <summary>
@@ -173,13 +183,13 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void Die()
     {
-
+        Destroy(gameObject);
     }
 
     /// <summary>
     /// 상태가 Wait으로 바뀌기 전에 실행할 함수
     /// </summary>
-    protected virtual void ChangeWait()
+    protected virtual void WaitInit()
     {
 
     }
@@ -187,7 +197,7 @@ public class EnemyBase : MonoBehaviour
     /// <summary>
     /// 상태가 Move으로 바뀌기 전에 실행할 함수
     /// </summary>
-    protected virtual void ChangeMove()
+    protected virtual void MoveInit()
     {
 
     }
@@ -195,7 +205,7 @@ public class EnemyBase : MonoBehaviour
     /// <summary>
     /// 상태가 Attack으로 바뀌기 전에 실행할 함수
     /// </summary>
-    protected virtual void ChangeAttack()
+    protected virtual void AttackInit()
     {
 
     }
