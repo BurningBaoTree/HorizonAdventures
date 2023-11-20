@@ -49,8 +49,7 @@ public class WoodStick : EquiptBase
         }
         else if (spRender.transform.localScale == new Vector3(-1, 1, 1))
         {
-            anim.SetTrigger("Swing_Left");
-            //anim.SetFloat("AttackSpeed", fireSpeed);
+            
         }*/
 
         // 추후 던지는 공격 업데이트 예정

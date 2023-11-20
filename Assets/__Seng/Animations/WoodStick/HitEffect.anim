@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WoodStick_Hit
+  m_Name: HitEffect
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -29,6 +29,8 @@ AnimationClip:
       value: {fileID: 21300000, guid: 3d27a716099be466d8ad3ae42278f222, type: 3}
     - time: 0.33333334
       value: {fileID: 21300000, guid: 8dbd3fe0520d840e4a365469cb9bafb6, type: 3}
+    - time: 0.41666666
+      value: {fileID: 0}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -53,12 +55,13 @@ AnimationClip:
     - {fileID: 21300000, guid: 06c3bd7dc0d384b34939db021898ce8b, type: 3}
     - {fileID: 21300000, guid: 3d27a716099be466d8ad3ae42278f222, type: 3}
     - {fileID: 21300000, guid: 8dbd3fe0520d840e4a365469cb9bafb6, type: 3}
+    - {fileID: 0}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.4166667
+    m_StopTime: 0.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
