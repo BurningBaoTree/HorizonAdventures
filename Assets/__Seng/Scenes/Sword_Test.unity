@@ -12191,8 +12191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3e46c6bb791684ab4dd1e488e92bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponSlotGroup: {fileID: 2024250594}
-  weaponSlots: []
 --- !u!1 &1017166675
 GameObject:
   m_ObjectHideFlags: 0
@@ -31792,6 +31790,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1649757385, guid: c0b00c409efcc475e9d0a4295ec7e1ca, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 134474093499365323, guid: c0b00c409efcc475e9d0a4295ec7e1ca, type: 3}
       propertyPath: m_Name
       value: WoodStick_Test

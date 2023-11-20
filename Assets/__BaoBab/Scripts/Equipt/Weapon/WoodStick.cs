@@ -41,6 +41,19 @@ public class WoodStick : EquiptBase
     protected override void UseUtillActivate()
     {
         base.UseUtillActivate();
+
+        /*if (spRender.transform.localScale == new Vector3(1, 1, 1))
+        {
+            anim.SetTrigger("UseUtil");
+            //anim.SetFloat("AttackSpeed", fireSpeed);
+        }
+        else if (spRender.transform.localScale == new Vector3(-1, 1, 1))
+        {
+            anim.SetTrigger("Swing_Left");
+            //anim.SetFloat("AttackSpeed", fireSpeed);
+        }*/
+
+        // 추후 던지는 공격 업데이트 예정
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -79,5 +92,4 @@ public class WoodStick : EquiptBase
         stickTrigger.enabled = false;
     }
 
-    // 애니메이션 속
 }

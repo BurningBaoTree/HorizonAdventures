@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6310311416315326122}
   - component: {fileID: 1649757385}
   m_Layer: 0
-  m_Name: WoodStick_Test
+  m_Name: WoodStick
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,7 +175,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134474093499365323}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
