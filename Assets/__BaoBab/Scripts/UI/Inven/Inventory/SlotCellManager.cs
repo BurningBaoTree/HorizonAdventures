@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,9 @@ public enum ItemCode
     MonsterCore
 }
 
+/// <summary>
+/// 슬롯 셀들을 관리하는 코드
+/// </summary>
 public class SlotCellManager : MonoBehaviour
 {
     GridLayoutGroup GL;
@@ -40,16 +44,25 @@ public class SlotCellManager : MonoBehaviour
     private void Awake()
     {
         GL = GetComponent<GridLayoutGroup>();
-        MackBag();
+        MakeBag();
     }
 
     /// <summary>
     /// 배낭 생성 함수
     /// </summary>
-    void MackBag()
+    void MakeBag()
     {
+        //현재 잔류하는 셀들 없애고
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+
+        //가방 사이즈 다시 조절해서
         GL.constraintCount = BagSize.x;
         totalCellCount = BagSize.x * BagSize.y;
+
+        //셀 제작
         for (int i = 0; i < totalCellCount; i++)
         {
             GameObject Cellobject = Instantiate(Cell);

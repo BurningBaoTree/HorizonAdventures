@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows;
 
-public class UIManager : MonoBehaviour
+/// <summary>
+/// UI들을 켜고 끄는걸 관리하는 코드
+/// </summary>
+public class UiOnOff : MonoBehaviour
 {
     /// <summary>
     /// 인벤토리 창 게임 오브젝트
@@ -67,6 +70,8 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
+
+
     private void Awake()
     {
         InventoryPanel = transform.GetChild(0).gameObject;

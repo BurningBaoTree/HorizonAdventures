@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class WeaponSlot : MonoBehaviour
+/// <summary>
+/// 무기슬롯 코드
+/// </summary>
+public class WeaponSlot : InventoryCon
 {
     public Image weaponImage;
     public TextMeshProUGUI NameText;
@@ -56,5 +60,17 @@ public class WeaponSlot : MonoBehaviour
             NameText.text = NameWP;
             LeftBullet.text = $"{NowState: 000} / {MaxState: 000}";
         }
+    }
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log($"{this.name}에 마우스 올림");
+    }
+    public override void OnBeginDrag(PointerEventData eventData)
+    {
+        Debug.Log("드래그");
+    }
+    public override void OnEndDrag(PointerEventData eventData)
+    {
+        Debug.Log("드래그 종료");
     }
 }
