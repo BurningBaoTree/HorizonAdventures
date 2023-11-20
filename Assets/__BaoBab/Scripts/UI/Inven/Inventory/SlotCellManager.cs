@@ -43,7 +43,7 @@ public class SlotCellManager : MonoBehaviour
     void MakeBag()
     {
         //현재 잔류하는 셀들 없애고
-        for(int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             Destroy(transform.GetChild(i).gameObject);
         }
@@ -65,12 +65,21 @@ public class SlotCellManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 모든 셀을 비교하여 cellcount보다 숫자보다 IsSet의 숫자가 작을 경우 인벤토리에 넣지 못한것으로 반단해서 반환
+    /// 모든 셀을 비교하여 cellcount보다 숫자보다 StackMode의 숫자가 작을 경우 인벤토리에 넣지 못한것으로 반단해서 반환
     /// </summary>
     /// <param name="cellcount">아이템의 부피</param>
     /// <returns></returns>
-    bool ACCSerchCanStack(int cellcount)
+    public bool ACCCanStack(int cellcount)
     {
-        return true;
+        int count = 0;  
+        foreach (SlotCellData cell in CellDatas)
+        {
+            if(cell.StackMode)
+            {
+                count++;
+            }
+        }
+
+        return count==cellcount;
     }
 }

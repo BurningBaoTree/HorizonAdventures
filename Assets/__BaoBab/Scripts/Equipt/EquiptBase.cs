@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EquiptBase : MonoBehaviour
 {
+    public ItemData temData;
+
     /// <summary>
     /// 좌클릭 델리게이트
     /// </summary>
@@ -83,7 +85,7 @@ public class EquiptBase : MonoBehaviour
     /// </summary>
     protected virtual void UseActivate()
     {
-        Debug.Log($"{this.gameObject.name}을 사용했다. 효과는 굉장했다.");
+
     }
 
     /// <summary>
@@ -91,7 +93,7 @@ public class EquiptBase : MonoBehaviour
     /// </summary>
     protected virtual void UseUtillActivate()
     {
-        Debug.Log($"{this.gameObject.name}의 보조기능을 사용했다. 효과는 별거 없었다.");
+
     }
 
     /// <summary>
