@@ -49,6 +49,8 @@ public class InventoryInfo : MonoBehaviour
 
     public RectTransform InventoryRect;
 
+    SlotCellManager slotCellManager;
+
     /// <summary>
     /// 초기화용 int
     /// </summary>
@@ -61,16 +63,17 @@ public class InventoryInfo : MonoBehaviour
 
     private void Awake()
     {
+        InventoryRect = GetComponent<RectTransform>();
         instance = this;
         WeaponSlotGroup = transform.GetChild(0).GetChild(4);
         descriptionSlot = transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
         weaponSlots = new WeaponSlot[WeaponSlotGroup.childCount];
+        slotCellManager = transform.GetChild(0).GetChild(0).GetComponent<SlotCellManager>();
         for (int i = 0; i < WeaponSlotGroup.childCount; i++)
         {
             weaponSlots[i] = WeaponSlotGroup.GetChild(i).GetComponent<WeaponSlot>();
         }
         initialcount = 0;
-        InventoryRect = GetComponent<RectTransform>();
     }
 
     private void OnEnable()
