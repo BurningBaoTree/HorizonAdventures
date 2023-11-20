@@ -36,6 +36,8 @@ public class TempSlot : InventoryCon
     /// </summary>
     public Vector2[] ImageSizeList;
 
+    public int[] sizeCoutn;
+
     /// <summary>
     /// 이미지의 Rect
     /// </summary>
@@ -51,6 +53,7 @@ public class TempSlot : InventoryCon
     /// </summary>
     TextMeshProUGUI textcom;
 
+    int copySize;
     int copyint;
 
     RectTransform invenRect;
@@ -240,6 +243,12 @@ public class TempSlot : InventoryCon
     {
         sprRect.sizeDelta = ImageSizeList[(int)size];
         CellRect.sizeDelta = CellsizeList[(int)size];
+        copySize = sizeCoutn[(int)size];
+    }
+
+    void PatchThis(bool compar)
+    {
+
     }
 
     void DropActive()

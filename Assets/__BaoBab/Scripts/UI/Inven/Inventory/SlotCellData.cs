@@ -13,7 +13,7 @@ public class SlotCellData : MonoBehaviour
     Image sp;
 
     bool stackMode = false;
-    bool StackMode
+    public bool StackMode
     {
         get
         {
