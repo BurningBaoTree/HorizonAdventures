@@ -49,7 +49,7 @@ public class InventoryInfo : MonoBehaviour
 
     public RectTransform InventoryRect;
 
-    SlotCellManager slotCellManager;
+    public SlotCellManager slotCellManager;
 
     /// <summary>
     /// 초기화용 int
