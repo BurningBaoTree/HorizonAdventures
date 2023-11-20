@@ -5,16 +5,19 @@ using UnityEngine;
 public class EnemyBase : MonoBehaviour
 {
     public float HP = 30;
+    CircleCollider2D collider;
+    SpriteRenderer sprite;
 
-    private void Start()
+    private void Awake()
     {
-
+        collider = GetComponent<CircleCollider2D>();
     }
 
     private void Update()
     {
         Die();
     }
+
     void Die()
     {
         if(HP <= 0)
@@ -22,4 +25,5 @@ public class EnemyBase : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
 }

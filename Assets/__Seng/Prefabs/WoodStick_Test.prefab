@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8712730402718922951}
   - component: {fileID: 4155534974272472688}
   - component: {fileID: 6310311416315326122}
-  - component: {fileID: 3164058692105809893}
+  - component: {fileID: 1649757385}
   m_Layer: 0
   m_Name: WoodStick_Test
   m_TagString: Weapon
@@ -33,7 +33,8 @@ Transform:
   m_LocalPosition: {x: 12.45, y: -3.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2206572620389594373}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 27.47}
@@ -167,19 +168,81 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!58 &3164058692105809893
+--- !u!58 &1649757385
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134474093499365323}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.5, y: 0}
+  m_Offset: {x: 0.6, y: 0}
   serializedVersion: 2
   m_Radius: 0.3
+--- !u!1001 &8671207896962107037
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5668682684839429057}
+    m_Modifications:
+    - target: {fileID: 7406455153656705944, guid: b35d7f5e58369452287972956205480c, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406455153656705944, guid: b35d7f5e58369452287972956205480c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406455153656705944, guid: b35d7f5e58369452287972956205480c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406455153656705944, guid: b35d7f5e58369452287972956205480c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406455153656705944, guid: b35d7f5e58369452287972956205480c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406455153656705944, guid: b35d7f5e58369452287972956205480c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406455153656705944, guid: b35d7f5e58369452287972956205480c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406455153656705944, guid: b35d7f5e58369452287972956205480c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406455153656705944, guid: b35d7f5e58369452287972956205480c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406455153656705944, guid: b35d7f5e58369452287972956205480c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406455153656705944, guid: b35d7f5e58369452287972956205480c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7406455153656705947, guid: b35d7f5e58369452287972956205480c, type: 3}
+      propertyPath: m_Name
+      value: HitEffect 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b35d7f5e58369452287972956205480c, type: 3}
+--- !u!4 &2206572620389594373 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7406455153656705944, guid: b35d7f5e58369452287972956205480c, type: 3}
+  m_PrefabInstance: {fileID: 8671207896962107037}
+  m_PrefabAsset: {fileID: 0}

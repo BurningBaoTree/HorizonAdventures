@@ -5,49 +5,61 @@ using UnityEngine;
 public class WoodStick : EquiptBase
 {
     Animator anim;
+    Animator hitAnim;
     CircleCollider2D stickTrigger;
 
 
     private void Start()
     {
         anim = GetComponent<Animator>();
+
         stickTrigger = GetComponent<CircleCollider2D>();
 
-        StopAllCoroutines();
-
-        // 대미지, 공격속도
         damage = 10.0f;
         fireSpeed = 0.667f;
     }
 
-    private void Update()
-    {
-       
-    }
     protected override void UseActivate()
     {
         base.UseActivate();
-
         StartCoroutine(AttackCoolTime());
 
         if (spRender.transform.localScale == new Vector3(1, 1, 1))
         {
             anim.SetTrigger("Swing");
+            anim.SetFloat("AttackSpeed", fireSpeed);
             //spRender.transform.localScale = new Vector3(1, 1, 1);
         }
         else if (spRender.transform.localScale == new Vector3(-1, 1, 1))
         {
             anim.SetTrigger("Swing_Left");
+            anim.SetFloat("AttackSpeed", fireSpeed);
             //spRender.transform.localScale = new Vector3(-1, 1, 1);
         }
     }
 
+    protected override void UseUtillActivate()
+    {
+        base.UseUtillActivate();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Enemy"))
+
+        if (collision.CompareTag("Enemy"))
         {
+            Transform child;
+            child = transform.GetChild(0);
+
+            if(child != null)
+            {
+                hitAnim = child.GetComponent<Animator>();
+            }
+
             EnemyBase enemy;
             enemy = collision.GetComponent<EnemyBase>();
+
+            hitAnim.SetTrigger("TargetHit");
 
             enemy.HP -= damage;
 
@@ -56,6 +68,10 @@ public class WoodStick : EquiptBase
 
     IEnumerator AttackCoolTime()
     {
+        if (stickTrigger == null)
+        {
+            Debug.Log("트리거 없음");
+        }
         stickTrigger.enabled = true;
 
         yield return new WaitForSeconds(fireSpeed);
@@ -63,5 +79,5 @@ public class WoodStick : EquiptBase
         stickTrigger.enabled = false;
     }
 
-
+    // 애니메이션 속
 }
