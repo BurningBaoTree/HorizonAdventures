@@ -10,9 +10,17 @@ using UnityEngine.UI;
 /// </summary>
 public class WeaponSlot : InventoryCon
 {
+    TempSlot temp;
+
+    bool isEmpty = true;
+
     public Image weaponImage;
     public TextMeshProUGUI NameText;
     public TextMeshProUGUI LeftBullet;
+
+    ItemSize size;
+    string NameOfWeapon;
+    string DescriptionOfWeapon;
 
     private void Awake()
     {
@@ -20,7 +28,10 @@ public class WeaponSlot : InventoryCon
         NameText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         LeftBullet = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
     }
-
+    private void Start()
+    {
+        temp = InventoryInfo.Inst.temp;
+    }
     /// <summary>
     /// 무기 슬롯 동기화
     /// </summary>
@@ -28,26 +39,32 @@ public class WeaponSlot : InventoryCon
     /// <param name="NameWP"></param>
     /// <param name="NowState"></param>
     /// <param name="MaxState"></param>
-    public void initializeWeaponSlot(Sprite imageWP, string NameWP, int NowState, int MaxState)
+    public void initializeWeaponSlot(Sprite imageWP, string NameWP, int NowState, int MaxState, string Des, ItemSize size)
     {
         if (imageWP == null)
         {
+            isEmpty = true;
             weaponImage.sprite = null;
             weaponImage.color = Color.clear;
         }
         else
         {
+            isEmpty = false;
             weaponImage.sprite = imageWP;
             weaponImage.color = Color.white;
+            this.size = size;
         }
 
-        if(NameWP == null)
+        if (NameWP == null)
         {
             NameText.color = Color.clear;
         }
         else
         {
             NameText.color = Color.white;
+            NameText.text = NameWP;
+            NameOfWeapon = NameWP;
+            DescriptionOfWeapon = Des;
         }
 
         if (MaxState == 0)
@@ -57,20 +74,58 @@ public class WeaponSlot : InventoryCon
         else
         {
             LeftBullet.color = Color.white;
-            NameText.text = NameWP;
             LeftBullet.text = $"{NowState: 000} / {MaxState: 000}";
         }
     }
     public override void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log($"{this.name}에 마우스 올림");
+        if (!isEmpty)
+        {
+            InventoryInfo.Inst.DisplayDescription(NameOfWeapon, DescriptionOfWeapon);
+        }
     }
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        if (!isEmpty)
+        {
+            InventoryInfo.Inst.DisplayDescription(null, null);
+        }
+    }
+
+    public override void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("누름");
+    }
+
+    /// <summary>
+    /// 드래그 시작 함수
+    /// </summary>
+    /// <param name="eventData"></param>
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("드래그");
+        if (temp != null)
+        {
+            temp.gameObject.SetActive(true);
+            temp.LoadInfo(weaponImage.sprite, size);
+            InventoryInfo.Inst.StartOnDrag?.Invoke();
+        }
     }
+    public override void OnDrag(PointerEventData eventData)
+    {
+        Debug.Log("드래그 중");
+    }
+
+    /// <summary>
+    /// 드래그 종료 함수
+    /// </summary>
+    /// <param name="eventData"></param>
     public override void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("드래그 종료");
+        if (temp != null)
+        {
+            temp.ResteInfo();
+            temp.gameObject.SetActive(false);
+            InventoryInfo.Inst.EndDraging?.Invoke();
+        }
     }
 }

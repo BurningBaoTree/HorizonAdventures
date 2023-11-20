@@ -5,16 +5,19 @@ using UnityEngine;
 
 public class SubWeaponBase : MonoBehaviour
 {
+
     /// <summary>
     /// 무기 이름
     /// </summary>
-    public string weaponName;
+    public string subweaponName;
 
     /// <summary>
     /// 무기 설명
     /// </summary>
     public string weaponExplanation;
 
+
+    public ItemSize itemSize;
     /// <summary>
     /// 데미지
     /// </summary>
@@ -60,7 +63,10 @@ public class SubWeaponBase : MonoBehaviour
         EquiptSub = EquiptSubWeapon;
         UNEquiptSub = UNEquiptSubWeapon;
     }
-
+    private void Start()
+    {
+        EquiptSub += InventoryInfo.Inst.ResetTheWeaponSlot;
+    }
     /// <summary>
     /// 사용 실행 함수
     /// </summary>

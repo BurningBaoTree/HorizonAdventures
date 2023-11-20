@@ -8,10 +8,15 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class InventoryCon : MonoBehaviour, UIInventoryController
 {
-    protected TempSlot temp;
+    public virtual void OnPointerDown(PointerEventData eventData)
+    {
 
-
+    }
     public virtual void OnBeginDrag(PointerEventData eventData)
+    {
+
+    }
+    public virtual void OnDrag(PointerEventData eventData)
     {
 
     }
@@ -22,6 +27,10 @@ public class InventoryCon : MonoBehaviour, UIInventoryController
     }
 
     public virtual void OnPointerEnter(PointerEventData eventData)
+    {
+
+    }
+    public virtual void OnPointerExit(PointerEventData eventData)
     {
 
     }
