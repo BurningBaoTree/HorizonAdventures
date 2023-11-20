@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBase : MonoBehaviour
+public class Enemy_Test : MonoBehaviour
 {
     public float HP = 30;
     CircleCollider2D collider;

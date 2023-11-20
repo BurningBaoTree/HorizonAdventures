@@ -68,8 +68,8 @@ public class WoodStick : EquiptBase
                 hitAnim = child.GetComponent<Animator>();
             }
 
-            EnemyBase enemy;
-            enemy = collision.GetComponent<EnemyBase>();
+            Enemy_Test enemy;
+            enemy = collision.GetComponent<Enemy_Test>();
 
             hitAnim.SetTrigger("TargetHit");
 
