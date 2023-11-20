@@ -8,6 +8,8 @@ public class WoodStick : EquiptBase
     Animator hitAnim;
     CircleCollider2D stickTrigger;
 
+    float speed = 5.0f;
+    bool unequipped = false;
 
     private void Start()
     {
@@ -17,6 +19,15 @@ public class WoodStick : EquiptBase
 
         damage = 10.0f;
         fireSpeed = 0.667f;
+    }
+
+    private void Update()
+    {
+        if(unequipped)
+        {
+            transform.Translate(Time.deltaTime * speed * Vector2.left);
+        }
+
     }
 
     protected override void UseActivate()
@@ -41,16 +52,18 @@ public class WoodStick : EquiptBase
     protected override void UseUtillActivate()
     {
         base.UseUtillActivate();
+        unequipped = true;
 
-        /*if (spRender.transform.localScale == new Vector3(1, 1, 1))
+        UNEquiptThis?.Invoke();
+
+        if (spRender.transform.localScale == new Vector3(1, 1, 1))
         {
-            anim.SetTrigger("UseUtil");
-            //anim.SetFloat("AttackSpeed", fireSpeed);
+            UNEquiptThisGear();
         }
         else if (spRender.transform.localScale == new Vector3(-1, 1, 1))
         {
-            
-        }*/
+            UNEquiptThisGear();
+        }
 
         // 추후 던지는 공격 업데이트 예정
     }
@@ -76,6 +89,13 @@ public class WoodStick : EquiptBase
             enemy.HP -= damage;
 
         }
+    }
+
+    protected override void UNEquiptThisGear()
+    {
+        base.UNEquiptThisGear();
+
+
     }
 
     IEnumerator AttackCoolTime()
