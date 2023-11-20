@@ -27,8 +27,6 @@ public class EquiptBase : MonoBehaviour
     /// </summary>
     public Action UNEquiptThis;
 
-
-
     CapsuleCollider2D capsuleCD2D;
     Rigidbody2D rb2D;
     public SpriteRenderer spRender;
@@ -75,6 +73,10 @@ public class EquiptBase : MonoBehaviour
         UNEquiptThis = UNEquiptThisGear;
         spRender = GetComponent<SpriteRenderer>();
     }
+    private void Start()
+    {
+        EquiptThis += InventoryInfo.Inst.ResetTheWeaponSlot;
+    }
 
     /// <summary>
     /// 마우스 좌클릭 사용시 실행될 함수
@@ -97,7 +99,6 @@ public class EquiptBase : MonoBehaviour
     /// </summary>
     protected virtual void EquiptThisGear()
     {
-        Debug.Log($"{this.gameObject.name}장착");
         this.transform.localPosition = Vector2.zero;
         this.transform.localRotation = Quaternion.identity;
         rb2D.isKinematic = true;

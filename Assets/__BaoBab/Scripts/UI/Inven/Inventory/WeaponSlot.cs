@@ -10,6 +10,8 @@ using UnityEngine.UI;
 /// </summary>
 public class WeaponSlot : InventoryCon
 {
+    TempSlot temp;
+
     bool isEmpty = true;
 
     public Image weaponImage;
@@ -26,7 +28,10 @@ public class WeaponSlot : InventoryCon
         NameText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         LeftBullet = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
     }
-
+    private void Start()
+    {
+        temp = InventoryInfo.Inst.temp;
+    }
     /// <summary>
     /// 무기 슬롯 동기화
     /// </summary>
@@ -86,30 +91,41 @@ public class WeaponSlot : InventoryCon
             InventoryInfo.Inst.DisplayDescription(null, null);
         }
     }
+
     public override void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("누름");
     }
+
+    /// <summary>
+    /// 드래그 시작 함수
+    /// </summary>
+    /// <param name="eventData"></param>
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        TempSlot temp = InventoryInfo.Inst.temp;
         if (temp != null)
         {
             temp.gameObject.SetActive(true);
             temp.LoadInfo(weaponImage.sprite, size);
+            InventoryInfo.Inst.StartOnDrag?.Invoke();
         }
     }
     public override void OnDrag(PointerEventData eventData)
     {
         Debug.Log("드래그 중");
     }
+
+    /// <summary>
+    /// 드래그 종료 함수
+    /// </summary>
+    /// <param name="eventData"></param>
     public override void OnEndDrag(PointerEventData eventData)
     {
-        TempSlot temp = InventoryInfo.Inst.temp;
         if (temp != null)
         {
             temp.ResteInfo();
             temp.gameObject.SetActive(false);
+            InventoryInfo.Inst.EndDraging?.Invoke();
         }
     }
 }

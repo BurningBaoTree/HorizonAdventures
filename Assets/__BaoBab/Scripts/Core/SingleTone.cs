@@ -74,7 +74,7 @@ public class SingleTone<T> : MonoBehaviour where T : Component
     {
 
     }
-    private void OnInitialize()
+    protected virtual void OnInitialize()
     {
 
     }

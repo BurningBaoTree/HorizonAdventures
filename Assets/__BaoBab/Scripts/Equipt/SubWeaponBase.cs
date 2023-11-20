@@ -63,7 +63,10 @@ public class SubWeaponBase : MonoBehaviour
         EquiptSub = EquiptSubWeapon;
         UNEquiptSub = UNEquiptSubWeapon;
     }
-
+    private void Start()
+    {
+        EquiptSub += InventoryInfo.Inst.ResetTheWeaponSlot;
+    }
     /// <summary>
     /// 사용 실행 함수
     /// </summary>

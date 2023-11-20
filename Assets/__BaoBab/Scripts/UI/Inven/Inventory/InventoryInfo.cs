@@ -9,9 +9,27 @@ using UnityEngine;
 /// </summary>
 public class InventoryInfo : MonoBehaviour
 {
-
+    /// <summary>
+    /// 접근용 변수
+    /// </summary>
     static InventoryInfo instance;
     public static InventoryInfo Inst => instance;
+
+    /// <summary>
+    /// 드래그를 시작했을때 실행되는 델리게이트
+    /// </summary>
+    public Action StartOnDrag;
+
+    /// <summary>
+    /// 드래그 중일때 실행되는 델리게이트
+    /// </summary>
+    public Action OnDraging;
+
+    /// <summary>
+    /// 드래그가 끝났을때 실행되는 델리게이트
+    /// </summary>
+    public Action EndDraging;
+
 
     public TempSlot temp;
     /// <summary>
@@ -24,8 +42,12 @@ public class InventoryInfo : MonoBehaviour
     /// </summary>
     WeaponSlot[] weaponSlots;
 
+    /// <summary>
+    /// 무기 / 장비 설명 칸
+    /// </summary>
     TextMeshProUGUI descriptionSlot;
 
+    public RectTransform InventoryRect;
 
     /// <summary>
     /// 초기화용 int
@@ -48,6 +70,7 @@ public class InventoryInfo : MonoBehaviour
             weaponSlots[i] = WeaponSlotGroup.GetChild(i).GetComponent<WeaponSlot>();
         }
         initialcount = 0;
+        InventoryRect = GetComponent<RectTransform>();
     }
 
     private void OnEnable()
@@ -63,6 +86,9 @@ public class InventoryInfo : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 인벤토리 초기화
+    /// </summary>
     void InitializeInventory()
     {
         ResetTheWeaponSlot();
@@ -72,16 +98,16 @@ public class InventoryInfo : MonoBehaviour
     /// <summary>
     /// 플레이어의 장비창을 보고 리스트 리셋
     /// </summary>
-    private void ResetTheWeaponSlot()
+    public void ResetTheWeaponSlot()
     {
         if (GameManager.Inst.PlayerEquiped.subweapon != null)
         {
             SubWeaponBase sub = GameManager.Inst.PlayerEquiped.subweapon;
-            weaponSlots[0].initializeWeaponSlot(sub.subSpRender.sprite, sub.subweaponName, 0, 0, sub.weaponExplanation,sub.itemSize);
+            weaponSlots[0].initializeWeaponSlot(sub.subSpRender.sprite, sub.subweaponName, 0, 0, sub.weaponExplanation, sub.itemSize);
         }
         else
         {
-            weaponSlots[0].initializeWeaponSlot(null, null, 0, 0, null,ItemSize.size1x1);
+            weaponSlots[0].initializeWeaponSlot(null, null, 0, 0, null, ItemSize.size1x1);
         }
         for (int i = 1; i < WeaponSlotGroup.childCount; i++)
         {
@@ -97,6 +123,11 @@ public class InventoryInfo : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 설명창 재갱신
+    /// </summary>
+    /// <param name="NameOf">이름</param>
+    /// <param name="descript">설명</param>
     public void DisplayDescription(string NameOf, string descript)
     {
         if (NameOf != null)
