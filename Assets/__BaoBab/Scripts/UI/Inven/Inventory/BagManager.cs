@@ -18,7 +18,7 @@ public class BagManager : MonoBehaviour
     {
         GameObject obj = Instantiate(BaseItemOBJ);
         InvItemOBJ invItemOBJ = obj.GetComponent<InvItemOBJ>();
-        invItemOBJ.MakeItemInfo();
+/*        invItemOBJ.MakeItemInfo();*/
         AllItmes.Add(invItemOBJ);
     }
 
