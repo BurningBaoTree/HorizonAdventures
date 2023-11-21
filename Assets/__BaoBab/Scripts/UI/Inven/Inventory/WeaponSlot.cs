@@ -12,14 +12,40 @@ public class WeaponSlot : InventoryCon
 {
     TempSlot temp;
 
+
+    /// <summary>
+    /// 비어있는지 체크용 bool
+    /// </summary>
     bool isEmpty = true;
 
+    /// <summary>
+    /// 무기 이미지
+    /// </summary>
     public Image weaponImage;
+
+    /// <summary>
+    /// 이름 텍스트메쉬
+    /// </summary>
     public TextMeshProUGUI NameText;
+
+    /// <summary>
+    /// 잔여 갯수 텍스트 메쉬
+    /// </summary>
     public TextMeshProUGUI LeftBullet;
 
+    /// <summary>
+    /// 사이즈 열거 변수
+    /// </summary>
     ItemSize size;
+
+    /// <summary>
+    /// 이름 문자변수
+    /// </summary>
     string NameOfWeapon;
+
+    /// <summary>
+    /// 설명 문자 변수
+    /// </summary>
     string DescriptionOfWeapon;
 
     private void Awake()
@@ -77,6 +103,11 @@ public class WeaponSlot : InventoryCon
             LeftBullet.text = $"{NowState: 000} / {MaxState: 000}";
         }
     }
+
+    /// <summary>
+    /// 무기 슬롯에 마우스 포인터를 올리면 설명이 보이게 한다.
+    /// </summary>
+    /// <param name="eventData"></param>
     public override void OnPointerEnter(PointerEventData eventData)
     {
         if (!isEmpty)
@@ -84,6 +115,11 @@ public class WeaponSlot : InventoryCon
             InventoryInfo.Inst.DisplayDescription(NameOfWeapon, DescriptionOfWeapon);
         }
     }
+
+    /// <summary>
+    /// 무기 슬롯에 마우스 포인터를 올리면 설명이 안보이게 한다.
+    /// </summary>
+    /// <param name="eventData"></param>
     public override void OnPointerExit(PointerEventData eventData)
     {
         if (!isEmpty)
@@ -103,11 +139,15 @@ public class WeaponSlot : InventoryCon
     /// <param name="eventData"></param>
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        if (temp != null)
+        if (!isEmpty)
         {
-            temp.gameObject.SetActive(true);
-            temp.LoadInfo(weaponImage.sprite, size);
-            InventoryInfo.Inst.StartOnDrag?.Invoke();
+            if (temp != null)
+            {
+                temp.gameObject.SetActive(true);
+                temp.LoadInfo(weaponImage.sprite, size);
+                InventoryInfo.Inst.StartOnDrag?.Invoke();
+                invisival();
+            } 
         }
     }
     public override void OnDrag(PointerEventData eventData)
@@ -121,11 +161,45 @@ public class WeaponSlot : InventoryCon
     /// <param name="eventData"></param>
     public override void OnEndDrag(PointerEventData eventData)
     {
-        if (temp != null)
+        if (!isEmpty)
         {
-            temp.ResteInfo();
-            temp.gameObject.SetActive(false);
-            InventoryInfo.Inst.EndDraging?.Invoke();
+            if (temp != null)
+            {
+                temp.ResteInfo();
+                InventoryInfo.Inst.EndDraging?.Invoke();
+                temp.gameObject.SetActive(false);
+            }
+            if (temp.isSucessfulyMoved)
+            {
+                ResetSlot();
+            }
+            else
+            {
+                visival();
+            } 
         }
+    }
+
+    void invisival()
+    {
+        weaponImage.color = Color.clear;
+        NameText.color = Color.clear;
+        LeftBullet.color = Color.clear;
+    }
+    void visival()
+    {
+        weaponImage.color = Color.white;
+        NameText.color = Color.white;
+        LeftBullet.color = Color.white;
+    }
+    void ResetSlot()
+    {
+        weaponImage.color = Color.clear;
+        weaponImage.sprite = null;
+        NameText.color = Color.clear;
+        NameText.text = null;
+        LeftBullet.color = Color.clear;
+        LeftBullet.text = null;
+        isEmpty = true;
     }
 }

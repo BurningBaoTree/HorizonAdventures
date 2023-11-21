@@ -13,7 +13,7 @@ public class SlotCellData : MonoBehaviour
     Image sp;
 
     bool stackMode = false;
-    bool StackMode
+    public bool StackMode
     {
         get
         {
@@ -106,7 +106,7 @@ public class SlotCellData : MonoBehaviour
     }
     void StackModeActive()
     {
-        if (RectTransformUtility.RectangleContainsScreenPoint(temp.CellRect, transform.position))
+        if (RectTransformUtility.RectangleContainsScreenPoint(temp.cellRect, transform.position))
         {
             CompareSetable(IsSet);
         }

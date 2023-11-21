@@ -36,10 +36,17 @@ public class TempSlot : InventoryCon
     /// </summary>
     public Vector2[] ImageSizeList;
 
+    public int[] sizeCoutn;
+
     /// <summary>
     /// 이미지의 Rect
     /// </summary>
     RectTransform sprRect;
+
+    /// <summary>
+    /// 셀의 Rect
+    /// </summary>
+    public RectTransform cellRect;
 
     /// <summary>
     /// 스프라이트 렌더러 이미지
@@ -51,9 +58,12 @@ public class TempSlot : InventoryCon
     /// </summary>
     TextMeshProUGUI textcom;
 
-    int copyint;
+    int copySize;
+    int countInt;
 
     RectTransform invenRect;
+
+    public bool isSucessfulyMoved = false;
 
     #region 프로퍼티
     /// <summary>
@@ -83,30 +93,6 @@ public class TempSlot : InventoryCon
                 {
                     updater -= TempUpdate;
                 }
-            }
-        }
-    }
-
-    /// <summary>
-    /// 셀의 Rect(프로퍼티 있음)
-    /// </summary>
-    RectTransform cellRect;
-
-    /// <summary>
-    /// 셀의 Rect사이즈와 함께 Ray를 조절하는 프로퍼티
-    /// </summary>
-    public RectTransform CellRect
-    {
-        get
-        {
-            return cellRect;
-        }
-        set
-        {
-            if (cellRect != value)
-            {
-                cellRect = value;
-
             }
         }
     }
@@ -142,7 +128,7 @@ public class TempSlot : InventoryCon
         updater = () => { };
         spr = transform.GetChild(0).GetComponent<Image>();
         sprRect = spr.GetComponent<RectTransform>();
-        CellRect = transform.GetChild(1).GetComponent<RectTransform>();
+        cellRect = transform.GetChild(1).GetComponent<RectTransform>();
         spr.color = Color.clear;
         textcom = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         textcom.color = Color.clear;
@@ -151,12 +137,14 @@ public class TempSlot : InventoryCon
     private void OnEnable()
     {
         invenRect = InventoryInfo.Inst.InventoryRect;
+        InventoryInfo.Inst.EndDraging += EndDragTemp;
         FallowActive = true;
+        isSucessfulyMoved = false;
     }
     private void OnDisable()
     {
         FallowActive = false;
-        copyint = 999;
+        countInt = 999;
     }
 
     private void Update()
@@ -194,7 +182,7 @@ public class TempSlot : InventoryCon
         {
             spr.sprite = sp;
             spr.color = Color.white;
-            copyint = valuint;
+            countInt = valuint;
             textcom.text = $"{valuint: 00}";
             textcom.color = Color.white;
             ReSizing(size);
@@ -239,7 +227,32 @@ public class TempSlot : InventoryCon
     void ReSizing(ItemSize size)
     {
         sprRect.sizeDelta = ImageSizeList[(int)size];
-        CellRect.sizeDelta = CellsizeList[(int)size];
+        cellRect.sizeDelta = CellsizeList[(int)size];
+        copySize = sizeCoutn[(int)size];
+    }
+
+    void EndDragTemp()
+    {
+        Dropthis(DropMode);
+        PatchThis(InventoryInfo.Inst.slotCellManager.ACCCanStack(copySize));
+    }
+
+    public void PatchThis(bool compar)
+    {
+        if (compar)
+        {
+            Debug.Log("아이템 슬롯으로 이전");
+            isSucessfulyMoved = true;
+        }
+    }
+
+    public void Dropthis(bool compar)
+    {
+        if (compar)
+        {
+            Debug.Log("버림");
+            isSucessfulyMoved = true;
+        }
     }
 
     void DropActive()
@@ -249,13 +262,13 @@ public class TempSlot : InventoryCon
     }
     void DropDeActive()
     {
-        if (copyint > 99)
+        if (countInt > 99)
         {
             textcom.color = Color.clear;
         }
         else
         {
-            textcom.text = $"{copyint:00}?";
+            textcom.text = $"{countInt:00}?";
         }
     }
 }
