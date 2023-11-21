@@ -54,6 +54,7 @@ public class EnemySlime : EnemyBase
     protected override void MoveInit()
     {
         elapsedTime = 0.0f;
+        moveSpeed = 1.5f + Random.value * 0.5f;
         moveTime = Random.Range(5, 10);
     }
 
@@ -65,7 +66,5 @@ public class EnemySlime : EnemyBase
         {
             State = EnemyState.Wait;
         }
-
-        Debug.Log($"{gameObject.name}의 체력이 {Health}로 감소했다.");
     }
 }

@@ -28,12 +28,12 @@ public class EnemyBase : MonoBehaviour
     /// <summary>
     /// 최대 체력
     /// </summary>
-    private float maxHealth = 5.0f;
+    public float maxHealth = 100.0f;
 
     /// <summary>
     /// 체력 프로퍼티
     /// </summary>
-    protected float Health
+    public float Health
     {
         get => health;
         set
@@ -70,23 +70,26 @@ public class EnemyBase : MonoBehaviour
     {
         set
         {
-            state = value;
-            switch (state)
+            if (state != value)
             {
-                case EnemyState.Wait:
-                    WaitInit();
-                    onStateUpdate = Wait;
-                    break;
-                case EnemyState.Move:
-                    MoveInit();
-                    onStateUpdate = Move;
-                    break;
-                case EnemyState.Attack:
-                    AttackInit();
-                    onStateUpdate = Attack;
-                    break;
-                default:
-                    break;
+                state = value;
+                switch (state)
+                {
+                    case EnemyState.Wait:
+                        WaitInit();
+                        onStateUpdate = Wait;
+                        break;
+                    case EnemyState.Move:
+                        MoveInit();
+                        onStateUpdate = Move;
+                        break;
+                    case EnemyState.Attack:
+                        AttackInit();
+                        onStateUpdate = Attack;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
@@ -115,6 +118,7 @@ public class EnemyBase : MonoBehaviour
 
     // 컴포넌트들
     protected Animator anim;
+    protected Collider2D coll;
     protected Rigidbody2D rigid;
     protected SpriteRenderer spriteRenderer;
 
@@ -123,6 +127,7 @@ public class EnemyBase : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        coll = GetComponent<Collider2D>();
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -176,6 +181,8 @@ public class EnemyBase : MonoBehaviour
     {
         anim.ResetTrigger("OnHit");
         anim.SetTrigger("OnHit");
+
+        Debug.Log($"{gameObject.name}의 체력이 {Health}로 감소했다.");
     }
 
     /// <summary>
@@ -183,6 +190,7 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void Die()
     {
+        Debug.Log($"{gameObject.name} 죽음!");
         Destroy(gameObject);
     }
 
