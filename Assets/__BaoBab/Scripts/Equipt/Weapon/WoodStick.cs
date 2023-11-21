@@ -8,7 +8,7 @@ public class WoodStick : EquiptBase
     Animator hitAnim;
     CircleCollider2D stickTrigger;
 
-    float speed = 5.0f;
+    float speed = 2.0f;
     bool unequipped = false;
 
     private void Start()
@@ -19,15 +19,6 @@ public class WoodStick : EquiptBase
 
         damage = 10.0f;
         fireSpeed = 0.667f;
-    }
-
-    private void Update()
-    {
-        if(unequipped)
-        {
-            transform.Translate(Time.deltaTime * speed * Vector2.left);
-        }
-
     }
 
     protected override void UseActivate()
@@ -56,13 +47,18 @@ public class WoodStick : EquiptBase
 
         UNEquiptThis?.Invoke();
 
+        // 플레이어로 부터 해제
+        transform.SetParent(null, true);
+
+        
+
         if (spRender.transform.localScale == new Vector3(1, 1, 1))
         {
-            UNEquiptThisGear();
+            rb2D.AddForce(speed * Vector2.one, ForceMode2D.Impulse);
         }
         else if (spRender.transform.localScale == new Vector3(-1, 1, 1))
         {
-            UNEquiptThisGear();
+            rb2D.AddForce(speed * Vector2.one, ForceMode2D.Impulse);
         }
 
         // 추후 던지는 공격 업데이트 예정
@@ -70,7 +66,6 @@ public class WoodStick : EquiptBase
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.CompareTag("Enemy"))
         {
             Transform child;
@@ -87,15 +82,25 @@ public class WoodStick : EquiptBase
             hitAnim.SetTrigger("TargetHit");
 
             enemy.HP -= damage;
-
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            speed = 0;
+            rb2D.gravityScale = 0;
+        }
+    }
+
+
 
     protected override void UNEquiptThisGear()
     {
         base.UNEquiptThisGear();
 
-
+        rb2D.gravityScale = 0.2f;
     }
 
     IEnumerator AttackCoolTime()

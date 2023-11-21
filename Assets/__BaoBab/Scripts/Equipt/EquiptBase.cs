@@ -30,7 +30,7 @@ public class EquiptBase : MonoBehaviour
     public Action UNEquiptThis;
 
     CapsuleCollider2D capsuleCD2D;
-    Rigidbody2D rb2D;
+    protected Rigidbody2D rb2D;
     public SpriteRenderer spRender;
 
     /// <summary>
