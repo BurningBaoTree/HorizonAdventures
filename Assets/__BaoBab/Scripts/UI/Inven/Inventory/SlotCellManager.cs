@@ -30,6 +30,7 @@ public class SlotCellManager : MonoBehaviour
     /// 슬롯 리스트
     /// </summary>
     public List<SlotCellData> CellDatas = new List<SlotCellData>();
+    public List<SlotCellData> compairedCell = new List<SlotCellData>();
 
     private void Awake()
     {
@@ -71,15 +72,30 @@ public class SlotCellManager : MonoBehaviour
     /// <returns></returns>
     public bool ACCCanStack(int cellcount)
     {
-        int count = 0;  
+        compairedCell.Clear();
+        int count = 0;
         foreach (SlotCellData cell in CellDatas)
         {
-            if(cell.StackMode)
+            if (cell.tryToSet)
             {
+                compairedCell.Add(cell);
                 count++;
             }
         }
-
-        return count==cellcount;
+        bool result;
+        if (count == cellcount)
+        {
+            result = true;
+            foreach (SlotCellData cell in compairedCell)
+            {
+                cell.IsSet = true;
+                InventoryInfo.Inst.BagParent.CellCenters.Add(cell.transform.position);
+            }
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
     }
 }

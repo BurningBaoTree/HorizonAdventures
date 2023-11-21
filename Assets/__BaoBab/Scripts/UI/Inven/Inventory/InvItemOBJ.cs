@@ -50,6 +50,11 @@ public class InvItemOBJ : InventoryCon
     {
         temp = InventoryInfo.Inst.temp;
     }
+
+    /// <summary>
+    /// 드래그가 시작될때
+    /// </summary>
+    /// <param name="eventData"></param>
     public override void OnBeginDrag(PointerEventData eventData)
     {
         if (temp != null)
@@ -59,6 +64,11 @@ public class InvItemOBJ : InventoryCon
             InventoryInfo.Inst.StartOnDrag?.Invoke();
         }
     }
+
+    /// <summary>
+    /// 드래그 끝났을때
+    /// </summary>
+    /// <param name="eventData"></param>
     public override void OnEndDrag(PointerEventData eventData)
     {
         if (temp != null)
@@ -76,6 +86,13 @@ public class InvItemOBJ : InventoryCon
             this.gameObject.SetActive(true);
         }
     }
+
+    /// <summary>
+    /// 아이템 정보 받아오기
+    /// </summary>
+    /// <param name="sprt">스프라이트</param>
+    /// <param name="count">갯수</param>
+    /// <param name="sz">사이즈</param>
     public void MakeItemInfo(Sprite sprt, int count, ItemSize sz)
     {
         spr.sprite = sprt;

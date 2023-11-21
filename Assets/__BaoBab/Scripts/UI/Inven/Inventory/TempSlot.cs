@@ -137,9 +137,12 @@ public class TempSlot : InventoryCon
     private void OnEnable()
     {
         invenRect = InventoryInfo.Inst.InventoryRect;
-        InventoryInfo.Inst.EndDraging += EndDragTemp;
         FallowActive = true;
         isSucessfulyMoved = false;
+    }
+    private void Start()
+    {
+        InventoryInfo.Inst.EndDraging += EndDragTemp;
     }
     private void OnDisable()
     {
@@ -231,35 +234,53 @@ public class TempSlot : InventoryCon
         copySize = sizeCoutn[(int)size];
     }
 
+    /// <summary>
+    /// 드래그가 종료될때 실행될 함수
+    /// </summary>
     void EndDragTemp()
     {
         Dropthis(DropMode);
         PatchThis(InventoryInfo.Inst.slotCellManager.ACCCanStack(copySize));
     }
 
+    /// <summary>
+    /// 배치가 가능하면 배치하는 함수
+    /// </summary>
+    /// <param name="compar"></param>
     public void PatchThis(bool compar)
     {
         if (compar)
         {
-            Debug.Log("아이템 슬롯으로 이전");
             isSucessfulyMoved = true;
+            Debug.Log("아이템 슬롯으로 이전");
         }
     }
 
+    /// <summary>
+    /// 물체가 버릴수 있으면 버리는 함수
+    /// </summary>
+    /// <param name="compar"></param>
     public void Dropthis(bool compar)
     {
         if (compar)
         {
-            Debug.Log("버림");
             isSucessfulyMoved = true;
+            Debug.Log("버림");
         }
     }
 
+    /// <summary>
+    /// 드롭 가능인지 체크하는 함수
+    /// </summary>
     void DropActive()
     {
         textcom.text = "Drop?";
         textcom.color = Color.white;
     }
+
+    /// <summary>
+    /// 드롭이 불가능할 경우 다시 원래 상태로 돌아오게 하는 함수
+    /// </summary>
     void DropDeActive()
     {
         if (countInt > 99)

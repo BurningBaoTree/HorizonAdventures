@@ -51,6 +51,8 @@ public class InventoryInfo : MonoBehaviour
 
     public SlotCellManager slotCellManager;
 
+    public BagManager BagParent;
+
     /// <summary>
     /// 초기화용 int
     /// </summary>
@@ -68,6 +70,7 @@ public class InventoryInfo : MonoBehaviour
         WeaponSlotGroup = transform.GetChild(0).GetChild(4);
         descriptionSlot = transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
         weaponSlots = new WeaponSlot[WeaponSlotGroup.childCount];
+        BagParent = transform.GetChild(0).GetChild(7).GetComponent<BagManager>();
         slotCellManager = transform.GetChild(0).GetChild(0).GetComponent<SlotCellManager>();
         for (int i = 0; i < WeaponSlotGroup.childCount; i++)
         {
@@ -83,10 +86,6 @@ public class InventoryInfo : MonoBehaviour
             InitializeInventory();
         }
         initialcount++;
-    }
-    private void OnDisable()
-    {
-
     }
 
     /// <summary>
