@@ -9,6 +9,11 @@ public class EnemyGost : EnemyBase
     // 3. 플레이어를 한대 때리거나 플레이어한테 한대 맞으면 사라진다.
 
     /// <summary>
+    /// 플레이어를 찾았는지 확인하는 변수
+    /// </summary>
+    private bool isFind = false;
+
+    /// <summary>
     /// wait 상태 지속 시간
     /// </summary>
     private float waitTime = 1.0f;
@@ -28,9 +33,21 @@ public class EnemyGost : EnemyBase
     /// </summary>
     private Transform target;
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        isFind = false;
+        CheckBox checkBox = GetComponentInChildren<CheckBox>();
+        checkBox.onFind += () =>
+        {
+            elapsedTime = 0;
+            isFind = true;
+        };
+    }
+
     protected override void Wait()
     {
-        if (elapsedTime > waitTime)
+        if (isFind && elapsedTime > waitTime)
         {
             State = EnemyState.Move;
         }
