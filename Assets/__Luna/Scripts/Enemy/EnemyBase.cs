@@ -124,7 +124,7 @@ public class EnemyBase : MonoBehaviour
 
     // < >   ======================================================================================
 
-    private void Awake()
+    protected virtual void Awake()
     {
         anim = GetComponent<Animator>();
         coll = GetComponent<Collider2D>();
