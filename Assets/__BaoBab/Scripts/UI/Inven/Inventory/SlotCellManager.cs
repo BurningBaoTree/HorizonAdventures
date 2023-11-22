@@ -70,7 +70,7 @@ public class SlotCellManager : MonoBehaviour
     /// </summary>
     /// <param name="cellcount">아이템의 부피</param>
     /// <returns></returns>
-    public bool ACCCanStack(int cellcount)
+    public bool ACCCanStack(ItemData tem)
     {
         compairedCell.Clear();
         int count = 0;
@@ -83,13 +83,15 @@ public class SlotCellManager : MonoBehaviour
             }
         }
         bool result;
-        if (count == cellcount)
+
+        if (count == tem.slotSize)
         {
             result = true;
             foreach (SlotCellData cell in compairedCell)
             {
                 cell.IsSet = true;
                 InventoryInfo.Inst.BagParent.CellCenters.Add(cell.transform.position);
+                InventoryInfo.Inst.BagParent.PutItemInTheBag(tem);
             }
         }
         else

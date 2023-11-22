@@ -36,7 +36,11 @@ public class InventoryInfo : MonoBehaviour
     /// </summary>
     public Action ListHasBeenChanged;
 
+    /// <summary>
+    /// 템프슬롯
+    /// </summary>
     public TempSlot temp;
+
     /// <summary>
     /// 무기 슬롯의 부모 개체
     /// </summary>

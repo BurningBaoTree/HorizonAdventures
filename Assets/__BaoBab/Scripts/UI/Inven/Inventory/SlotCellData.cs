@@ -156,6 +156,11 @@ public class SlotCellData : MonoBehaviour
         tryToSet = false;
         sp.color = IsSetNow ? SetColor : BaseColor;
     }
+
+    /// <summary>
+    /// 드래그 종료시 set상태에 따라 색상 변경
+    /// </summary>
+    /// <param name="IsSetNow"></param>
     void EndDragReset(bool IsSetNow)
     {
         sp.color = IsSetNow ? SetColor : BaseColor;

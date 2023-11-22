@@ -27561,58 +27561,6 @@ MonoBehaviour:
   fireSpeed: 0
   ammoCount: 0
   reLoadTime: 0
---- !u!1 &1758812740
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1758812741}
-  - component: {fileID: 1758812742}
-  m_Layer: 5
-  m_Name: WitchInBag
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1758812741
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758812740}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3460380544671330208}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1758812742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758812740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f27905c98e47594c9144b2aa08f2369, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BaseItemOBJ: {fileID: 8618979641443850868, guid: f8f39708eceb6fa48bda73fecec868a2, type: 3}
-  CellCenters: []
-  AllItmes: []
 --- !u!4 &1762906793 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8164433086067754044, guid: 6707dc75050fc394bbf4cd72a6290d92, type: 3}
@@ -28117,7 +28065,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -28146,11 +28094,6 @@ RectTransform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6056423230773728576, guid: e272b4b1757dfaa4abfa1436d8e84a10, type: 3}
   m_PrefabInstance: {fileID: 9097649430853395861}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &3460380544671330208 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8580060165347790491, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
-  m_PrefabInstance: {fileID: 5122776987907547451}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5122776987907547451
 PrefabInstance:
@@ -31294,50 +31237,6 @@ PrefabInstance:
     - target: {fileID: 8580060163986978255, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8580060164419225407, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
-      propertyPath: equipinven.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8580060164506445435, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
-      propertyPath: m_Color.a
-      value: 0.7058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 8580060165140003536, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
-      propertyPath: sizeCoutn.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8580060165140003536, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
-      propertyPath: sizeCoutn.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8580060165140003536, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
-      propertyPath: sizeCoutn.Array.data[1]
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8580060165140003536, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
-      propertyPath: sizeCoutn.Array.data[2]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8580060165140003536, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
-      propertyPath: sizeCoutn.Array.data[3]
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8580060165140003536, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
-      propertyPath: sizeCoutn.Array.data[5]
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8580060165140003536, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
-      propertyPath: sizeCoutn.Array.data[7]
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8580060165434514449, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 8580060165683003359, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
-      propertyPath: isSubSlot
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}

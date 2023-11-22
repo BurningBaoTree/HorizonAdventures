@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f27905c98e47594c9144b2aa08f2369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseItemOBJ: {fileID: 0}
+  BaseItemOBJ: {fileID: 8618979641443850868, guid: f8f39708eceb6fa48bda73fecec868a2, type: 3}
   CellCenters: []
   AllItmes: []
 --- !u!1 &5122776987414100909
@@ -1893,6 +1893,11 @@ MonoBehaviour:
   InventoryRect: {fileID: 0}
   slotCellManager: {fileID: 0}
   BagParent: {fileID: 0}
+  subslot: {fileID: 0}
+  equipinven:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &8580060164506445433
 GameObject:
   m_ObjectHideFlags: 0
@@ -2061,6 +2066,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4385da424c56ac7479fd9cc411c95fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponSlotRect: {fileID: 0}
+  isSubSlot: 0
   weaponImage: {fileID: 0}
   NameText: {fileID: 0}
   LeftBullet: {fileID: 0}
@@ -2875,6 +2882,7 @@ MonoBehaviour:
   - {x: 250, y: 250}
   sizeCoutn: 010000000200000003000000060000000000000008000000000000000a000000
   cellRect: {fileID: 0}
+  countInt: 0
   isSucessfulyMoved: 0
   dropMode: 0
 --- !u!1 &8580060165166584476
@@ -3363,6 +3371,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4385da424c56ac7479fd9cc411c95fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponSlotRect: {fileID: 0}
+  isSubSlot: 0
   weaponImage: {fileID: 0}
   NameText: {fileID: 0}
   LeftBullet: {fileID: 0}
@@ -3593,6 +3603,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4385da424c56ac7479fd9cc411c95fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponSlotRect: {fileID: 0}
+  isSubSlot: 0
   weaponImage: {fileID: 0}
   NameText: {fileID: 0}
   LeftBullet: {fileID: 0}
@@ -3689,6 +3701,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4385da424c56ac7479fd9cc411c95fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponSlotRect: {fileID: 0}
+  isSubSlot: 1
   weaponImage: {fileID: 0}
   NameText: {fileID: 0}
   LeftBullet: {fileID: 0}

@@ -32,10 +32,10 @@ public class InvItemOBJ : InventoryCon
     /// </summary>
     TextMeshProUGUI textcom;
 
-    ItemSize size;
+    ItemData itemData;
 
-    int MaxCount;
-    int countInt;
+    uint MaxCount;
+    uint countInt;
 
     private void Awake()
     {
@@ -60,7 +60,7 @@ public class InvItemOBJ : InventoryCon
         if (temp != null)
         {
             temp.gameObject.SetActive(true);
-            temp.LoadInfo(spr.sprite, size);
+            temp.LoadInfo(itemData, countInt);
             InventoryInfo.Inst.StartOnDrag?.Invoke();
         }
     }
@@ -93,14 +93,23 @@ public class InvItemOBJ : InventoryCon
     /// <param name="sprt">스프라이트</param>
     /// <param name="count">갯수</param>
     /// <param name="sz">사이즈</param>
-    public void MakeItemInfo(Sprite sprt, int count, ItemSize sz)
+    public void MakeItemInfo(ItemData tem , uint count)
     {
-        spr.sprite = sprt;
+        itemData = tem;
+        spr.sprite = tem.itemIcon;
         countInt = count;
-        size = sz;
+        MaxCount = tem.maxStackCount;
         textcom.text = $"{count :00}";
         spr.color = Color.white;
         textcom.color= Color.white;
         this.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// 이 아이템에 같은 종류의 아이템 갯수를 추가한다.
+    /// </summary>
+    public void StackItem()
+    {
+
     }
 }

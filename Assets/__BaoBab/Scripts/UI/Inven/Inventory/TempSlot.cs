@@ -24,8 +24,6 @@ public class TempSlot : InventoryCon
     /// </summary>
     public Vector2[] ImageSizeList;
 
-    public int[] sizeCoutn;
-
     /// <summary>
     /// 이미지의 Rect
     /// </summary>
@@ -46,9 +44,19 @@ public class TempSlot : InventoryCon
     /// </summary>
     TextMeshProUGUI textcom;
 
-    int copySize;
-    int countInt;
+    /// <summary>
+    /// 현재 들고있는 아이템 데이터
+    /// </summary>
+    public ItemData copyTemInfo;
 
+    /// <summary>
+    /// 현재 갯수
+    /// </summary>
+    public uint countInt;
+
+    /// <summary>
+    /// 인벤토리 Rect사이즈
+    /// </summary>
     RectTransform invenRect;
 
     public bool isSucessfulyMoved = false;
@@ -124,6 +132,7 @@ public class TempSlot : InventoryCon
     }
     private void OnEnable()
     {
+        copyTemInfo = null;
         invenRect = InventoryInfo.Inst.InventoryRect;
         FallowActive = true;
         isSucessfulyMoved = false;
@@ -162,21 +171,21 @@ public class TempSlot : InventoryCon
     }
 
     /// <summary>
-    /// 템프 슬롯에 정보 삽입
+    /// 아이템 정보를 temp슬롯으로 옮기는 함수
     /// </summary>
-    /// <param name="sp">스프라이트 이미지</param>
-    /// <param name="valuint">현재 갯수 정보</param>
-    /// <param name="max">최대 갯수 정보</param>
-    public void LoadInfo(Sprite sp, int valuint, ItemSize size)
+    /// <param name="tem">아이템 정보</param>
+    /// <param name="valuint">아이템 갯수</param>
+    public void LoadInfo(ItemData tem, uint valuint)
     {
-        if (sp != null)
+        if (tem != null)
         {
-            spr.sprite = sp;
+            copyTemInfo = tem;
+            spr.sprite = tem.itemIcon;
             spr.color = Color.white;
             countInt = valuint;
             textcom.text = $"{valuint: 00}";
             textcom.color = Color.white;
-            ReSizing(size);
+            ReSizing(tem.size);
         }
         else
         {
@@ -184,14 +193,15 @@ public class TempSlot : InventoryCon
         }
 
     }
-    public void LoadInfo(Sprite sp, ItemSize size)
+    public void LoadInfo(ItemData tem)
     {
-        if (sp != null)
+        if (tem != null)
         {
-            spr.sprite = sp;
+            copyTemInfo = tem;
+            spr.sprite = tem.itemIcon;
             spr.color = Color.white;
             textcom.color = Color.clear;
-            ReSizing(size);
+            ReSizing(tem.size);
         }
         else
         {
@@ -219,7 +229,6 @@ public class TempSlot : InventoryCon
     {
         sprRect.sizeDelta = ImageSizeList[(int)size];
         cellRect.sizeDelta = CellsizeList[(int)size];
-        copySize = sizeCoutn[(int)size];
     }
 
     /// <summary>
@@ -227,8 +236,10 @@ public class TempSlot : InventoryCon
     /// </summary>
     void EndDragTemp()
     {
+        //드롭모드가 참이라면 드롭한다.
         Dropthis(DropMode);
-        PatchThis(InventoryInfo.Inst.slotCellManager.ACCCanStack(copySize));
+        //인벤토리 창으로 패치가 가능하면 패치한다.
+        PatchThis(InventoryInfo.Inst.slotCellManager.ACCCanStack(copyTemInfo));
     }
 
     /// <summary>

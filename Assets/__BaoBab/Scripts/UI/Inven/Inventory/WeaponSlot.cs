@@ -14,7 +14,7 @@ public class WeaponSlot : InventoryCon
 
     public RectTransform WeaponSlotRect;
 
-    ItemData WeaponData;
+    ItemData WeaponInfo;
 
     /// <summary>
     /// 비어있는지 체크용 bool
@@ -85,6 +85,7 @@ public class WeaponSlot : InventoryCon
         }
         else
         {
+            WeaponInfo = weaponData;
             isEmpty = false;
             weaponImage.sprite = weaponData.itemIcon;
             weaponImage.color = Color.white;
@@ -141,7 +142,7 @@ public class WeaponSlot : InventoryCon
         {
             InventoryInfo.Inst.StartOnDrag?.Invoke();
             temp.gameObject.SetActive(true);
-            temp.LoadInfo(weaponImage.sprite, size);
+            temp.LoadInfo(WeaponInfo);
             invisival();
         }
     }
@@ -155,7 +156,7 @@ public class WeaponSlot : InventoryCon
         {
             base.OnBeginDrag(eventData);
             temp.gameObject.SetActive(true);
-            temp.LoadInfo(weaponImage.sprite, size);
+            temp.LoadInfo(WeaponInfo);
             invisival();
         }
     }
@@ -173,6 +174,7 @@ public class WeaponSlot : InventoryCon
             temp.gameObject.SetActive(false);
             if (temp.isSucessfulyMoved)
             {
+                //성공적으로 이동했는데 위치가 이 무기슬롯일대
                 if(RectTransformUtility.RectangleContainsScreenPoint(WeaponSlotRect,temp.transform.position))
                 {
 
@@ -219,5 +221,6 @@ public class WeaponSlot : InventoryCon
         LeftBullet.color = Color.clear;
         LeftBullet.text = null;
         isEmpty = true;
+        WeaponInfo = null;
     }
 }
