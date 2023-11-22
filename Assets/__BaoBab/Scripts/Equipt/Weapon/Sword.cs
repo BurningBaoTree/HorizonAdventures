@@ -62,13 +62,16 @@ public class Sword : EquiptBase
                 hitAnim = child.GetComponent<Animator>();
             }
 
-            Enemy_Test enemy;
-            enemy = collision.GetComponent<Enemy_Test>();
+            // <=== 고침
+            EnemyBase enemy = collision.GetComponent<EnemyBase>();
 
             hitAnim.SetTrigger("TargetHit");
 
-            enemy.HP -= damage;
-
+            if (enemy)
+            {
+                enemy.Health -= damage;
+            }
+            // ================>
         }
     }
 

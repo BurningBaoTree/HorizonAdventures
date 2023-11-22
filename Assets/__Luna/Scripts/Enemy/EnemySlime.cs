@@ -9,9 +9,23 @@ public class EnemySlime : EnemyBase
     // 3. 슬라임은 벽을 만나면 반대 방향으로 바뀐다.
     // 4. 대미지를 받으면 살짝 밀려난다.
 
-    private float waitTime = 3.0f;
+    /// <summary>
+    /// wait 상태 지속 시간
+    /// </summary>
+    private float waitTime;
 
-    private float moveTime = 6.0f;
+    /// <summary>
+    /// move 상태 지속 시간
+    /// </summary>
+    private float moveTime;
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy"))
+        {
+            MoveDir = -MoveDir;
+        }
+    }
 
     protected override void Wait()
     {
@@ -23,7 +37,7 @@ public class EnemySlime : EnemyBase
 
     protected override void Move()
     {
-        transform.position += Time.deltaTime * moveDir * moveSpeed;
+        transform.position += Time.deltaTime * Vector3.right * MoveDir * moveSpeed;
 
         if(elapsedTime > moveTime)
         {
@@ -31,30 +45,26 @@ public class EnemySlime : EnemyBase
         }
     }
 
-    protected override void ChangeWait()
+    protected override void WaitInit()
     {
         elapsedTime = 0.0f;
-        waitTime = Random.Range(1, 4);
+        waitTime = Random.value * 2.0f;
     }
 
-    protected override void ChangeMove()
+    protected override void MoveInit()
     {
         elapsedTime = 0.0f;
+        moveSpeed = 1.5f + Random.value * 0.5f;
         moveTime = Random.Range(5, 10);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Enemy"))
-        {
-            moveDir = -moveDir;
-        }
     }
 
     protected override void OnHit()
     {
         base.OnHit();
 
-        Debug.Log($"{gameObject.name}의 체력이 {Health}로 감소했다.");
+        if(state == EnemyState.Move)
+        {
+            State = EnemyState.Wait;
+        }
     }
 }

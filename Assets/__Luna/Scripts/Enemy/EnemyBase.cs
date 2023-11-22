@@ -28,12 +28,12 @@ public class EnemyBase : MonoBehaviour
     /// <summary>
     /// 최대 체력
     /// </summary>
-    private float maxHealth = 5.0f;
+    public float maxHealth = 100.0f;
 
     /// <summary>
     /// 체력 프로퍼티
     /// </summary>
-    protected float Health
+    public float Health
     {
         get => health;
         set
@@ -76,15 +76,15 @@ public class EnemyBase : MonoBehaviour
                 switch (state)
                 {
                     case EnemyState.Wait:
-                        ChangeWait();
+                        WaitInit();
                         onStateUpdate = Wait;
                         break;
                     case EnemyState.Move:
-                        ChangeMove();
+                        MoveInit();
                         onStateUpdate = Move;
                         break;
                     case EnemyState.Attack:
-                        ChangeAttack();
+                        AttackInit();
                         onStateUpdate = Attack;
                         break;
                     default:
@@ -95,9 +95,21 @@ public class EnemyBase : MonoBehaviour
     }
 
     /// <summary>
-    /// 이동 상태일때 움직일 방향
+    /// 이동 상태일때 움직일 방향 (-1이면 왼쪽으로 이동)
     /// </summary>
-    protected Vector3 moveDir = Vector3.left;
+    private int moveDir = -1;
+    protected int MoveDir
+    {
+        get => moveDir;
+        set
+        {
+            if(moveDir != value)
+            {
+                moveDir = value;
+                spriteRenderer.flipX = moveDir > 0;
+            }
+        }
+    }
 
     /// <summary>
     /// 상태 별 변화용 업데이트 델리게이트
@@ -106,6 +118,7 @@ public class EnemyBase : MonoBehaviour
 
     // 컴포넌트들
     protected Animator anim;
+    protected Collider2D coll;
     protected Rigidbody2D rigid;
     protected SpriteRenderer spriteRenderer;
 
@@ -114,6 +127,7 @@ public class EnemyBase : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        coll = GetComponent<Collider2D>();
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -165,7 +179,10 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void OnHit()
     {
+        anim.ResetTrigger("OnHit");
+        anim.SetTrigger("OnHit");
 
+        Debug.Log($"{gameObject.name}의 체력이 {Health}로 감소했다.");
     }
 
     /// <summary>
@@ -173,13 +190,14 @@ public class EnemyBase : MonoBehaviour
     /// </summary>
     protected virtual void Die()
     {
-
+        Debug.Log($"{gameObject.name} 죽음!");
+        Destroy(gameObject);
     }
 
     /// <summary>
     /// 상태가 Wait으로 바뀌기 전에 실행할 함수
     /// </summary>
-    protected virtual void ChangeWait()
+    protected virtual void WaitInit()
     {
 
     }
@@ -187,7 +205,7 @@ public class EnemyBase : MonoBehaviour
     /// <summary>
     /// 상태가 Move으로 바뀌기 전에 실행할 함수
     /// </summary>
-    protected virtual void ChangeMove()
+    protected virtual void MoveInit()
     {
 
     }
@@ -195,7 +213,7 @@ public class EnemyBase : MonoBehaviour
     /// <summary>
     /// 상태가 Attack으로 바뀌기 전에 실행할 함수
     /// </summary>
-    protected virtual void ChangeAttack()
+    protected virtual void AttackInit()
     {
 
     }
