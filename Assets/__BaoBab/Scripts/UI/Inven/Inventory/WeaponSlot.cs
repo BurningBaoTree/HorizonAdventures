@@ -12,11 +12,16 @@ public class WeaponSlot : InventoryCon
 {
     TempSlot temp;
 
+    public RectTransform WeaponSlotRect;
+
+    ItemData WeaponData;
 
     /// <summary>
     /// 비어있는지 체크용 bool
     /// </summary>
     bool isEmpty = true;
+
+    public bool isSubSlot;
 
     /// <summary>
     /// 무기 이미지
@@ -53,6 +58,7 @@ public class WeaponSlot : InventoryCon
         weaponImage = transform.GetChild(0).GetComponent<Image>();
         NameText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         LeftBullet = transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        WeaponSlotRect = GetComponent<RectTransform>();
     }
     private void Start()
     {
@@ -65,35 +71,32 @@ public class WeaponSlot : InventoryCon
     /// <param name="NameWP"></param>
     /// <param name="NowState"></param>
     /// <param name="MaxState"></param>
-    public void initializeWeaponSlot(Sprite imageWP, string NameWP, int NowState, int MaxState, string Des, ItemSize size)
+    public void initializeWeaponSlot(ItemData weaponData)
     {
-        if (imageWP == null)
+        if (weaponData == null)
         {
             isEmpty = true;
             weaponImage.sprite = null;
             weaponImage.color = Color.clear;
+
+            NameText.color = Color.clear;
+            LeftBullet.color = Color.clear;
+            LeftBullet.text = null;
         }
         else
         {
             isEmpty = false;
-            weaponImage.sprite = imageWP;
+            weaponImage.sprite = weaponData.itemIcon;
             weaponImage.color = Color.white;
-            this.size = size;
-        }
+            this.size = weaponData.size;
 
-        if (NameWP == null)
-        {
-            NameText.color = Color.clear;
-        }
-        else
-        {
             NameText.color = Color.white;
-            NameText.text = NameWP;
-            NameOfWeapon = NameWP;
-            DescriptionOfWeapon = Des;
+            NameText.text = weaponData.itemName;
+            NameOfWeapon = weaponData.itemName;
+            DescriptionOfWeapon = weaponData.itemDescription;
         }
-
-        if (MaxState == 0)
+/*
+        if (weaponData.maxStackCount == 1)
         {
             LeftBullet.color = Color.clear;
         }
@@ -101,7 +104,7 @@ public class WeaponSlot : InventoryCon
         {
             LeftBullet.color = Color.white;
             LeftBullet.text = $"{NowState: 000} / {MaxState: 000}";
-        }
+        }*/
     }
 
     /// <summary>
@@ -117,7 +120,7 @@ public class WeaponSlot : InventoryCon
     }
 
     /// <summary>
-    /// 무기 슬롯에 마우스 포인터를 올리면 설명이 안보이게 한다.
+    /// 무기 슬롯에 마우스 포인터를 빼면 설명이 안보이게 한다.
     /// </summary>
     /// <param name="eventData"></param>
     public override void OnPointerExit(PointerEventData eventData)
@@ -128,11 +131,20 @@ public class WeaponSlot : InventoryCon
         }
     }
 
+    /// <summary>
+    /// 마우스 클릭시 실행되는 함수
+    /// </summary>
+    /// <param name="eventData"></param>
     public override void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("누름");
+        if (!isEmpty)
+        {
+            InventoryInfo.Inst.StartOnDrag?.Invoke();
+            temp.gameObject.SetActive(true);
+            temp.LoadInfo(weaponImage.sprite, size);
+            invisival();
+        }
     }
-
     /// <summary>
     /// 드래그 시작 함수
     /// </summary>
@@ -141,18 +153,11 @@ public class WeaponSlot : InventoryCon
     {
         if (!isEmpty)
         {
-            if (temp != null)
-            {
-                temp.gameObject.SetActive(true);
-                temp.LoadInfo(weaponImage.sprite, size);
-                InventoryInfo.Inst.StartOnDrag?.Invoke();
-                invisival();
-            } 
+            base.OnBeginDrag(eventData);
+            temp.gameObject.SetActive(true);
+            temp.LoadInfo(weaponImage.sprite, size);
+            invisival();
         }
-    }
-    public override void OnDrag(PointerEventData eventData)
-    {
-        Debug.Log("드래그 중");
     }
 
     /// <summary>
@@ -163,35 +168,48 @@ public class WeaponSlot : InventoryCon
     {
         if (!isEmpty)
         {
-            if (temp != null)
-            {
-                temp.ResteInfo();
-                InventoryInfo.Inst.EndDraging?.Invoke();
-                temp.gameObject.SetActive(false);
-            }
+            base.OnEndDrag(eventData);
+            temp.ResteInfo();
+            temp.gameObject.SetActive(false);
             if (temp.isSucessfulyMoved)
             {
+                if(RectTransformUtility.RectangleContainsScreenPoint(WeaponSlotRect,temp.transform.position))
+                {
+
+                }
                 ResetSlot();
+                InventoryInfo.Inst.ListHasBeenChanged?.Invoke();
             }
             else
             {
                 visival();
-            } 
+            }
         }
     }
 
+    /// <summary>
+    /// 무기슬롯 투명화
+    /// </summary>
     void invisival()
     {
         weaponImage.color = Color.clear;
         NameText.color = Color.clear;
         LeftBullet.color = Color.clear;
     }
+
+    /// <summary>
+    /// 무기슬롯 다시 보이기
+    /// </summary>
     void visival()
     {
         weaponImage.color = Color.white;
         NameText.color = Color.white;
         LeftBullet.color = Color.white;
     }
+
+    /// <summary>
+    /// 무기슬롯 초기화
+    /// </summary>
     void ResetSlot()
     {
         weaponImage.color = Color.clear;

@@ -6,6 +6,7 @@ using UnityEngine;
 public class SubWeaponBase : MonoBehaviour
 {
     public ItemData temData;
+
     /// <summary>
     /// 무기 이름
     /// </summary>

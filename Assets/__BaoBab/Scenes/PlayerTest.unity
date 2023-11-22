@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 579280ec2b1cc2d489a88336d04b6385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  temData: {fileID: 0}
+  temData: {fileID: 11400000, guid: b42ac4b97712e914db1ac4f12a0ac888, type: 2}
   spRender: {fileID: 0}
   weaponName: "\uC544\uC774\uC5B8 \uC18C\uB4DC"
   weaponExplanation: "\uD074\uB808\uC774\uBAA8\uC5B4 \uC544\uB2D9\uB2C8\uB2E4. \uAC15\uCCA0\uAC80!"
@@ -478,6 +478,10 @@ PrefabInstance:
       value: WoodStick
       objectReference: {fileID: 0}
     - target: {fileID: 5060735691605935681, guid: c0b00c409efcc475e9d0a4295ec7e1ca, type: 3}
+      propertyPath: temData
+      value: 
+      objectReference: {fileID: 11400000, guid: af6ac535579f95c4fa98c3c9a6a92b9b, type: 2}
+    - target: {fileID: 5060735691605935681, guid: c0b00c409efcc475e9d0a4295ec7e1ca, type: 3}
       propertyPath: itemSize
       value: 2
       objectReference: {fileID: 0}
@@ -663,7 +667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99bfff6f2d102664fb6bc18477bb49c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  temData: {fileID: 0}
+  temData: {fileID: 11400000, guid: d52a3f1ab81393c4cb57ec610139ff85, type: 2}
   subweaponName: "\uC0AC\uC2DC\uBBF8"
   weaponExplanation: "\uC694\uAC83\uC740 \uC0AC\uB78C\uC744.. \uC774\uC81C.. \uCC0C\uB97C\uB54C
     \uC0AC\uC6A9\uD558\uB294 \uAC83\uC774\uC9C0\uB77C~ \uC694\uB798\uC694\uB798~"
@@ -10464,7 +10468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c0c1a3acaa3324ca593aa29f4a87d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  temData: {fileID: 0}
+  temData: {fileID: 11400000, guid: 9d9492663fe44d3489f8ebaf8d931374, type: 2}
   subweaponName: "\uAD8C\uCD1D"
   weaponExplanation: "\uC544\uD0B4\uBCF4\uB294 \uC544\uB2C8\uC9C0\uB9CC \uBE68\uB790\uC8E0?"
   itemSize: 1
@@ -10729,7 +10733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a800e5359e86c4fad72ddc2c005f0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  temData: {fileID: 0}
+  temData: {fileID: 11400000, guid: 0cd75d8651eabe64a880cf0bbdfd11dc, type: 2}
   spRender: {fileID: 0}
   weaponName: "\uC0F7\uAC74"
   weaponExplanation: "\uC5B4\uB5A4 \uAC00\uC774\uAC00 \uC4F0\uB358 \uC0F7\uAC74..
@@ -27548,7 +27552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ab7de446b48024c90d22432dfea354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  temData: {fileID: 0}
+  temData: {fileID: 11400000, guid: a745f7ae353fc3c428c7ca30bf49738f, type: 2}
   spRender: {fileID: 0}
   weaponName: "\uC5B4\uC370\uD2B8"
   weaponExplanation: "20\uBC1C \uB4E4\uC774 \uBC94\uC6A9\uC801\uC778 \uB300\uD654\uC218\uB2E8!"
@@ -27606,7 +27610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f27905c98e47594c9144b2aa08f2369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseItemOBJ: {fileID: 0}
+  BaseItemOBJ: {fileID: 8618979641443850868, guid: f8f39708eceb6fa48bda73fecec868a2, type: 3}
   CellCenters: []
   AllItmes: []
 --- !u!4 &1762906793 stripped
@@ -28006,6 +28010,37 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &2010890436
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2010890437}
+  m_Layer: 0
+  m_Name: ItemSpwaner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2010890437
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010890436}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2071978960
 GameObject:
   m_ObjectHideFlags: 0
@@ -31260,6 +31295,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8580060164419225407, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
+      propertyPath: equipinven.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8580060164506445435, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
       propertyPath: m_Color.a
       value: 0.7058824
@@ -31295,6 +31334,10 @@ PrefabInstance:
     - target: {fileID: 8580060165434514449, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
       propertyPath: m_SizeDelta.x
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 8580060165683003359, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
+      propertyPath: isSubSlot
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}

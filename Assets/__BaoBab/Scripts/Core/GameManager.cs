@@ -13,6 +13,15 @@ public class GameManager : Singleton<GameManager>
     Player_State playerState;
     public Player_State PlayerState => playerState;
 
+    ItemDataManager itemDataManager;
+    public ItemDataManager ItemData => itemDataManager;
+
+    protected override void OnPreInitialize()
+    {
+        base.OnPreInitialize();
+        itemDataManager = GetComponent<ItemDataManager>();
+    }
+
     protected override void OnInitialize()
     {
         playerMove = FindObjectOfType<Player_Move>();

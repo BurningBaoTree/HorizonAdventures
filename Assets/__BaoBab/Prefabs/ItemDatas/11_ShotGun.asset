@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ace559e4c912644aa00b376fd8c933, type: 3}
+  m_Name: 11_ShotGun
+  m_EditorClassIdentifier: 
+  code: 11
+  type: 0
+  size: 3
+  itemName: "\uC0F7\uAC74"
+  modelPrefab: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 8cf48847299f6ba4ca9e5ebec2a59c0d, type: 3}
+  price: 0
+  maxStackCount: 1
+  itemDescription: "\uC9C0\uC625\uC744 \uAC70\uB2D0\uB358 \uC778\uAC04\uC774 \uC4F0\uB358
+    \uC0F7\uAC74.. \uAC00\uB054\uC529 \uAC08\uACE0\uB9AC\uAC00 \uB098\uAC00\uAE30\uB3C4
+    \uD55C\uB2E4\uB294\uB370.. \uC9C0\uAE08\uAE4C\uC9C0 \uD55C\uBC88\uB3C4 \uBCF8\uC801\uC740
+    \uC5C6\uB2E4."
+  slotSize: 6

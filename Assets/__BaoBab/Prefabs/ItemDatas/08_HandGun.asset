@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ace559e4c912644aa00b376fd8c933, type: 3}
+  m_Name: 08_HandGun
+  m_EditorClassIdentifier: 
+  code: 8
+  type: 1
+  size: 1
+  itemName: "\uAD8C\uCD1D"
+  modelPrefab: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: d805222762934e34689b10ec6aeb7fa5, type: 3}
+  price: 0
+  maxStackCount: 1
+  itemDescription: "\uC544\uD0B4\uBCF4\uB294 \uC544\uB2C8\uC9C0\uB9CC \uBE68\uB790\uC8E0?"
+  slotSize: 2

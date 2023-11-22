@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -30,6 +31,10 @@ public class InventoryInfo : MonoBehaviour
     /// </summary>
     public Action EndDraging;
 
+    /// <summary>
+    /// 무기슬롯 리스트가 바뀌었을때 호출
+    /// </summary>
+    public Action ListHasBeenChanged;
 
     public TempSlot temp;
     /// <summary>
@@ -52,6 +57,9 @@ public class InventoryInfo : MonoBehaviour
     public SlotCellManager slotCellManager;
 
     public BagManager BagParent;
+
+    public SubWeaponBase subslot;
+    public EquiptBase[] equipinven = new EquiptBase[3];
 
     /// <summary>
     /// 초기화용 int
@@ -105,22 +113,26 @@ public class InventoryInfo : MonoBehaviour
         if (GameManager.Inst.PlayerEquiped.subweapon != null)
         {
             SubWeaponBase sub = GameManager.Inst.PlayerEquiped.subweapon;
-            weaponSlots[0].initializeWeaponSlot(sub.subSpRender.sprite, sub.subweaponName, 0, 0, sub.weaponExplanation, sub.itemSize);
+            subslot = sub;
+            weaponSlots[0].initializeWeaponSlot(sub.temData);
         }
         else
         {
-            weaponSlots[0].initializeWeaponSlot(null, null, 0, 0, null, ItemSize.size1x1);
+            subslot = null;
+            weaponSlots[0].initializeWeaponSlot(null);
         }
         for (int i = 1; i < WeaponSlotGroup.childCount; i++)
         {
             if (GameManager.Inst.PlayerEquiped.Equipments[i - 1] != null)
             {
                 EquiptBase equipt = GameManager.Inst.PlayerEquiped.Equipments[i - 1];
-                weaponSlots[i].initializeWeaponSlot(equipt.spRender.sprite, equipt.weaponName, equipt.ammoCount, 999, equipt.weaponExplanation, equipt.itemSize);
+                equipinven[i-1] = equipt;
+                weaponSlots[i].initializeWeaponSlot(equipt.temData);
             }
             else
             {
-                weaponSlots[i].initializeWeaponSlot(null, null, 0, 0, null, ItemSize.size1x1);
+                equipinven[i-1] = null;
+                weaponSlots[i].initializeWeaponSlot(null);
             }
         }
     }

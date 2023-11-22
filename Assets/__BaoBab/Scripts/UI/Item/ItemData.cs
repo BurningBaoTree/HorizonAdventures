@@ -2,29 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType
-{
-    MainWeapon,
-    SubWeapon,
-    Item
-}
-
-public enum ItemCode
-{
-    GoldCoin = 0,
-    SilverCoin,
-    CaperCoin,
-    Woods,
-    Rocks,
-    MonsterCore,
-    Assult,
-    Sashimi,
-    HandGun,
-    WoodStick,
-    IronSword,
-    Shotgun
-}
-
 /// <summary>
 /// 아이템 데이터 스크립터블
 /// </summary>
@@ -34,6 +11,7 @@ public class ItemData : ScriptableObject
     [Header("아이템 기본 데이터")]
     public ItemCode code;                       // 아이템 코드
     public ItemType type;                       // 아이템 타입
+    public ItemSize size;
     public string itemName = "아이템";           // 아이템 이름
     public GameObject modelPrefab;              // 아이템이 씬에 있을 때의 모델용 프리팹
     public Sprite itemIcon;                     // 아이템이 인벤토리 안에서 보일 아이콘

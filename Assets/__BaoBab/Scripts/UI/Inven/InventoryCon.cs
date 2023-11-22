@@ -14,16 +14,16 @@ public class InventoryCon : MonoBehaviour, UIInventoryController
     }
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
-
+        InventoryInfo.Inst.StartOnDrag?.Invoke();
     }
     public virtual void OnDrag(PointerEventData eventData)
     {
-
+        InventoryInfo.Inst.OnDraging?.Invoke();
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
     {
-
+        InventoryInfo.Inst.EndDraging?.Invoke();
     }
 
     public virtual void OnPointerEnter(PointerEventData eventData)

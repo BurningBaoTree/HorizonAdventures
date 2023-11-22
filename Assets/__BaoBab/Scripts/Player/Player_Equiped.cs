@@ -69,7 +69,7 @@ public class Player_Equiped : MonoBehaviour
             if (canUseWeapon != value)
             {
                 canUseWeapon = value;
-                if(canUseWeapon)
+                if (canUseWeapon)
                 {
                     weaponSlot.gameObject.SetActive(true);
                 }
@@ -205,6 +205,13 @@ public class Player_Equiped : MonoBehaviour
         input.Player.MouseAction.performed -= UseHold;
         input.Player.MouseMove.performed -= MoveingMouse;
         input.Disable();
+    }
+    private void Start()
+    {
+        InventoryInfo.Inst.ListHasBeenChanged += () =>
+        {
+            RefreshTheList(InventoryInfo.Inst.equipinven);
+        };
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -355,11 +362,18 @@ public class Player_Equiped : MonoBehaviour
     /// 인벤토리에서 순서를 교체하면 실행될 재배열 함수
     /// </summary>
     /// <param name="list"></param>
-    public void RefreshTheList(List<EquiptBase> list)
+    public void RefreshTheList(EquiptBase[] list)
     {
         for (int i = 0; i < 3; i++)
         {
-            Equipments[i] = list[i];
+            if (list[i] != null)
+            {
+                Equipments[i] = list[i];
+            }
+            else
+            {
+                Equipments[i] = null;
+            }
         }
     }
 
@@ -386,10 +400,10 @@ public class Player_Equiped : MonoBehaviour
     /// <param name="obj"></param>
     private void UseSubWeaponNow(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-/*        if (Equipments[NowHold] != null)
-        {
-            Equipments[NowHold].gameObject.SetActive(false);
-        }*/
+        /*        if (Equipments[NowHold] != null)
+                {
+                    Equipments[NowHold].gameObject.SetActive(false);
+                }*/
         subweapon.gameObject.SetActive(true);
         subweapon.UseSubWeapon?.Invoke();
     }

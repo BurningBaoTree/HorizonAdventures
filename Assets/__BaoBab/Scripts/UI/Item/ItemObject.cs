@@ -9,9 +9,19 @@ public class ItemObject : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
     ItemData itemData = null;
-    public ItemData ItemDatas => itemData;
+    public ItemData ItemData
+    {
+        get => itemData;
+        set
+        {
+            if (itemData == null)    // 팩토리에서 한번 설정가능하도록
+            {
+                itemData = value;
+            }
+        }
+    }
     private void OnEnable()
     {
-        spriteRenderer.sprite = itemData.itemIcon;
+        spriteRenderer.sprite = ItemData.itemIcon;
     }
 }

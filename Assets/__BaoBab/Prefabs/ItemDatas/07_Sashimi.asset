@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01ace559e4c912644aa00b376fd8c933, type: 3}
-  m_Name: Assult
+  m_Name: 07_Sashimi
   m_EditorClassIdentifier: 
-  code: 6
-  type: 0
-  itemName: "\uC5B4\uC370\uD2B8"
+  code: 7
+  type: 1
+  size: 2
+  itemName: "\uC0AC\uC2DC\uBBF8"
   modelPrefab: {fileID: 0}
-  itemIcon: {fileID: 21300000, guid: 98634771617ddae48a362f50855c6cb8, type: 3}
-  price: 0
+  itemIcon: {fileID: 21300000, guid: b9956be31c2244c4ca621560a7d908fb, type: 3}
+  price: 100
   maxStackCount: 1
-  itemDescription: "\uC124\uBA85"
-  slotSize: 8
+  itemDescription: "\uC694\uAC83\uC740 \uC0AC\uB78C\uC744.. \uC774\uC81C.. \uCC0C\uB97C\uB54C
+    \uC0AC\uC6A9\uD558\uB294 \uAC83\uC774\uC9C0\uB77C~ \uC694\uB798\uC694\uB798~"
+  slotSize: 3

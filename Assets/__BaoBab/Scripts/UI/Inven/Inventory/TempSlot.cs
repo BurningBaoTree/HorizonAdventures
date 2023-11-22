@@ -7,18 +7,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
-public enum ItemSize
-{
-    size1x1 = 0,
-    size1x2,
-    size1x3,
-    size2x3,
-    size3x3,
-    size4x2,
-    size4x4,
-    size5x2
-}
-
 /// <summary>
 /// 템프 슬롯 코드
 /// </summary>
