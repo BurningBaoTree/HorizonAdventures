@@ -16,6 +16,11 @@ public class EnemyBase : MonoBehaviour
     }
 
     /// <summary>
+    /// 무적인지 확인하는 변수
+    /// </summary>
+    protected bool invinable = false;
+
+    /// <summary>
     /// 경과 시간 체크용
     /// </summary>
     protected float elapsedTime = 0.0f;
@@ -38,7 +43,7 @@ public class EnemyBase : MonoBehaviour
         get => health;
         set
         {
-            if(health != value)
+            if(!invinable && health != value)
             {
                 health = value;
                 if (health > 0)
@@ -124,7 +129,7 @@ public class EnemyBase : MonoBehaviour
 
     // < >   ======================================================================================
 
-    private void Awake()
+    protected virtual void Awake()
     {
         anim = GetComponent<Animator>();
         coll = GetComponent<Collider2D>();
@@ -132,7 +137,7 @@ public class EnemyBase : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         health = maxHealth;
         State = EnemyState.Wait;
