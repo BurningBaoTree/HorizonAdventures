@@ -33,10 +33,10 @@ public class EnemyGost : EnemyBase
     /// </summary>
     private Transform target;
 
-    protected override void Awake()
+    protected override void OnEnable()
     {
-        base.Awake();
-
+        base.OnEnable();
+        isFind = false;
         CheckBox checkBox = GetComponentInChildren<CheckBox>();
         checkBox.onFind += () =>
         {
