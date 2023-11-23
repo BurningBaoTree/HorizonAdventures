@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -37,6 +38,8 @@ public class InvItemOBJ : InventoryCon
     uint MaxCount;
     uint countInt;
 
+    public List<SlotCellData> cellOnIt = new List<SlotCellData>();
+
     private void Awake()
     {
         spr = transform.GetChild(0).GetComponent<Image>();
@@ -46,9 +49,13 @@ public class InvItemOBJ : InventoryCon
         textcom = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         textcom.color = Color.clear;
     }
-    private void Start()
+    private void OnEnable()
     {
         temp = InventoryInfo.Inst.temp;
+    }
+    private void OnDestroy()
+    {
+        CellEmpty();
     }
 
     /// <summary>
@@ -60,6 +67,7 @@ public class InvItemOBJ : InventoryCon
         if (temp != null)
         {
             temp.gameObject.SetActive(true);
+            invisival();
             temp.LoadInfo(itemData, countInt);
             InventoryInfo.Inst.StartOnDrag?.Invoke();
         }
@@ -73,17 +81,19 @@ public class InvItemOBJ : InventoryCon
     {
         if (temp != null)
         {
+            CellEmpty();
             temp.ResteInfo();
             InventoryInfo.Inst.EndDraging?.Invoke();
+            if (temp.isSucessfulyMoved)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                CellBackFill();
+                visival();
+            }
             temp.gameObject.SetActive(false);
-        }
-        if(temp.isSucessfulyMoved)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            this.gameObject.SetActive(true);
         }
     }
 
@@ -93,16 +103,63 @@ public class InvItemOBJ : InventoryCon
     /// <param name="sprt">스프라이트</param>
     /// <param name="count">갯수</param>
     /// <param name="sz">사이즈</param>
-    public void MakeItemInfo(ItemData tem , uint count)
+    public void MakeItemInfo(ItemData tem, uint count)
     {
         itemData = tem;
         spr.sprite = tem.itemIcon;
         countInt = count;
         MaxCount = tem.maxStackCount;
-        textcom.text = $"{count :00}";
+        ReSizing(tem.size);
+        textcom.text = $"{count:00} / {tem.maxStackCount:00}";
         spr.color = Color.white;
-        textcom.color= Color.white;
-        this.gameObject.SetActive(false);
+        textcom.color = Color.white;
+        this.gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// 사이즈 고치기
+    /// </summary>
+    /// <param name="size"></param>
+    void ReSizing(ItemSize size)
+    {
+        sprRect.sizeDelta = temp.ImageSizeList[(int)size];
+        cellRect.sizeDelta = temp.CellsizeList[(int)size];
+    }
+
+    /// <summary>
+    /// 무기슬롯 투명화
+    /// </summary>
+    void invisival()
+    {
+        spr.color = Color.clear;
+        textcom.color = Color.clear;
+        cellRect.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// 무기슬롯 다시 보이기
+    /// </summary>
+    void visival()
+    {
+        spr.color = Color.white;
+        textcom.color = Color.white;
+        cellRect.gameObject.SetActive(true);
+    }
+
+    void CellEmpty()
+    {
+        foreach (SlotCellData cell in cellOnIt)
+        {
+            cell.IsSet = false;
+        }
+    }
+
+    void CellBackFill()
+    {
+        foreach (SlotCellData cell in cellOnIt)
+        {
+            cell.IsSet = true;
+        }
     }
 
     /// <summary>

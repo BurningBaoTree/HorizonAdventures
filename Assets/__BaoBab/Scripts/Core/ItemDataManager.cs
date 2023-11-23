@@ -23,6 +23,7 @@ public enum ItemCode
     WoodStick,
     IronSword,
     Shotgun,
+    SniperRifle
 }
 
 public enum ItemSize

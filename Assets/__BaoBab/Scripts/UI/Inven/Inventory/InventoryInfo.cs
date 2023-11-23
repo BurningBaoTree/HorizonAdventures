@@ -63,6 +63,10 @@ public class InventoryInfo : MonoBehaviour
     public BagManager BagParent;
 
     public SubWeaponBase subslot;
+
+    /// <summary>
+    /// 인벤토리용 무기 배열
+    /// </summary>
     public EquiptBase[] equipinven = new EquiptBase[3];
 
     /// <summary>
@@ -87,6 +91,7 @@ public class InventoryInfo : MonoBehaviour
         for (int i = 0; i < WeaponSlotGroup.childCount; i++)
         {
             weaponSlots[i] = WeaponSlotGroup.GetChild(i).GetComponent<WeaponSlot>();
+            weaponSlots[i].Madenumber = i;
         }
         initialcount = 0;
     }
@@ -118,12 +123,12 @@ public class InventoryInfo : MonoBehaviour
         {
             SubWeaponBase sub = GameManager.Inst.PlayerEquiped.subweapon;
             subslot = sub;
-            weaponSlots[0].initializeWeaponSlot(sub.temData);
+            weaponSlots[0].subinitializeWeaponSlot(sub);
         }
         else
         {
             subslot = null;
-            weaponSlots[0].initializeWeaponSlot(null);
+            weaponSlots[0].subinitializeWeaponSlot(null);
         }
         for (int i = 1; i < WeaponSlotGroup.childCount; i++)
         {
@@ -131,7 +136,7 @@ public class InventoryInfo : MonoBehaviour
             {
                 EquiptBase equipt = GameManager.Inst.PlayerEquiped.Equipments[i - 1];
                 equipinven[i-1] = equipt;
-                weaponSlots[i].initializeWeaponSlot(equipt.temData);
+                weaponSlots[i].initializeWeaponSlot(equipt);
             }
             else
             {

@@ -23,6 +23,8 @@ public class WeaponSlot : InventoryCon
 
     public bool isSubSlot;
 
+    public int Madenumber;
+
     /// <summary>
     /// 무기 이미지
     /// </summary>
@@ -53,6 +55,10 @@ public class WeaponSlot : InventoryCon
     /// </summary>
     string DescriptionOfWeapon;
 
+
+    public SubWeaponBase subWeapon;
+    public EquiptBase equiptGear;
+
     private void Awake()
     {
         weaponImage = transform.GetChild(0).GetComponent<Image>();
@@ -71,9 +77,9 @@ public class WeaponSlot : InventoryCon
     /// <param name="NameWP"></param>
     /// <param name="NowState"></param>
     /// <param name="MaxState"></param>
-    public void initializeWeaponSlot(ItemData weaponData)
+    public void subinitializeWeaponSlot(SubWeaponBase weapon)
     {
-        if (weaponData == null)
+        if (weapon == null)
         {
             isEmpty = true;
             weaponImage.sprite = null;
@@ -85,29 +91,45 @@ public class WeaponSlot : InventoryCon
         }
         else
         {
-            WeaponInfo = weaponData;
+            subWeapon = weapon;
+            WeaponInfo = weapon.temData;
             isEmpty = false;
-            weaponImage.sprite = weaponData.itemIcon;
+            weaponImage.sprite = weapon.temData.itemIcon;
             weaponImage.color = Color.white;
-            this.size = weaponData.size;
+            this.size = weapon.temData.size;
 
             NameText.color = Color.white;
-            NameText.text = weaponData.itemName;
-            NameOfWeapon = weaponData.itemName;
-            DescriptionOfWeapon = weaponData.itemDescription;
+            NameText.text = weapon.temData.itemName;
+            NameOfWeapon = weapon.temData.itemName;
+            DescriptionOfWeapon = weapon.temData.itemDescription;
         }
-/*
-        if (weaponData.maxStackCount == 1)
+    }
+    public void initializeWeaponSlot(EquiptBase weapon)
+    {
+        if (weapon == null)
         {
+            isEmpty = true;
+            weaponImage.sprite = null;
+            weaponImage.color = Color.clear;
+            NameText.color = Color.clear;
             LeftBullet.color = Color.clear;
+            LeftBullet.text = null;
         }
         else
         {
-            LeftBullet.color = Color.white;
-            LeftBullet.text = $"{NowState: 000} / {MaxState: 000}";
-        }*/
-    }
+            equiptGear =weapon;
+            WeaponInfo = weapon.temData;
+            isEmpty = false;
+            weaponImage.sprite = weapon.temData.itemIcon;
+            weaponImage.color = Color.white;
+            this.size = weapon.temData.size;
 
+            NameText.color = Color.white;
+            NameText.text = weapon.temData.itemName;
+            NameOfWeapon = weapon.temData.itemName;
+            DescriptionOfWeapon = weapon.temData.itemDescription;
+        }
+    }
     /// <summary>
     /// 무기 슬롯에 마우스 포인터를 올리면 설명이 보이게 한다.
     /// </summary>
@@ -133,20 +155,6 @@ public class WeaponSlot : InventoryCon
     }
 
     /// <summary>
-    /// 마우스 클릭시 실행되는 함수
-    /// </summary>
-    /// <param name="eventData"></param>
-    public override void OnPointerDown(PointerEventData eventData)
-    {
-        if (!isEmpty)
-        {
-            InventoryInfo.Inst.StartOnDrag?.Invoke();
-            temp.gameObject.SetActive(true);
-            temp.LoadInfo(WeaponInfo);
-            invisival();
-        }
-    }
-    /// <summary>
     /// 드래그 시작 함수
     /// </summary>
     /// <param name="eventData"></param>
@@ -156,7 +164,14 @@ public class WeaponSlot : InventoryCon
         {
             base.OnBeginDrag(eventData);
             temp.gameObject.SetActive(true);
-            temp.LoadInfo(WeaponInfo);
+            if (isSubSlot)
+            {
+                temp.LoadInfo(subWeapon);
+            }
+            else
+            {
+                temp.LoadInfo(equiptGear);
+            }
             invisival();
         }
     }
@@ -175,10 +190,25 @@ public class WeaponSlot : InventoryCon
             if (temp.isSucessfulyMoved)
             {
                 //성공적으로 이동했는데 위치가 이 무기슬롯일대
-                if(RectTransformUtility.RectangleContainsScreenPoint(WeaponSlotRect,temp.transform.position))
+                if (RectTransformUtility.RectangleContainsScreenPoint(WeaponSlotRect, temp.transform.position))
                 {
-
+                    if (isSubSlot)
+                    {
+                        InventoryInfo.Inst.subslot = temp.copySubWeaponData;
+                    }
+                    else
+                    {
+                        InventoryInfo.Inst.equipinven[Madenumber] = temp.copyWeaponData;
+                    }
                 }
+/*                if (isSubSlot)
+                {
+                    InventoryInfo.Inst.subslot = temp.
+                    }
+                else
+                {
+                    InventoryInfo.Inst.equipinven[Madenumber] =
+                    }*/
                 ResetSlot();
                 InventoryInfo.Inst.ListHasBeenChanged?.Invoke();
             }

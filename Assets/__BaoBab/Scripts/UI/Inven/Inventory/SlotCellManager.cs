@@ -90,9 +90,9 @@ public class SlotCellManager : MonoBehaviour
             foreach (SlotCellData cell in compairedCell)
             {
                 cell.IsSet = true;
-                InventoryInfo.Inst.BagParent.CellCenters.Add(cell.transform.position);
-                InventoryInfo.Inst.BagParent.PutItemInTheBag(tem);
+                InventoryInfo.Inst.BagParent.CellCenters.Add(cell);
             }
+            InventoryInfo.Inst.BagParent.PutItemInTheBag(tem);
         }
         else
         {

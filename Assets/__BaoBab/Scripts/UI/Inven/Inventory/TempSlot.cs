@@ -61,6 +61,9 @@ public class TempSlot : InventoryCon
 
     public bool isSucessfulyMoved = false;
 
+    public EquiptBase copyWeaponData;
+    public SubWeaponBase copySubWeaponData;
+
     #region 프로퍼티
     /// <summary>
     /// 마우스 추적 bool변수 (프로퍼티 있음)
@@ -144,7 +147,6 @@ public class TempSlot : InventoryCon
     private void OnDisable()
     {
         FallowActive = false;
-        countInt = 999;
     }
 
     private void Update()
@@ -174,7 +176,21 @@ public class TempSlot : InventoryCon
     /// 아이템 정보를 temp슬롯으로 옮기는 함수
     /// </summary>
     /// <param name="tem">아이템 정보</param>
-    /// <param name="valuint">아이템 갯수</param>
+    public void LoadInfo(ItemData tem)
+    {
+        if (tem != null)
+        {
+            copyTemInfo = tem;
+            spr.sprite = tem.itemIcon;
+            spr.color = Color.white;
+            textcom.color = Color.clear;
+            ReSizing(tem.size);
+        }
+        else
+        {
+            ResteInfo();
+        }
+    }
     public void LoadInfo(ItemData tem, uint valuint)
     {
         if (tem != null)
@@ -191,23 +207,40 @@ public class TempSlot : InventoryCon
         {
             ResteInfo();
         }
-
     }
-    public void LoadInfo(ItemData tem)
+    public void LoadInfo(EquiptBase tem)
     {
         if (tem != null)
         {
-            copyTemInfo = tem;
-            spr.sprite = tem.itemIcon;
+            copyWeaponData = tem;
+            copyTemInfo = tem.temData;
+            spr.sprite = tem.temData.itemIcon;
             spr.color = Color.white;
             textcom.color = Color.clear;
-            ReSizing(tem.size);
+            ReSizing(tem.temData.size);
         }
         else
         {
             ResteInfo();
         }
     }
+    public void LoadInfo(SubWeaponBase tem)
+    {
+        if (tem != null)
+        {
+            copySubWeaponData = tem;
+            copyTemInfo = tem.temData;
+            spr.sprite = tem.temData.itemIcon;
+            spr.color = Color.white;
+            textcom.color = Color.clear;
+            ReSizing(tem.temData.size);
+        }
+        else
+        {
+            ResteInfo();
+        }
+    }
+
 
     /// <summary>
     /// 템프슬롯 초기화
@@ -219,6 +252,9 @@ public class TempSlot : InventoryCon
         textcom.text = null;
         textcom.color = Color.clear;
         spr.gameObject.transform.localScale = Vector3.one;
+        countInt = 0;
+        copyWeaponData = null;
+        copySubWeaponData = null;
     }
 
     /// <summary>
@@ -290,5 +326,13 @@ public class TempSlot : InventoryCon
         {
             textcom.text = $"{countInt:00}?";
         }
+    }
+
+    /// <summary>
+    /// 무기나 보조무기일 경우 해당 코드를 Temp에 담아두기
+    /// </summary>
+    void getTypeOfEquipt()
+    {
+
     }
 }

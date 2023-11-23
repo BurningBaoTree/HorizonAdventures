@@ -8,18 +8,6 @@ public class SubWeaponBase : MonoBehaviour
     public ItemData temData;
 
     /// <summary>
-    /// 무기 이름
-    /// </summary>
-    public string subweaponName;
-
-    /// <summary>
-    /// 무기 설명
-    /// </summary>
-    public string weaponExplanation;
-
-
-    public ItemSize itemSize;
-    /// <summary>
     /// 데미지
     /// </summary>
     public float damag;

@@ -210,7 +210,7 @@ public class Player_Equiped : MonoBehaviour
     {
         InventoryInfo.Inst.ListHasBeenChanged += () =>
         {
-            RefreshTheList(InventoryInfo.Inst.equipinven);
+            RefreshTheList(InventoryInfo.Inst.subslot, InventoryInfo.Inst.equipinven);
         };
     }
 
@@ -362,8 +362,16 @@ public class Player_Equiped : MonoBehaviour
     /// 인벤토리에서 순서를 교체하면 실행될 재배열 함수
     /// </summary>
     /// <param name="list"></param>
-    public void RefreshTheList(EquiptBase[] list)
+    public void RefreshTheList(SubWeaponBase sub, EquiptBase[] list)
     {
+        if (sub != null)
+        {
+            subweapon = sub;
+        }
+        else
+        {
+            subweapon = null;
+        }
         for (int i = 0; i < 3; i++)
         {
             if (list[i] != null)
@@ -375,6 +383,7 @@ public class Player_Equiped : MonoBehaviour
                 Equipments[i] = null;
             }
         }
+        InventoryInfo.Inst.ResetTheWeaponSlot();
     }
 
     /// <summary>
