@@ -100,4 +100,64 @@ public class SlotCellManager : MonoBehaviour
         }
         return result;
     }
+    public bool ACCCanStack(EquiptBase tem)
+    {
+        compairedCell.Clear();
+        int count = 0;
+        foreach (SlotCellData cell in CellDatas)
+        {
+            if (cell.tryToSet)
+            {
+                compairedCell.Add(cell);
+                count++;
+            }
+        }
+        bool result;
+
+        if (count == tem.temData.slotSize)
+        {
+            result = true;
+            foreach (SlotCellData cell in compairedCell)
+            {
+                cell.IsSet = true;
+                InventoryInfo.Inst.BagParent.CellCenters.Add(cell);
+            }
+            InventoryInfo.Inst.BagParent.PutItemInTheBag(tem);
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
+    }
+    public bool ACCCanStack(SubWeaponBase tem)
+    {
+        compairedCell.Clear();
+        int count = 0;
+        foreach (SlotCellData cell in CellDatas)
+        {
+            if (cell.tryToSet)
+            {
+                compairedCell.Add(cell);
+                count++;
+            }
+        }
+        bool result;
+
+        if (count == tem.temData.slotSize)
+        {
+            result = true;
+            foreach (SlotCellData cell in compairedCell)
+            {
+                cell.IsSet = true;
+                InventoryInfo.Inst.BagParent.CellCenters.Add(cell);
+            }
+            InventoryInfo.Inst.BagParent.PutItemInTheBag(tem);
+        }
+        else
+        {
+            result = false;
+        }
+        return result;
+    }
 }

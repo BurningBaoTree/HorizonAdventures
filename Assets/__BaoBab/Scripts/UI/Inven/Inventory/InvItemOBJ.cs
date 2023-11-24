@@ -35,6 +35,9 @@ public class InvItemOBJ : InventoryCon
 
     ItemData itemData;
 
+    public SubWeaponBase subwp;
+    public EquiptBase mainwp;
+
     uint MaxCount;
     uint countInt;
 
@@ -79,12 +82,12 @@ public class InvItemOBJ : InventoryCon
     /// <param name="eventData"></param>
     public override void OnEndDrag(PointerEventData eventData)
     {
+        base.OnEndDrag(eventData);
         if (temp != null)
         {
             CellEmpty();
             temp.ResteInfo();
-            InventoryInfo.Inst.EndDraging?.Invoke();
-            if (temp.isSucessfulyMoved)
+            if (temp.IsSucessfulyMoved)
             {
                 Destroy(this.gameObject);
             }
@@ -114,6 +117,16 @@ public class InvItemOBJ : InventoryCon
         spr.color = Color.white;
         textcom.color = Color.white;
         this.gameObject.SetActive(true);
+    }
+    public void MakeItemInfo(SubWeaponBase tem, uint count)
+    {
+        MakeItemInfo(tem.temData, count);
+        subwp = tem;
+    }
+    public void MakeItemInfo(EquiptBase tem, uint count)
+    {
+        MakeItemInfo(tem.temData, count);
+        mainwp = tem;
     }
 
     /// <summary>

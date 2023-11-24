@@ -117,7 +117,7 @@ public class WeaponSlot : InventoryCon
         }
         else
         {
-            equiptGear =weapon;
+            equiptGear = weapon;
             WeaponInfo = weapon.temData;
             isEmpty = false;
             weaponImage.sprite = weapon.temData.itemIcon;
@@ -160,18 +160,45 @@ public class WeaponSlot : InventoryCon
     /// <param name="eventData"></param>
     public override void OnBeginDrag(PointerEventData eventData)
     {
+        //무기 슬롯이 비어있지 않을 경우
         if (!isEmpty)
         {
             base.OnBeginDrag(eventData);
+            //템프 활성화
             temp.gameObject.SetActive(true);
+            //서브 슬롯이라면
             if (isSubSlot)
             {
+                //템프에 로드
                 temp.LoadInfo(subWeapon);
             }
             else
             {
+                //템프에 로드
                 temp.LoadInfo(equiptGear);
             }
+            //템프 델리게이트에 구독(템프가 성공적으로 옮겼을때 실행됨)
+            temp.sucessMoveAction += () =>
+            {
+                if (RectTransformUtility.RectangleContainsScreenPoint(WeaponSlotRect, temp.transform.position))
+                {
+                    //서브라면 인벤토리 정보에 서브 슬롯 넣기
+                    if (isSubSlot)
+                    {
+                        InventoryInfo.Inst.subslot = temp.copySubWeaponData;
+                    }
+                    //아니면 인벤토리 정보에 메인 슬롯 넣기
+                    else
+                    {
+                        InventoryInfo.Inst.equipinven[Madenumber] = temp.copyWeaponData;
+                    }
+                    //슬롯 창 리셋
+                    ResetSlot();
+                    //리스트 변했다고 신호 알림
+                    InventoryInfo.Inst.ListHasBeenChanged?.Invoke();
+                }
+            };
+
             invisival();
         }
     }
@@ -182,40 +209,20 @@ public class WeaponSlot : InventoryCon
     /// <param name="eventData"></param>
     public override void OnEndDrag(PointerEventData eventData)
     {
+        if (RectTransformUtility.RectangleContainsScreenPoint(WeaponSlotRect, temp.transform.position))
+        {
+            temp.IsSucessfulyMoved = true;
+        }
         if (!isEmpty)
         {
             base.OnEndDrag(eventData);
+            visival();
             temp.ResteInfo();
             temp.gameObject.SetActive(false);
-            if (temp.isSucessfulyMoved)
-            {
-                //성공적으로 이동했는데 위치가 이 무기슬롯일대
-                if (RectTransformUtility.RectangleContainsScreenPoint(WeaponSlotRect, temp.transform.position))
-                {
-                    if (isSubSlot)
-                    {
-                        InventoryInfo.Inst.subslot = temp.copySubWeaponData;
-                    }
-                    else
-                    {
-                        InventoryInfo.Inst.equipinven[Madenumber] = temp.copyWeaponData;
-                    }
-                }
-/*                if (isSubSlot)
-                {
-                    InventoryInfo.Inst.subslot = temp.
-                    }
-                else
-                {
-                    InventoryInfo.Inst.equipinven[Madenumber] =
-                    }*/
-                ResetSlot();
-                InventoryInfo.Inst.ListHasBeenChanged?.Invoke();
-            }
-            else
-            {
-                visival();
-            }
+        }
+        if(temp.IsSucessfulyMoved)
+        {
+            ResetSlot();
         }
     }
 
@@ -244,6 +251,8 @@ public class WeaponSlot : InventoryCon
     /// </summary>
     void ResetSlot()
     {
+        subWeapon = null;
+        equiptGear = null;
         weaponImage.color = Color.clear;
         weaponImage.sprite = null;
         NameText.color = Color.clear;

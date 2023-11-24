@@ -59,7 +59,31 @@ public class TempSlot : InventoryCon
     /// </summary>
     RectTransform invenRect;
 
+    public Action sucessMoveAction;
+
     public bool isSucessfulyMoved = false;
+    public bool IsSucessfulyMoved
+    {
+        get
+        {
+            return isSucessfulyMoved;
+        }
+        set
+        {
+            if (isSucessfulyMoved != value)
+            {
+                isSucessfulyMoved = value;
+                if(isSucessfulyMoved)
+                {
+                    sucessMoveAction?.Invoke();
+                }
+                else
+                {
+                    sucessMoveAction = null;
+                }
+            }
+        }
+    }
 
     public EquiptBase copyWeaponData;
     public SubWeaponBase copySubWeaponData;
@@ -138,7 +162,6 @@ public class TempSlot : InventoryCon
         copyTemInfo = null;
         invenRect = InventoryInfo.Inst.InventoryRect;
         FallowActive = true;
-        isSucessfulyMoved = false;
     }
     private void Start()
     {
@@ -160,7 +183,6 @@ public class TempSlot : InventoryCon
     void TempUpdate()
     {
         transform.position = Mouse.current.position.ReadValue();
-
         // UI 요소의 중심 좌표가 화면 밖으로 나가면 DropMode 호출
         if (!RectTransformUtility.RectangleContainsScreenPoint(invenRect, transform.position))
         {
@@ -180,6 +202,7 @@ public class TempSlot : InventoryCon
     {
         if (tem != null)
         {
+            IsSucessfulyMoved = false;
             copyTemInfo = tem;
             spr.sprite = tem.itemIcon;
             spr.color = Color.white;
@@ -195,6 +218,7 @@ public class TempSlot : InventoryCon
     {
         if (tem != null)
         {
+            IsSucessfulyMoved = false;
             copyTemInfo = tem;
             spr.sprite = tem.itemIcon;
             spr.color = Color.white;
@@ -212,6 +236,7 @@ public class TempSlot : InventoryCon
     {
         if (tem != null)
         {
+            IsSucessfulyMoved = false;
             copyWeaponData = tem;
             copyTemInfo = tem.temData;
             spr.sprite = tem.temData.itemIcon;
@@ -228,6 +253,7 @@ public class TempSlot : InventoryCon
     {
         if (tem != null)
         {
+            IsSucessfulyMoved = false;
             copySubWeaponData = tem;
             copyTemInfo = tem.temData;
             spr.sprite = tem.temData.itemIcon;
@@ -286,7 +312,7 @@ public class TempSlot : InventoryCon
     {
         if (compar)
         {
-            isSucessfulyMoved = true;
+            IsSucessfulyMoved = true;
             Debug.Log("아이템 슬롯으로 이전");
         }
     }
@@ -299,7 +325,7 @@ public class TempSlot : InventoryCon
     {
         if (compar)
         {
-            isSucessfulyMoved = true;
+            IsSucessfulyMoved = true;
             Debug.Log("버림");
         }
     }
