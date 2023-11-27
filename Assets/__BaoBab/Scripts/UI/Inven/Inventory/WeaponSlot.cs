@@ -19,7 +19,7 @@ public class WeaponSlot : InventoryCon
     /// <summary>
     /// 비어있는지 체크용 bool
     /// </summary>
-    bool isEmpty = true;
+    public bool isEmpty = true;
 
     public bool isSubSlot;
 
@@ -104,6 +104,11 @@ public class WeaponSlot : InventoryCon
             DescriptionOfWeapon = weapon.temData.itemDescription;
         }
     }
+
+    /// <summary>
+    /// 무기슬롯 입력
+    /// </summary>
+    /// <param name="weapon"></param>
     public void initializeWeaponSlot(EquiptBase weapon)
     {
         if (weapon == null)
@@ -136,10 +141,12 @@ public class WeaponSlot : InventoryCon
     /// <param name="eventData"></param>
     public override void OnPointerEnter(PointerEventData eventData)
     {
+        temp.weaponSlotNum = (uint)Madenumber;
         if (!isEmpty)
         {
             InventoryInfo.Inst.DisplayDescription(NameOfWeapon, DescriptionOfWeapon);
         }
+        Debug.Log(Madenumber);
     }
 
     /// <summary>
@@ -148,10 +155,12 @@ public class WeaponSlot : InventoryCon
     /// <param name="eventData"></param>
     public override void OnPointerExit(PointerEventData eventData)
     {
+        temp.weaponSlotNum = 4;
         if (!isEmpty)
         {
             InventoryInfo.Inst.DisplayDescription(null, null);
         }
+        Debug.Log(Madenumber);
     }
 
     /// <summary>
@@ -177,29 +186,10 @@ public class WeaponSlot : InventoryCon
                 //템프에 로드
                 temp.LoadInfo(equiptGear);
             }
-            //템프 델리게이트에 구독(템프가 성공적으로 옮겼을때 실행됨)
-            temp.sucessMoveAction += () =>
-            {
-                if (RectTransformUtility.RectangleContainsScreenPoint(WeaponSlotRect, temp.transform.position))
-                {
-                    //서브라면 인벤토리 정보에 서브 슬롯 넣기
-                    if (isSubSlot)
-                    {
-                        InventoryInfo.Inst.subslot = temp.copySubWeaponData;
-                    }
-                    //아니면 인벤토리 정보에 메인 슬롯 넣기
-                    else
-                    {
-                        InventoryInfo.Inst.equipinven[Madenumber] = temp.copyWeaponData;
-                    }
-                    //슬롯 창 리셋
-                    ResetSlot();
-                    //리스트 변했다고 신호 알림
-                    InventoryInfo.Inst.ListHasBeenChanged?.Invoke();
-                }
-            };
-
             invisival();
+
+            //성공 델리게이트에 이 슬롯을 초기화하는 함수 구독
+            temp.sucessMoveAction += ResetSlot;
         }
     }
 
@@ -209,20 +199,17 @@ public class WeaponSlot : InventoryCon
     /// <param name="eventData"></param>
     public override void OnEndDrag(PointerEventData eventData)
     {
-        if (RectTransformUtility.RectangleContainsScreenPoint(WeaponSlotRect, temp.transform.position))
-        {
-            temp.IsSucessfulyMoved = true;
-        }
+        bool truecheck = false;
+        //드래그가 끝났는데 이 슬롯이 비어있지 않을때
         if (!isEmpty)
         {
-            base.OnEndDrag(eventData);
+            truecheck = true;
             visival();
-            temp.ResteInfo();
             temp.gameObject.SetActive(false);
         }
-        if(temp.IsSucessfulyMoved)
+        if (truecheck)
         {
-            ResetSlot();
+            base.OnEndDrag(eventData);
         }
     }
 
@@ -261,5 +248,15 @@ public class WeaponSlot : InventoryCon
         LeftBullet.text = null;
         isEmpty = true;
         WeaponInfo = null;
+        if (isSubSlot)
+        {
+            InventoryInfo.Inst.subslot = null;
+            InventoryInfo.Inst.ListHasBeenChanged?.Invoke();
+        }
+        else
+        {
+            InventoryInfo.Inst.equipinven[Madenumber - 1] = null;
+            InventoryInfo.Inst.ListHasBeenChanged?.Invoke();
+        }
     }
 }

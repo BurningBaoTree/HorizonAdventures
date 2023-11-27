@@ -4,10 +4,24 @@ using UnityEngine;
 
 public class BagManager : MonoBehaviour
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public GameObject BaseItemOBJ;
+
+    /// <summary>
+    /// 
+    /// </summary>
     public List<SlotCellData> CellCenters = new List<SlotCellData>();
+
+    /// <summary>
+    /// 
+    /// </summary>
     public List<InvItemOBJ> AllItmes = new List<InvItemOBJ>();
 
+    /// <summary>
+    /// 
+    /// </summary>
     TempSlot temp;
 
     private void Start()

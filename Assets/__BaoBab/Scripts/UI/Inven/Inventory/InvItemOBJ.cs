@@ -71,7 +71,18 @@ public class InvItemOBJ : InventoryCon
         {
             temp.gameObject.SetActive(true);
             invisival();
-            temp.LoadInfo(itemData, countInt);
+            if (subwp != null)
+            {
+                temp.LoadInfo(subwp);
+            }
+            else if (mainwp != null)
+            {
+                temp.LoadInfo(mainwp);
+            }
+            else
+            {
+                temp.LoadInfo(itemData, countInt);
+            }
             InventoryInfo.Inst.StartOnDrag?.Invoke();
         }
     }
@@ -86,7 +97,6 @@ public class InvItemOBJ : InventoryCon
         if (temp != null)
         {
             CellEmpty();
-            temp.ResteInfo();
             if (temp.IsSucessfulyMoved)
             {
                 Destroy(this.gameObject);

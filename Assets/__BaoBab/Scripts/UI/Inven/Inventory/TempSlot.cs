@@ -45,14 +45,11 @@ public class TempSlot : InventoryCon
     TextMeshProUGUI textcom;
 
     /// <summary>
-    /// 현재 들고있는 아이템 데이터
-    /// </summary>
-    public ItemData copyTemInfo;
-
-    /// <summary>
     /// 현재 갯수
     /// </summary>
     public uint countInt;
+
+    public uint weaponSlotNum = 5;
 
     /// <summary>
     /// 인벤토리 Rect사이즈
@@ -73,7 +70,7 @@ public class TempSlot : InventoryCon
             if (isSucessfulyMoved != value)
             {
                 isSucessfulyMoved = value;
-                if(isSucessfulyMoved)
+                if (isSucessfulyMoved)
                 {
                     sucessMoveAction?.Invoke();
                 }
@@ -85,7 +82,19 @@ public class TempSlot : InventoryCon
         }
     }
 
+    /// <summary>
+    /// 현재 들고있는 아이템 데이터
+    /// </summary>
+    public ItemData copyTemInfo;
+
+    /// <summary>
+    /// 무기 데이터
+    /// </summary>
     public EquiptBase copyWeaponData;
+
+    /// <summary>
+    /// 서브 웨폰 데이터
+    /// </summary>
     public SubWeaponBase copySubWeaponData;
 
     #region 프로퍼티
@@ -159,7 +168,7 @@ public class TempSlot : InventoryCon
     }
     private void OnEnable()
     {
-        copyTemInfo = null;
+        ResteInfo();
         invenRect = InventoryInfo.Inst.InventoryRect;
         FallowActive = true;
     }
@@ -207,11 +216,8 @@ public class TempSlot : InventoryCon
             spr.sprite = tem.itemIcon;
             spr.color = Color.white;
             textcom.color = Color.clear;
+            countInt = 1;
             ReSizing(tem.size);
-        }
-        else
-        {
-            ResteInfo();
         }
     }
     public void LoadInfo(ItemData tem, uint valuint)
@@ -227,10 +233,6 @@ public class TempSlot : InventoryCon
             textcom.color = Color.white;
             ReSizing(tem.size);
         }
-        else
-        {
-            ResteInfo();
-        }
     }
     public void LoadInfo(EquiptBase tem)
     {
@@ -244,10 +246,6 @@ public class TempSlot : InventoryCon
             textcom.color = Color.clear;
             ReSizing(tem.temData.size);
         }
-        else
-        {
-            ResteInfo();
-        }
     }
     public void LoadInfo(SubWeaponBase tem)
     {
@@ -260,10 +258,6 @@ public class TempSlot : InventoryCon
             spr.color = Color.white;
             textcom.color = Color.clear;
             ReSizing(tem.temData.size);
-        }
-        else
-        {
-            ResteInfo();
         }
     }
 
@@ -279,6 +273,7 @@ public class TempSlot : InventoryCon
         textcom.color = Color.clear;
         spr.gameObject.transform.localScale = Vector3.one;
         countInt = 0;
+        copyTemInfo = null;
         copyWeaponData = null;
         copySubWeaponData = null;
     }
@@ -300,8 +295,42 @@ public class TempSlot : InventoryCon
     {
         //드롭모드가 참이라면 드롭한다.
         Dropthis(DropMode);
-        //인벤토리 창으로 패치가 가능하면 패치한다.
-        PatchThis(InventoryInfo.Inst.slotCellManager.ACCCanStack(copyTemInfo));
+
+        if (copySubWeaponData != null)
+        {
+            PatchThis(InventoryInfo.Inst.slotCellManager.ACCCanStack(copySubWeaponData));
+        }
+        else if (copyWeaponData != null)
+        {
+            PatchThis(InventoryInfo.Inst.slotCellManager.ACCCanStack(copyWeaponData));
+        }
+        else
+        {
+            PatchThis(InventoryInfo.Inst.slotCellManager.ACCCanStack(copyTemInfo));
+        }
+        if (weaponSlotNum != 4)
+        {
+            WeaponSlot slot = InventoryInfo.Inst.weaponSlots[weaponSlotNum];
+
+            //템프 위치가 서브 위치이고 서브 무기 데이터가 존재할때, 그리고 슬롯이 비어있는 상태일때
+            if (weaponSlotNum == 0 && copySubWeaponData != null && slot.isEmpty)
+            {
+                IsSucessfulyMoved = true;
+                slot.subinitializeWeaponSlot(copySubWeaponData);
+                InventoryInfo.Inst.subslot = copySubWeaponData;
+                InventoryInfo.Inst.ListHasBeenChanged?.Invoke();
+                gameObject.SetActive(false);
+            }
+            //템프 위치가 메인 위치이고 메인 무기 데이터가 존재할때, 그리고 슬롯이 비어있는 상태일때
+            else if (weaponSlotNum < 4 && copyWeaponData != null && slot.isEmpty)
+            {
+                IsSucessfulyMoved = true;
+                slot.initializeWeaponSlot(copyWeaponData);
+                InventoryInfo.Inst.equipinven[weaponSlotNum-1] = copyWeaponData;
+                InventoryInfo.Inst.ListHasBeenChanged?.Invoke();
+                gameObject.SetActive(false);
+            }
+        }
     }
 
     /// <summary>
@@ -313,7 +342,7 @@ public class TempSlot : InventoryCon
         if (compar)
         {
             IsSucessfulyMoved = true;
-            Debug.Log("아이템 슬롯으로 이전");
+            this.gameObject.SetActive(false);
         }
     }
 
@@ -326,7 +355,7 @@ public class TempSlot : InventoryCon
         if (compar)
         {
             IsSucessfulyMoved = true;
-            Debug.Log("버림");
+            this.gameObject.SetActive(false);
         }
     }
 
@@ -352,13 +381,5 @@ public class TempSlot : InventoryCon
         {
             textcom.text = $"{countInt:00}?";
         }
-    }
-
-    /// <summary>
-    /// 무기나 보조무기일 경우 해당 코드를 Temp에 담아두기
-    /// </summary>
-    void getTypeOfEquipt()
-    {
-
     }
 }

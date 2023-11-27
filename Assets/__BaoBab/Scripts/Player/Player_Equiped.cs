@@ -346,6 +346,13 @@ public class Player_Equiped : MonoBehaviour
     /// <param name="index">장비 인덱스</param>
     void HoldThisGearToPress(int index)
     {
+        if (index == 3)
+        {
+            foreach (EquiptBase eqi in Equipments)
+            {
+                eqi.gameObject.SetActive(false);
+            }
+        }
         //전에 들고있던 장비 숨김
         if (Equipments[previousHold] != null)
         {
@@ -384,6 +391,7 @@ public class Player_Equiped : MonoBehaviour
             }
         }
         InventoryInfo.Inst.ResetTheWeaponSlot();
+        NowHold = 3;
     }
 
     /// <summary>

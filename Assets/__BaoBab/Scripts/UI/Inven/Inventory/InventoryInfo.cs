@@ -49,7 +49,7 @@ public class InventoryInfo : MonoBehaviour
     /// <summary>
     /// 무기 슬롯 배열
     /// </summary>
-    WeaponSlot[] weaponSlots;
+    public WeaponSlot[] weaponSlots;
 
     /// <summary>
     /// 무기 / 장비 설명 칸
@@ -67,7 +67,7 @@ public class InventoryInfo : MonoBehaviour
     /// <summary>
     /// 인벤토리용 무기 배열
     /// </summary>
-    public EquiptBase[] equipinven = new EquiptBase[3];
+    public EquiptBase[] equipinven = new EquiptBase[4];
 
     /// <summary>
     /// 초기화용 int
