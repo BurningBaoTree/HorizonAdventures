@@ -31231,6 +31231,26 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8580060165140003536, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
+      propertyPath: CellsizeList.Array.data[1].y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8580060165140003536, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
+      propertyPath: CellsizeList.Array.data[2].x
+      value: 165
+      objectReference: {fileID: 0}
+    - target: {fileID: 8580060165140003536, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
+      propertyPath: CellsizeList.Array.data[2].y
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8580060165140003536, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
+      propertyPath: CellsizeList.Array.data[3].x
+      value: 165
+      objectReference: {fileID: 0}
+    - target: {fileID: 8580060165140003536, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
+      propertyPath: ImageSizeList.Array.data[3].x
+      value: 145
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92096a2d27d8f674a84d15d20a3ecbfe, type: 3}
 --- !u!1001 &8164433084306953877

@@ -52,6 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c60ca671cd940aa4b8d81b8381157fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subwp: {fileID: 0}
+  mainwp: {fileID: 0}
+  cellOnIt: []
 --- !u!222 &8618979641443850874
 CanvasRenderer:
   m_ObjectHideFlags: 0

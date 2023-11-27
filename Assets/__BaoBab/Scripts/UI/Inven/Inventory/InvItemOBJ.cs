@@ -56,10 +56,6 @@ public class InvItemOBJ : InventoryCon
     {
         temp = InventoryInfo.Inst.temp;
     }
-    private void OnDestroy()
-    {
-        CellEmpty();
-    }
 
     /// <summary>
     /// 드래그가 시작될때
@@ -71,6 +67,7 @@ public class InvItemOBJ : InventoryCon
         {
             temp.gameObject.SetActive(true);
             invisival();
+            CellEmpty();
             if (subwp != null)
             {
                 temp.LoadInfo(subwp);
@@ -96,7 +93,6 @@ public class InvItemOBJ : InventoryCon
         base.OnEndDrag(eventData);
         if (temp != null)
         {
-            CellEmpty();
             if (temp.IsSucessfulyMoved)
             {
                 Destroy(this.gameObject);
@@ -169,6 +165,9 @@ public class InvItemOBJ : InventoryCon
         cellRect.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// 셀의 set을 비활성화
+    /// </summary>
     void CellEmpty()
     {
         foreach (SlotCellData cell in cellOnIt)
@@ -177,6 +176,9 @@ public class InvItemOBJ : InventoryCon
         }
     }
 
+    /// <summary>
+    /// 셀의 set을 활성화
+    /// </summary>
     void CellBackFill()
     {
         foreach (SlotCellData cell in cellOnIt)

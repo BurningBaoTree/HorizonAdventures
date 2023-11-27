@@ -77,18 +77,15 @@ public class SlotCellData : MonoBehaviour
         }
         set
         {
-            if (isSet != value)
+            isSet = value;
+            if (isSet)
             {
-                isSet = value;
-                if (isSet)
-                {
-                    sp.color = SetColor;
-                    tryToSet = false;
-                }
-                else
-                {
-                    sp.color = BaseColor;
-                }
+                sp.color = SetColor;
+                tryToSet = false;
+            }
+            else
+            {
+                sp.color = BaseColor;
             }
         }
     }
