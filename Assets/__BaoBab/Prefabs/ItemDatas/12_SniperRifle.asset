@@ -16,7 +16,7 @@ MonoBehaviour:
   type: 0
   size: 7
   itemName: "\uC2A4\uB098\uC774\uD37C \uB77C\uC774\uD50C"
-  modelPrefab: {fileID: 0}
+  modelPrefab: {fileID: 8690062447491178032, guid: a988314949798074c835d044c1eccbd7, type: 3}
   itemIcon: {fileID: 21300000, guid: 4dc54da293518304086e815e677eb3d0, type: 3}
   price: 0
   maxStackCount: 1

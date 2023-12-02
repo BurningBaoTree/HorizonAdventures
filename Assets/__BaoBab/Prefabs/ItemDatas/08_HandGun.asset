@@ -16,7 +16,7 @@ MonoBehaviour:
   type: 1
   size: 1
   itemName: "\uAD8C\uCD1D"
-  modelPrefab: {fileID: 0}
+  modelPrefab: {fileID: 6801708557582868701, guid: 4d6fbd33140e7324d96c4952f82572b7, type: 3}
   itemIcon: {fileID: 21300000, guid: d805222762934e34689b10ec6aeb7fa5, type: 3}
   price: 0
   maxStackCount: 1
