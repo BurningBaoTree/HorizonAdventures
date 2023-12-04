@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyRock : EnemyBase
 {
-    private bool isFind = false;
+    Transform player;
 
     protected override void Awake()
     {
@@ -12,21 +12,15 @@ public class EnemyRock : EnemyBase
         CheckBox checkBox = GetComponentInChildren<CheckBox>();
         checkBox.onFind += () =>
         {
-            isFind = true;
             State = EnemyState.Move;
         };
     }
 
-    protected override void WaitInit()
+    protected override void OnEnable()
     {
-        base.WaitInit();
+        base.OnEnable();
 
-        elapsedTime = 0;
-    }
-
-    protected override void Wait()
-    {
-        base.Wait();
+        player = GameManager.Inst.PlayerState.transform;
     }
 
     protected override void MoveInit()
@@ -34,11 +28,22 @@ public class EnemyRock : EnemyBase
         base.MoveInit();
 
         elapsedTime = 0;
+
+        anim.SetBool("FindTarget", true);
     }
 
     protected override void Move()
     {
-        base.Move();
+        transform.position += Time.deltaTime * Vector3.right * MoveDir * moveSpeed;
+
+        if (player.position.x - 2 > transform.position.x)
+        {
+            MoveDir = 1;
+        }
+        else if(player.position.x < transform.position.x - 2)
+        {
+            MoveDir = -1;
+        }
     }
 
     protected override void OnHit()
