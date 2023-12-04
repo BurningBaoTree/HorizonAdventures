@@ -2,30 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRock : EnemyBase
+public class EnemyRockM : EnemyBase
 {
-    bool isFind = false;
-
-    float waitTime = 1.5f;
+    float waitTime = 1.0f;
 
     Transform player;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        CheckBox checkBox = GetComponentInChildren<CheckBox>();
-        checkBox.onFind += () =>
-        {
-            isFind = true;
-            State = EnemyState.Move;
-        };
-    }
 
     protected override void OnEnable()
     {
         base.OnEnable();
 
         player = GameManager.Inst.PlayerState.transform;
+
+        State = EnemyState.Wait;
     }
 
     protected override void WaitInit()
@@ -39,7 +28,7 @@ public class EnemyRock : EnemyBase
 
     protected override void Wait()
     {
-        if(isFind && elapsedTime > waitTime)
+        if (elapsedTime > waitTime)
         {
             State = EnemyState.Move;
         }
@@ -67,11 +56,11 @@ public class EnemyRock : EnemyBase
     {
         transform.position += Time.deltaTime * Vector3.right * MoveDir * moveSpeed;
 
-        if (player.position.x - 2 > transform.position.x)
+        if (player.position.x - 2.5f > transform.position.x)
         {
             MoveDir = 1;
         }
-        else if(player.position.x < transform.position.x - 2)
+        else if (player.position.x < transform.position.x - 2.5f)
         {
             MoveDir = -1;
         }
@@ -86,11 +75,11 @@ public class EnemyRock : EnemyBase
 
     protected override void Die()
     {
-        GameObject middle = transform.GetChild(1).gameObject;
+        GameObject small = transform.GetChild(0).gameObject;
 
-        middle.transform.parent = null;
+        small.transform.parent = null;
 
-        middle.SetActive(true);
+        small.SetActive(true);
 
         base.Die();
     }
