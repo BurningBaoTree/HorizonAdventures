@@ -8,7 +8,7 @@ using UnityEngine;
 public class ItemObject : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
-    ItemData itemData = null;
+    public ItemData itemData = null;
     public ItemData ItemData
     {
         get => itemData;
@@ -20,8 +20,15 @@ public class ItemObject : MonoBehaviour
             }
         }
     }
-    private void OnEnable()
+    private void Awake()
     {
-        spriteRenderer.sprite = ItemData.itemIcon;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    private void Start()
+    {
+        if (ItemData.type == ItemType.Item)
+        {
+            spriteRenderer.sprite = ItemData.itemIcon;
+        }
     }
 }

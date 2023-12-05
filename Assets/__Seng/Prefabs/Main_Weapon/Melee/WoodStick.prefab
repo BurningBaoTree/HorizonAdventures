@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5668682684839429057}
   - component: {fileID: 4758430172387052386}
+  - component: {fileID: 7800450144895002191}
   - component: {fileID: 5060735691605935681}
   - component: {fileID: 8712730402718922951}
   - component: {fileID: 4155534974272472688}
@@ -90,6 +91,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7800450144895002191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134474093499365323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51b888c00b68cbb42934c90692265b8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5060735691605935681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,10 +115,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d67c3364c51ec418d92e7a6ca87933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  temData: {fileID: 0}
   spRender: {fileID: 0}
-  weaponName: "\uB098\uBB47\uAC00\uC9C0"
-  weaponExplanation: "\uB358\uC804 \uC55E\uC5D0\uC11C \uC90F\uC5C8\uB2E4. \uADF8\uB0E5
-    \uD3C9\uBC94\uD558\uACE0 \uBE48\uC57D\uD55C \uB098\uBB47\uAC00\uC9C0\uB2E4."
   damage: 0
   fireSpeed: 1
   ammoCount: -1
