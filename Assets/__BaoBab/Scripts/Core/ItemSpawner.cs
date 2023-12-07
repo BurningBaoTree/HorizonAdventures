@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 아이템 스폰 싱글톤
+/// </summary>
 public class ItemSpawner : Singleton<ItemSpawner>
 {
     /// <summary>

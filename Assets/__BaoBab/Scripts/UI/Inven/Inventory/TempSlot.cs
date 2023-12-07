@@ -25,6 +25,11 @@ public class TempSlot : InventoryCon
     public Vector2[] ImageSizeList;
 
     /// <summary>
+    /// 셀 사이즈 방식
+    /// </summary>
+    public Vector2Int[] TextSizeList;
+
+    /// <summary>
     /// 이미지의 Rect
     /// </summary>
     RectTransform sprRect;
@@ -49,7 +54,7 @@ public class TempSlot : InventoryCon
     /// </summary>
     public uint countInt;
 
-    public uint weaponSlotNum = 5;
+    public uint weaponSlotNum = 4;
 
     /// <summary>
     /// 인벤토리 Rect사이즈

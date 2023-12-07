@@ -16,9 +16,9 @@ MonoBehaviour:
   type: 2
   size: 0
   itemName: "\uC544\uC774\uD15C"
-  modelPrefab: {fileID: 0}
+  modelPrefab: {fileID: 7959673211591215778, guid: 599234d515d01e34a9c11c4e182ba16b, type: 3}
   itemIcon: {fileID: 0}
   price: 0
   maxStackCount: 1
   itemDescription: "\uC124\uBA85"
-  slotSize: 0
+  slotSize: 1

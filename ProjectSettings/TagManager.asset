@@ -11,6 +11,7 @@ TagManager:
   - Enemy
   - Weapon
   - SubWeapon
+  - Item
   layers:
   - Default
   - TransparentFX

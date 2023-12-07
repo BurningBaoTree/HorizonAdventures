@@ -226,6 +226,12 @@ public class Player_Equiped : MonoBehaviour
             SubWeaponBase equiptsub = collision.gameObject.GetComponent<SubWeaponBase>();
             PickUpSubWeapon(equiptsub);
         }
+        if(collision.CompareTag("Item"))
+        {
+            ItemData item = collision.gameObject.GetComponent<ItemObject>().itemData;
+            InventoryInfo.Inst.slotCellManager.addItmeToPossablePos(item);
+            Destroy(collision.gameObject);
+        }
     }
 
     /// <summary>
@@ -233,10 +239,19 @@ public class Player_Equiped : MonoBehaviour
     /// </summary>
     void PickUpSubWeapon(SubWeaponBase supb)
     {
-        supb.gameObject.transform.parent = weaponSlot;
-        subweapon = supb;
-        subweapon.EquiptSub?.Invoke();
-        subweapon.gameObject.SetActive(false);
+        //서브 슬롯이 비어있다
+        if(supb == null)
+        {
+            supb.gameObject.transform.parent = weaponSlot;
+            subweapon = supb;
+            subweapon.EquiptSub?.Invoke();
+            subweapon.gameObject.SetActive(false);
+        }
+        //서브 슬롯이 비어있지 않다.
+        else
+        {
+            /*InventoryInfo.Inst.slotCellManager.addItmeToPossablePos(supb);*/
+        }
     }
 
     /// <summary>
@@ -262,6 +277,7 @@ public class Player_Equiped : MonoBehaviour
             {
                 if (Equipments[i].gameObject == weapon.gameObject)
                 {
+                    /*InventoryInfo.Inst.slotCellManager.addItmeToPossablePos(weapon);*/
                     break;
                 }
             }
